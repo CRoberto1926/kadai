@@ -18,64 +18,286 @@
 
 package io.kadai.common.rest.ldap;
 
-import org.springframework.core.env.Environment;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 /** Required settings to run ldap. */
-enum LdapSettings {
-  KADAI_LDAP_USER_SEARCH_BASE("kadai.ldap.userSearchBase"),
-  KADAI_LDAP_USER_SEARCH_FILTER_NAME("kadai.ldap.userSearchFilterName"),
-  KADAI_LDAP_USER_SEARCH_FILTER_VALUE("kadai.ldap.userSearchFilterValue"),
-  KADAI_LDAP_USER_FIRSTNAME_ATTRIBUTE("kadai.ldap.userFirstnameAttribute"),
-  KADAI_LDAP_USER_LASTNAME_ATTRIBUTE("kadai.ldap.userLastnameAttribute"),
-  KADAI_LDAP_USER_FULLNAME_ATTRIBUTE("kadai.ldap.userFullnameAttribute"),
-  KADAI_LDAP_USER_PHONE_ATTRIBUTE("kadai.ldap.userPhoneAttribute"),
-  KADAI_LDAP_USER_MOBILE_PHONE_ATTRIBUTE("kadai.ldap.userMobilePhoneAttribute"),
-  KADAI_LDAP_USER_EMAIL_ATTRIBUTE("kadai.ldap.userEmailAttribute"),
-  KADAI_LDAP_USER_ID_ATTRIBUTE("kadai.ldap.userIdAttribute"),
-  KADAI_LDAP_USER_ORG_LEVEL_1_ATTRIBUTE("kadai.ldap.userOrglevel1Attribute"),
-  KADAI_LDAP_USER_ORG_LEVEL_2_ATTRIBUTE("kadai.ldap.userOrglevel2Attribute"),
-  KADAI_LDAP_USER_ORG_LEVEL_3_ATTRIBUTE("kadai.ldap.userOrglevel3Attribute"),
-  KADAI_LDAP_USER_ORG_LEVEL_4_ATTRIBUTE("kadai.ldap.userOrglevel4Attribute"),
-  KADAI_LDAP_USER_MEMBER_OF_GROUP_ATTRIBUTE("kadai.ldap.userMemberOfGroupAttribute"),
-  KADAI_LDAP_USER_PERMISSIONS_ATTRIBUTE("kadai.ldap.userPermissionsAttribute"),
-  KADAI_LDAP_PERMISSION_SEARCH_BASE("kadai.ldap.permissionSearchBase"),
-  KADAI_LDAP_PERMISSION_SEARCH_FILTER_NAME("kadai.ldap.permissionSearchFilterName"),
-  KADAI_LDAP_PERMISSION_SEARCH_FILTER_VALUE("kadai.ldap.permissionSearchFilterValue"),
-  KADAI_LDAP_PERMISSION_NAME_ATTRIBUTE("kadai.ldap.permissionNameAttribute"),
-  KADAI_LDAP_GROUP_SEARCH_BASE("kadai.ldap.groupSearchBase"),
-  KADAI_LDAP_BASE_DN("kadai.ldap.baseDn"),
-  KADAI_LDAP_GROUP_SEARCH_FILTER_NAME("kadai.ldap.groupSearchFilterName"),
-  KADAI_LDAP_GROUP_SEARCH_FILTER_VALUE("kadai.ldap.groupSearchFilterValue"),
-  KADAI_LDAP_GROUP_NAME_ATTRIBUTE("kadai.ldap.groupNameAttribute"),
-  KADAI_LDAP_MIN_SEARCH_FOR_LENGTH("kadai.ldap.minSearchForLength"),
-  KADAI_LDAP_MAX_NUMBER_OF_RETURNED_ACCESS_IDS("kadai.ldap.maxNumberOfReturnedAccessIds"),
-  KADAI_LDAP_GROUPS_OF_USER("kadai.ldap.groupsOfUser"),
-  KADAI_LDAP_GROUPS_OF_USER_NAME("kadai.ldap.groupsOfUser.name"),
-  KADAI_LDAP_GROUPS_OF_USER_TYPE("kadai.ldap.groupsOfUser.type"),
-  KADAI_LDAP_PERMISSIONS_OF_USER("kadai.ldap.permissionsOfUser"),
-  KADAI_LDAP_PERMISSIONS_OF_USER_NAME("kadai.ldap.permissionsOfUser.name"),
-  KADAI_LDAP_PERMISSIONS_OF_USER_TYPE("kadai.ldap.permissionsOfUser.type"),
-  KADAI_LDAP_USE_DN_FOR_GROUPS("kadai.ldap.useDnForGroups");
+@Configuration
+@ConfigurationProperties(prefix = "kadai.ldap")
+public class LdapSettings {
 
-  private final String key;
+  private String userSearchBase;
+  private String userSearchFilterName;
+  private String userSearchFilterValue;
+  private String userFirstnameAttribute;
+  private String userLastnameAttribute;
+  private String userFullnameAttribute;
+  private String userPhoneAttribute;
+  private String userMobilePhoneAttribute;
+  private String userEmailAttribute;
+  private String userIdAttribute;
+  private String userOrglevel1Attribute;
+  private String userOrglevel2Attribute;
+  private String userOrglevel3Attribute;
+  private String userOrglevel4Attribute;
+  private String userMemberOfGroupAttribute;
+  private String userPermissionsAttribute;
+  private String permissionSearchBase;
+  private String permissionSearchFilterName;
+  private String permissionSearchFilterValue;
+  private String permissionNameAttribute;
+  private String groupSearchBase;
+  private String baseDn;
+  private String groupSearchFilterName;
+  private String groupSearchFilterValue;
+  private String groupNameAttribute;
+  private String minSearchForLength;
+  private String maxNumberOfReturnedAccessIds;
+  private String groupsOfUser;
+  //private String groupsOfUser.name;
+  //private String groupsOfUser.type;
+  private String permissionsOfUser;
+  //private String permissionsOfUser.name;
+  //private String permissionsOfUser.type;
+  private String useDnForGroups;
 
-  LdapSettings(String key) {
-    this.key = key;
+  public String getUserSearchBase() {
+    return userSearchBase;
   }
 
-  String getKey() {
-    return key;
+  public void setUserSearchBase(String userSearchBase) {
+    this.userSearchBase = userSearchBase;
   }
 
-  String getValueFromEnv(Environment env) {
-    if (env == null) {
-      return null;
-    }
-    return env.getProperty(key);
+  public String getUserSearchFilterName() {
+    return userSearchFilterName;
   }
 
-  @Override
-  public String toString() {
-    return key;
+  public void setUserSearchFilterName(String userSearchFilterName) {
+    this.userSearchFilterName = userSearchFilterName;
+  }
+
+  public String getUserSearchFilterValue() {
+    return userSearchFilterValue;
+  }
+
+  public void setUserSearchFilterValue(String userSearchFilterValue) {
+    this.userSearchFilterValue = userSearchFilterValue;
+  }
+
+  public String getUserFirstnameAttribute() {
+    return userFirstnameAttribute;
+  }
+
+  public void setUserFirstnameAttribute(String userFirstnameAttribute) {
+    this.userFirstnameAttribute = userFirstnameAttribute;
+  }
+
+  public String getUserLastnameAttribute() {
+    return userLastnameAttribute;
+  }
+
+  public void setUserLastnameAttribute(String userLastnameAttribute) {
+    this.userLastnameAttribute = userLastnameAttribute;
+  }
+
+  public String getUserFullnameAttribute() {
+    return userFullnameAttribute;
+  }
+
+  public void setUserFullnameAttribute(String userFullnameAttribute) {
+    this.userFullnameAttribute = userFullnameAttribute;
+  }
+
+  public String getUserPhoneAttribute() {
+    return userPhoneAttribute;
+  }
+
+  public void setUserPhoneAttribute(String userPhoneAttribute) {
+    this.userPhoneAttribute = userPhoneAttribute;
+  }
+
+  public String getUserMobilePhoneAttribute() {
+    return userMobilePhoneAttribute;
+  }
+
+  public void setUserMobilePhoneAttribute(String userMobilePhoneAttribute) {
+    this.userMobilePhoneAttribute = userMobilePhoneAttribute;
+  }
+
+  public String getUserEmailAttribute() {
+    return userEmailAttribute;
+  }
+
+  public void setUserEmailAttribute(String userEmailAttribute) {
+    this.userEmailAttribute = userEmailAttribute;
+  }
+
+  public String getUserIdAttribute() {
+    return userIdAttribute;
+  }
+
+  public void setUserIdAttribute(String userIdAttribute) {
+    this.userIdAttribute = userIdAttribute;
+  }
+
+  public String getUserOrglevel1Attribute() {
+    return userOrglevel1Attribute;
+  }
+
+  public void setUserOrglevel1Attribute(String userOrglevel1Attribute) {
+    this.userOrglevel1Attribute = userOrglevel1Attribute;
+  }
+
+  public String getUserOrglevel2Attribute() {
+    return userOrglevel2Attribute;
+  }
+
+  public void setUserOrglevel2Attribute(String userOrglevel2Attribute) {
+    this.userOrglevel2Attribute = userOrglevel2Attribute;
+  }
+
+  public String getUserOrglevel3Attribute() {
+    return userOrglevel3Attribute;
+  }
+
+  public void setUserOrglevel3Attribute(String userOrglevel3Attribute) {
+    this.userOrglevel3Attribute = userOrglevel3Attribute;
+  }
+
+  public String getUserOrglevel4Attribute() {
+    return userOrglevel4Attribute;
+  }
+
+  public void setUserOrglevel4Attribute(String userOrglevel4Attribute) {
+    this.userOrglevel4Attribute = userOrglevel4Attribute;
+  }
+
+  public String getUserMemberOfGroupAttribute() {
+    return userMemberOfGroupAttribute;
+  }
+
+  public void setUserMemberOfGroupAttribute(String userMemberOfGroupAttribute) {
+    this.userMemberOfGroupAttribute = userMemberOfGroupAttribute;
+  }
+
+  public String getUserPermissionsAttribute() {
+    return userPermissionsAttribute;
+  }
+
+  public void setUserPermissionsAttribute(String userPermissionsAttribute) {
+    this.userPermissionsAttribute = userPermissionsAttribute;
+  }
+
+  public String getPermissionSearchBase() {
+    return permissionSearchBase;
+  }
+
+  public void setPermissionSearchBase(String permissionSearchBase) {
+    this.permissionSearchBase = permissionSearchBase;
+  }
+
+  public String getPermissionSearchFilterName() {
+    return permissionSearchFilterName;
+  }
+
+  public void setPermissionSearchFilterName(String permissionSearchFilterName) {
+    this.permissionSearchFilterName = permissionSearchFilterName;
+  }
+
+  public String getPermissionSearchFilterValue() {
+    return permissionSearchFilterValue;
+  }
+
+  public void setPermissionSearchFilterValue(String permissionSearchFilterValue) {
+    this.permissionSearchFilterValue = permissionSearchFilterValue;
+  }
+
+  public String getPermissionNameAttribute() {
+    return permissionNameAttribute;
+  }
+
+  public void setPermissionNameAttribute(String permissionNameAttribute) {
+    this.permissionNameAttribute = permissionNameAttribute;
+  }
+
+  public String getGroupSearchBase() {
+    return groupSearchBase;
+  }
+
+  public void setGroupSearchBase(String groupSearchBase) {
+    this.groupSearchBase = groupSearchBase;
+  }
+
+  public String getBaseDn() {
+    return baseDn;
+  }
+
+  public void setBaseDn(String baseDn) {
+    this.baseDn = baseDn;
+  }
+
+  public String getGroupSearchFilterName() {
+    return groupSearchFilterName;
+  }
+
+  public void setGroupSearchFilterName(String groupSearchFilterName) {
+    this.groupSearchFilterName = groupSearchFilterName;
+  }
+
+  public String getGroupSearchFilterValue() {
+    return groupSearchFilterValue;
+  }
+
+  public void setGroupSearchFilterValue(String groupSearchFilterValue) {
+    this.groupSearchFilterValue = groupSearchFilterValue;
+  }
+
+  public String getGroupNameAttribute() {
+    return groupNameAttribute;
+  }
+
+  public void setGroupNameAttribute(String groupNameAttribute) {
+    this.groupNameAttribute = groupNameAttribute;
+  }
+
+  public String getMinSearchForLength() {
+    return minSearchForLength;
+  }
+
+  public void setMinSearchForLength(String minSearchForLength) {
+    this.minSearchForLength = minSearchForLength;
+  }
+
+  public String getMaxNumberOfReturnedAccessIds() {
+    return maxNumberOfReturnedAccessIds;
+  }
+
+  public void setMaxNumberOfReturnedAccessIds(String maxNumberOfReturnedAccessIds) {
+    this.maxNumberOfReturnedAccessIds = maxNumberOfReturnedAccessIds;
+  }
+
+  public String getGroupsOfUser() {
+    return groupsOfUser;
+  }
+
+  public void setGroupsOfUser(String groupsOfUser) {
+    this.groupsOfUser = groupsOfUser;
+  }
+
+  public String getPermissionsOfUser() {
+    return permissionsOfUser;
+  }
+
+  public void setPermissionsOfUser(String permissionsOfUser) {
+    this.permissionsOfUser = permissionsOfUser;
+  }
+
+  public String getUseDnForGroups() {
+    return useDnForGroups;
+  }
+
+  public void setUseDnForGroups(String useDnForGroups) {
+    this.useDnForGroups = useDnForGroups;
   }
 }

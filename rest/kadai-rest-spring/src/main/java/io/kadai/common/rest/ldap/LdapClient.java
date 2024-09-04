@@ -18,8 +18,6 @@
 
 package io.kadai.common.rest.ldap;
 
-import static java.util.function.Predicate.not;
-
 import io.kadai.KadaiConfiguration;
 import io.kadai.common.api.KadaiRole;
 import io.kadai.common.api.exceptions.InvalidArgumentException;
@@ -47,7 +45,6 @@ import javax.naming.ldap.LdapName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.AbstractContextMapper;
@@ -68,7 +65,7 @@ public class LdapClient {
   private static final String CN = "cn";
 
   private final KadaiConfiguration kadaiConfiguration;
-  private final Environment env;
+  private final LdapSettings ldapSettings;
   private final LdapTemplate ldapTemplate;
   private final boolean useLowerCaseForAccessIds;
   private boolean active = false;
@@ -78,8 +75,8 @@ public class LdapClient {
 
   @Autowired
   public LdapClient(
-      Environment env, LdapTemplate ldapTemplate, KadaiConfiguration kadaiConfiguration) {
-    this.env = env;
+      LdapSettings ldapSettings, LdapTemplate ldapTemplate, KadaiConfiguration kadaiConfiguration) {
+    this.ldapSettings = ldapSettings;
     this.ldapTemplate = ldapTemplate;
     this.kadaiConfiguration = kadaiConfiguration;
     this.useLowerCaseForAccessIds = KadaiConfiguration.shouldUseLowerCaseForAccessIds();
@@ -552,103 +549,103 @@ public class LdapClient {
   }
 
   public String getUserSearchBase() {
-    return LdapSettings.KADAI_LDAP_USER_SEARCH_BASE.getValueFromEnv(env);
+    return ldapSettings.getUserSearchBase();
   }
 
   public String getUserSearchFilterName() {
-    return LdapSettings.KADAI_LDAP_USER_SEARCH_FILTER_NAME.getValueFromEnv(env);
+    return ldapSettings.getUserSearchFilterName();
   }
 
   public String getUserSearchFilterValue() {
-    return LdapSettings.KADAI_LDAP_USER_SEARCH_FILTER_VALUE.getValueFromEnv(env);
+    return ldapSettings.getUserSearchFilterValue();
   }
 
   public String getUserFirstnameAttribute() {
-    return LdapSettings.KADAI_LDAP_USER_FIRSTNAME_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserFirstnameAttribute();
   }
 
   public String getUserLastnameAttribute() {
-    return LdapSettings.KADAI_LDAP_USER_LASTNAME_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserLastnameAttribute();
   }
 
   public String getUserPhoneAttribute() {
-    return LdapSettings.KADAI_LDAP_USER_PHONE_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserPhoneAttribute();
   }
 
   public String getUserMobilePhoneAttribute() {
-    return LdapSettings.KADAI_LDAP_USER_MOBILE_PHONE_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserMobilePhoneAttribute();
   }
 
   public String getUserEmailAttribute() {
-    return LdapSettings.KADAI_LDAP_USER_EMAIL_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserEmailAttribute();
   }
 
   public String getUserOrgLevel1Attribute() {
-    return LdapSettings.KADAI_LDAP_USER_ORG_LEVEL_1_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserOrglevel1Attribute();
   }
 
   public String getUserOrgLevel2Attribute() {
-    return LdapSettings.KADAI_LDAP_USER_ORG_LEVEL_2_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserOrglevel2Attribute();
   }
 
   public String getUserOrgLevel3Attribute() {
-    return LdapSettings.KADAI_LDAP_USER_ORG_LEVEL_3_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserOrglevel3Attribute();
   }
 
   public String getUserOrgLevel4Attribute() {
-    return LdapSettings.KADAI_LDAP_USER_ORG_LEVEL_4_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserOrglevel4Attribute();
   }
 
   public String getUserIdAttribute() {
-    return LdapSettings.KADAI_LDAP_USER_ID_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserIdAttribute();
   }
 
   public String getUserMemberOfGroupAttribute() {
-    return LdapSettings.KADAI_LDAP_USER_MEMBER_OF_GROUP_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserMemberOfGroupAttribute();
   }
 
   public String getUserPermissionsAttribute() {
-    return LdapSettings.KADAI_LDAP_USER_PERMISSIONS_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserPermissionsAttribute();
   }
 
   public String getPermissionSearchBase() {
-    return LdapSettings.KADAI_LDAP_PERMISSION_SEARCH_BASE.getValueFromEnv(env);
+    return ldapSettings.getPermissionSearchBase();
   }
 
   public String getPermissionSearchFilterName() {
-    return LdapSettings.KADAI_LDAP_PERMISSION_SEARCH_FILTER_NAME.getValueFromEnv(env);
+    return ldapSettings.getPermissionSearchFilterName();
   }
 
   public String getPermissionSearchFilterValue() {
-    return LdapSettings.KADAI_LDAP_PERMISSION_SEARCH_FILTER_VALUE.getValueFromEnv(env);
+    return ldapSettings.getPermissionSearchFilterValue();
   }
 
   public String getPermissionNameAttribute() {
-    return LdapSettings.KADAI_LDAP_PERMISSION_NAME_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getPermissionNameAttribute();
   }
 
   public String getGroupSearchBase() {
-    return LdapSettings.KADAI_LDAP_GROUP_SEARCH_BASE.getValueFromEnv(env);
+    return ldapSettings.getGroupSearchBase();
   }
 
   public String getBaseDn() {
-    return LdapSettings.KADAI_LDAP_BASE_DN.getValueFromEnv(env);
+    return ldapSettings.getBaseDn();
   }
 
   public String getGroupSearchFilterName() {
-    return LdapSettings.KADAI_LDAP_GROUP_SEARCH_FILTER_NAME.getValueFromEnv(env);
+    return ldapSettings.getGroupSearchFilterName();
   }
 
   public String getGroupSearchFilterValue() {
-    return LdapSettings.KADAI_LDAP_GROUP_SEARCH_FILTER_VALUE.getValueFromEnv(env);
+    return ldapSettings.getGroupSearchFilterValue();
   }
 
   public String getGroupNameAttribute() {
-    return LdapSettings.KADAI_LDAP_GROUP_NAME_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getGroupNameAttribute();
   }
 
   public int calcMinSearchForLength(int defaultValue) {
-    String envValue = LdapSettings.KADAI_LDAP_MIN_SEARCH_FOR_LENGTH.getValueFromEnv(env);
+    String envValue = ldapSettings.getMinSearchForLength();
     if (envValue == null || envValue.isEmpty()) {
       return defaultValue;
     }
@@ -661,7 +658,7 @@ public class LdapClient {
 
   public int calcMaxNumberOfReturnedAccessIds(int defaultValue) {
     String envValue =
-        LdapSettings.KADAI_LDAP_MAX_NUMBER_OF_RETURNED_ACCESS_IDS.getValueFromEnv(env);
+        ldapSettings.getMaxNumberOfReturnedAccessIds();
     if (envValue == null || envValue.isEmpty()) {
       return defaultValue;
     }
@@ -669,7 +666,7 @@ public class LdapClient {
   }
 
   public boolean useDnForGroups() {
-    String envValue = LdapSettings.KADAI_LDAP_USE_DN_FOR_GROUPS.getValueFromEnv(env);
+    String envValue = ldapSettings.getUseDnForGroups();
     if (envValue == null || envValue.isEmpty()) {
       return true;
     }
@@ -681,28 +678,32 @@ public class LdapClient {
   }
 
   public String getGroupsOfUserName() {
-    String groupsOfUser = LdapSettings.KADAI_LDAP_GROUPS_OF_USER_NAME.getValueFromEnv(env);
-    if (groupsOfUser == null || groupsOfUser.isEmpty()) {
-      groupsOfUser = LdapSettings.KADAI_LDAP_GROUPS_OF_USER.getValueFromEnv(env);
-    }
-    return groupsOfUser;
+    //String groupsOfUser = LdapSettings.KADAI_LDAP_GROUPS_OF_USER_NAME.getValueFromEnv(env);
+    //if (groupsOfUser == null || groupsOfUser.isEmpty()) {
+    //  groupsOfUser = LdapSettings.KADAI_LDAP_GROUPS_OF_USER.getValueFromEnv(env);
+    //}
+    //return groupsOfUser;
+    return ldapSettings.getGroupsOfUser();
   }
 
   public String getGroupsOfUserType() {
-    return LdapSettings.KADAI_LDAP_GROUPS_OF_USER_TYPE.getValueFromEnv(env);
+    //return LdapSettings.KADAI_LDAP_GROUPS_OF_USER_TYPE.getValueFromEnv(env);
+    return null;
   }
 
   public String getPermissionsOfUserName() {
-    String permissionsOfUser =
-        LdapSettings.KADAI_LDAP_PERMISSIONS_OF_USER_NAME.getValueFromEnv(env);
-    if (permissionsOfUser == null || permissionsOfUser.isEmpty()) {
-      permissionsOfUser = LdapSettings.KADAI_LDAP_PERMISSIONS_OF_USER.getValueFromEnv(env);
-    }
-    return permissionsOfUser;
+    //String permissionsOfUser =
+    //    LdapSettings.KADAI_LDAP_PERMISSIONS_OF_USER_NAME.getValueFromEnv(env);
+    //if (permissionsOfUser == null || permissionsOfUser.isEmpty()) {
+    //  permissionsOfUser = LdapSettings.KADAI_LDAP_PERMISSIONS_OF_USER.getValueFromEnv(env);
+    //}
+    //return permissionsOfUser;
+    return ldapSettings.getPermissionsOfUser();
   }
 
   public String getPermissionsOfUserType() {
-    return LdapSettings.KADAI_LDAP_PERMISSIONS_OF_USER_TYPE.getValueFromEnv(env);
+    //return LdapSettings.KADAI_LDAP_PERMISSIONS_OF_USER_TYPE.getValueFromEnv(env);
+    return null;
   }
 
   public boolean isUser(String accessId) {
@@ -800,7 +801,8 @@ public class LdapClient {
 
     ldapTemplate.setDefaultCountLimit(maxNumberOfReturnedAccessIds);
 
-    final List<LdapSettings> missingConfigurations = checkForMissingConfigurations();
+    //final List<LdapSettings> missingConfigurations = checkForMissingConfigurations();
+    List<Object> missingConfigurations = List.of();
 
     if (!missingConfigurations.isEmpty()) {
       message = String.format("LDAP configurations are missing: %s", missingConfigurations);
@@ -809,27 +811,27 @@ public class LdapClient {
     active = true;
   }
 
-  List<LdapSettings> checkForMissingConfigurations() {
-    return Arrays.stream(LdapSettings.values())
-        // optional settings
-        .filter(not(LdapSettings.KADAI_LDAP_MAX_NUMBER_OF_RETURNED_ACCESS_IDS::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_MIN_SEARCH_FOR_LENGTH::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_USER_EMAIL_ATTRIBUTE::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_USER_PHONE_ATTRIBUTE::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_USER_MOBILE_PHONE_ATTRIBUTE::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_USER_ORG_LEVEL_1_ATTRIBUTE::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_USER_ORG_LEVEL_2_ATTRIBUTE::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_USER_ORG_LEVEL_3_ATTRIBUTE::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_USER_ORG_LEVEL_4_ATTRIBUTE::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_GROUPS_OF_USER::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_GROUPS_OF_USER_NAME::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_GROUPS_OF_USER_TYPE::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_PERMISSIONS_OF_USER::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_PERMISSIONS_OF_USER_NAME::equals))
-        .filter(not(LdapSettings.KADAI_LDAP_PERMISSIONS_OF_USER_TYPE::equals))
-        .filter(p -> p.getValueFromEnv(env) == null)
-        .toList();
-  }
+  //List<LdapSettings> checkForMissingConfigurations() {
+  //  return Arrays.stream(LdapSettings.values())
+  //      // optional settings
+  //      .filter(not(LdapSettings.KADAI_LDAP_MAX_NUMBER_OF_RETURNED_ACCESS_IDS::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_MIN_SEARCH_FOR_LENGTH::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_USER_EMAIL_ATTRIBUTE::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_USER_PHONE_ATTRIBUTE::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_USER_MOBILE_PHONE_ATTRIBUTE::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_USER_ORG_LEVEL_1_ATTRIBUTE::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_USER_ORG_LEVEL_2_ATTRIBUTE::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_USER_ORG_LEVEL_3_ATTRIBUTE::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_USER_ORG_LEVEL_4_ATTRIBUTE::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_GROUPS_OF_USER::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_GROUPS_OF_USER_NAME::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_GROUPS_OF_USER_TYPE::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_PERMISSIONS_OF_USER::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_PERMISSIONS_OF_USER_NAME::equals))
+  //      .filter(not(LdapSettings.KADAI_LDAP_PERMISSIONS_OF_USER_TYPE::equals))
+  //      .filter(p -> p.getValueFromEnv(env) == null)
+  //      .toList();
+  //}
 
   void testMinSearchForLength(final String name) throws InvalidArgumentException {
     if (name == null || name.length() < minSearchForLength) {
@@ -841,7 +843,7 @@ public class LdapClient {
   }
 
   private String getUserFullnameAttribute() {
-    return LdapSettings.KADAI_LDAP_USER_FULLNAME_ATTRIBUTE.getValueFromEnv(env);
+    return ldapSettings.getUserFullnameAttribute();
   }
 
   private String getDnFromContext(final DirContextOperations context) {
