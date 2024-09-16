@@ -1707,9 +1707,9 @@ public class TaskServiceImpl implements TaskService {
     try {
       kadaiEngine.openConnection();
       task = (TaskImpl) this.getTask(taskId);
-      if (reviewRequiredManager.reviewRequired(task)) {
-        return requestReview(taskId);
-      }
+      //if (reviewRequiredManager.reviewRequired(task)) {
+      //  return requestReview(taskId);
+      //}
 
       if (task.getState() == TaskState.COMPLETED) {
         return task;
@@ -1727,6 +1727,7 @@ public class TaskServiceImpl implements TaskService {
       completeActionsOnTask(task, userId, now);
       task = (TaskImpl) taskEndstatePreprocessorManager.processTaskBeforeEndstate(task);
       taskMapper.update(task);
+      reviewRequiredManager.reviewRequired(task);
       if (LOGGER.isDebugEnabled()) {
         LOGGER.debug("Task '{}' completed by user '{}'.", taskId, userId);
       }
