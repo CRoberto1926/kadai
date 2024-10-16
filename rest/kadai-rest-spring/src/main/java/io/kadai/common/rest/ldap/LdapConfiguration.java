@@ -18,11 +18,14 @@
 
 package io.kadai.common.rest.ldap;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.ldap.core.ContextSource;
 import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.ldap.core.support.BaseLdapPathContextSource;
 import org.springframework.ldap.core.support.LdapContextSource;
 
 /** Configuration for Ldap access. */
@@ -46,8 +49,8 @@ public class LdapConfiguration {
   }
 
   @Bean
-  @ConditionalOnMissingBean(LdapContextSource.class)
-  public LdapContextSource ldapContextSource() {
+  @ConditionalOnMissingBean(name = "kadaiLdapContextSource")
+  public BaseLdapPathContextSource kadaiLdapContextSource() {
     LdapContextSource contextSource = new LdapContextSource();
     contextSource.setUrl(ldapServerUrl);
     contextSource.setBase(ldapBaseDn);
@@ -58,7 +61,8 @@ public class LdapConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(LdapTemplate.class)
-  public LdapTemplate ldapTemplate(LdapContextSource ldapContextSource) {
+  public LdapTemplate ldapTemplate(
+      @Qualifier("kadaiLdapContextSource") ContextSource ldapContextSource) {
     return new LdapTemplate(ldapContextSource);
   }
 }
