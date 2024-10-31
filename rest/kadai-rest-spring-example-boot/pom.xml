@@ -55,6 +55,9 @@
     <profiles>
         <profile>
             <id>history.plugin</id>
+          <activation>
+            <activeByDefault>true</activeByDefault>
+          </activation>
             <dependencies>
                 <dependency>
                     <groupId>io.kadai.history</groupId>
@@ -109,6 +112,9 @@
         </profile>
         <profile>
             <id>dmn-routing.plugin</id>
+          <activation>
+            <activeByDefault>true</activeByDefault>
+          </activation>
             <dependencies>
                 <dependency>
                     <groupId>io.kadai</groupId>
