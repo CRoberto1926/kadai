@@ -15,7 +15,9 @@
   </parent>
 
   <properties>
-    <sonar.skip>true</sonar.skip>
+    <sonar.sources>src</sonar.sources>
+    <sonar.tests>src</sonar.tests>
+    <sonar.exclusions>node_modules</sonar.exclusions>
   </properties>
 
   <build>
