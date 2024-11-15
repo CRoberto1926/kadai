@@ -83,14 +83,15 @@ public class ClassificationChangedJob extends AbstractKadaiJob {
     int batchSize = kadaiEngineImpl.getConfiguration().getJobBatchSize();
     Collection<List<String>> affectedTaskBatches =
         CollectionUtil.partitionBasedOnSize(affectedTaskIds, batchSize);
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug(
-          "Creating {} TaskRefreshJobs out of {} affected tasks "
-              + "with a maximum number of {} tasks each. ",
-          affectedTaskBatches.size(),
-          affectedTaskIds.size(),
-          batchSize);
-    }
+    LOGGER
+        .atDebug()
+        .setMessage(
+            "Creating {} TaskRefreshJobs out of {} affected tasks "
+                + "with a maximum number of {} tasks each. ")
+        .addArgument(affectedTaskBatches::size)
+        .addArgument(affectedTaskIds::size)
+        .addArgument(batchSize)
+        .log();
     for (List<String> taskIdBatch : affectedTaskBatches) {
       Map<String, String> args = new HashMap<>();
       if (!taskIdBatch.isEmpty()) {

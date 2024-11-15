@@ -2268,9 +2268,7 @@ public class TaskQueryImpl implements TaskQuery {
 
   private void checkOpenReadAndReadTasksPermissionForSpecifiedWorkbaskets() {
     if (kadaiEngine.getEngine().isUserInRole(KadaiRole.ADMIN, KadaiRole.TASK_ADMIN)) {
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug("Skipping permissions check since user is in role ADMIN or TASK_ADMIN.");
-      }
+      LOGGER.debug("Skipping permissions check since user is in role ADMIN or TASK_ADMIN.");
       return;
     }
     try {
@@ -2303,8 +2301,7 @@ public class TaskQueryImpl implements TaskQuery {
               WorkbasketPermission.READ,
               WorkbasketPermission.READTASKS);
     } catch (WorkbasketNotFoundException e) {
-      LOGGER.warn(
-          String.format("The workbasket with the ID ' %s ' does not exist.", workbasketId), e);
+      LOGGER.warn("The workbasket with the ID ' {} ' does not exist.", workbasketId, e);
     }
   }
 
@@ -2322,9 +2319,9 @@ public class TaskQueryImpl implements TaskQuery {
               WorkbasketPermission.READTASKS);
     } catch (WorkbasketNotFoundException e) {
       LOGGER.warn(
-          String.format(
-              "The workbasket with the KEY ' %s ' and DOMAIN ' %s ' does not exist.",
-              keyDomain.getKey(), keyDomain.getDomain()),
+          "The workbasket with the KEY ' {} ' and DOMAIN ' {} ' does not exist.",
+          keyDomain.getKey(),
+          keyDomain.getDomain(),
           e);
     }
   }

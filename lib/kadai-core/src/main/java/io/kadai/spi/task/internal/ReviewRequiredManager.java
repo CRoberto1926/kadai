@@ -42,15 +42,14 @@ public class ReviewRequiredManager {
     }
     if (reviewRequiredProviders.isEmpty()) {
       LOGGER.info(
-          "No ReviewRequiredProvider service provider found. "
-              + "Running without any ReviewRequiredProvider implementation.");
+          """
+          No ReviewRequiredProvider service provider found. \
+          Running without any ReviewRequiredProvider implementation.""");
     }
   }
 
   public boolean reviewRequired(Task task) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Sending Task to ReviewRequiredProvider service providers: {}", task);
-    }
+    LOGGER.debug("Sending Task to ReviewRequiredProvider service providers: {}", task);
 
     return reviewRequiredProviders.stream()
         .anyMatch(serviceProvider -> serviceProvider.reviewRequired(task));

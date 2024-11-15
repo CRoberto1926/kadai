@@ -315,9 +315,7 @@ public class TaskCommentQueryImpl implements TaskCommentQuery {
 
     if (taskIdIn != null) {
       if (kadaiEngine.getEngine().isUserInRole(KadaiRole.ADMIN, KadaiRole.TASK_ADMIN)) {
-        if (LOGGER.isDebugEnabled()) {
-          LOGGER.debug("Skipping permissions check since user is in role ADMIN or TASK_ADMIN.");
-        }
+        LOGGER.debug("Skipping permissions check since user is in role ADMIN or TASK_ADMIN.");
         return;
       }
 
@@ -330,8 +328,7 @@ public class TaskCommentQueryImpl implements TaskCommentQuery {
                   throw new NotAuthorizedToQueryWorkbasketException(
                       e.getMessage(), e.getErrorCode(), e);
                 } catch (TaskNotFoundException e) {
-                  LOGGER.warn(
-                      String.format("The Task with the ID ' %s ' does not exist.", taskId), e);
+                  LOGGER.warn("The Task with the ID ' {} ' does not exist.", taskId, e);
                 }
               });
     }

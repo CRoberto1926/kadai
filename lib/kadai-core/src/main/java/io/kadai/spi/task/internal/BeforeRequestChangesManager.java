@@ -43,15 +43,14 @@ public class BeforeRequestChangesManager {
     }
     if (beforeRequestChangesProviders.isEmpty()) {
       LOGGER.info(
-          "No BeforeRequestChangesProvider service provider found. "
-              + "Running without any BeforeRequestChangesProvider implementation.");
+          """
+          No BeforeRequestChangesProvider service provider found. \
+          Running without any BeforeRequestChangesProvider implementation.""");
     }
   }
 
   public Task beforeRequestChanges(Task task) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Sending Task to BeforeRequestChangesProvider service providers: {}", task);
-    }
+    LOGGER.debug("Sending Task to BeforeRequestChangesProvider service providers: {}", task);
     for (BeforeRequestChangesProvider serviceProvider : beforeRequestChangesProviders) {
       try {
         task = serviceProvider.beforeRequestChanges(task);

@@ -50,46 +50,59 @@ public class LogfileHistoryServiceImpl implements KadaiHistory {
       historyLogger = LOGGER;
     }
 
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug(
-          "LogfileHistoryServiceProvider initialized with name: {} ", historyLogger.getName());
-    }
+    LOGGER
+        .atDebug()
+        .setMessage("LogfileHistoryServiceProvider initialized with name: {} ")
+        .addArgument(() -> historyLogger.getName())
+        .log();
   }
 
   @Override
   public void create(TaskHistoryEvent event) {
-
-    try {
-      if (historyLogger.isInfoEnabled()) {
-        historyLogger.info(objectMapper.writeValueAsString(event));
-      }
-    } catch (JsonProcessingException e) {
-      throw new SystemException("Caught exception while serializing history event to JSON ", e);
-    }
+    historyLogger
+        .atInfo()
+        .setMessage(
+            () -> {
+              try {
+                return objectMapper.writeValueAsString(event);
+              } catch (JsonProcessingException e) {
+                throw new SystemException(
+                    "Caught exception while serializing history event to JSON ", e);
+              }
+            })
+        .log();
   }
 
   @Override
   public void create(WorkbasketHistoryEvent event) {
-
-    try {
-      if (historyLogger.isInfoEnabled()) {
-        historyLogger.info(objectMapper.writeValueAsString(event));
-      }
-    } catch (JsonProcessingException e) {
-      throw new SystemException("Caught exception while serializing history event to JSON ", e);
-    }
+    historyLogger
+        .atInfo()
+        .setMessage(
+            () -> {
+              try {
+                return objectMapper.writeValueAsString(event);
+              } catch (JsonProcessingException e) {
+                throw new SystemException(
+                    "Caught exception while serializing history event to JSON ", e);
+              }
+            })
+        .log();
   }
 
   @Override
   public void create(ClassificationHistoryEvent event) {
-
-    try {
-      if (historyLogger.isInfoEnabled()) {
-        historyLogger.info(objectMapper.writeValueAsString(event));
-      }
-    } catch (JsonProcessingException e) {
-      throw new SystemException("Caught exception while serializing history event to JSON ", e);
-    }
+    historyLogger
+        .atInfo()
+        .setMessage(
+            () -> {
+              try {
+                return objectMapper.writeValueAsString(event);
+              } catch (JsonProcessingException e) {
+                throw new SystemException(
+                    "Caught exception while serializing history event to JSON ", e);
+              }
+            })
+        .log();
   }
 
   @Override

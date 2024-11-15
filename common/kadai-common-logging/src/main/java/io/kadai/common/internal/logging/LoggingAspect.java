@@ -44,22 +44,6 @@ public class LoggingAspect {
     return LazyHolder.LOGGING_ASPECT_ENABLED;
   }
 
-  private static String mapParametersNameValue(String[] parameterNames, Object[] values) {
-    Map<String, Object> parametersNameToValue = new HashMap<>();
-
-    if (parameterNames.length > 0) {
-      for (int i = 0; i < parameterNames.length; i++) {
-        parametersNameToValue.put(parameterNames[i], values[i]);
-      }
-    }
-
-    StringBuilder stringBuilder = new StringBuilder();
-    for (Entry<String, Object> parameter : parametersNameToValue.entrySet()) {
-      stringBuilder.append(parameter.getKey()).append(" = ").append(parameter.getValue());
-    }
-    return stringBuilder.toString();
-  }
-
   @Pointcut(
       "!@annotation(io.kadai.common.internal.logging.NoLogging)"
           + " && !within(@io.kadai.common.internal.logging.NoLogging *)"
@@ -80,14 +64,12 @@ public class LoggingAspect {
       Logger currentLogger =
           CLASS_TO_LOGGER.computeIfAbsent(declaringTypeName, LoggerFactory::getLogger);
 
-      if (currentLogger.isTraceEnabled()) {
-        String methodName = methodSignature.getName();
-        Object[] values = joinPoint.getArgs();
-        String[] parameterNames = methodSignature.getParameterNames();
-        String parametersValues = mapParametersNameValue(parameterNames, values);
-
-        currentLogger.trace("entry to {}({})", methodName, parametersValues);
-      }
+      currentLogger
+          .atTrace()
+          .setMessage("entry to {}({})")
+          .addArgument(methodSignature::getName)
+          .addArgument(() -> mapParametersNameValue(joinPoint))
+          .log();
     }
   }
 
@@ -113,6 +95,25 @@ public class LoggingAspect {
         }
       }
     }
+  }
+
+  private static String mapParametersNameValue(JoinPoint joinPoint) {
+    Object[] values = joinPoint.getArgs();
+    MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+    String[] parameterNames = methodSignature.getParameterNames();
+    Map<String, Object> parametersNameToValue = new HashMap<>();
+
+    if (parameterNames.length > 0) {
+      for (int i = 0; i < parameterNames.length; i++) {
+        parametersNameToValue.put(parameterNames[i], values[i]);
+      }
+    }
+
+    StringBuilder stringBuilder = new StringBuilder();
+    for (Entry<String, Object> parameter : parametersNameToValue.entrySet()) {
+      stringBuilder.append(parameter.getKey()).append(" = ").append(parameter.getValue());
+    }
+    return stringBuilder.toString();
   }
 
   // This Initialization-on-demand holder idiom is necessary so that the retrieval of the system

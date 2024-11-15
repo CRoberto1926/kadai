@@ -368,13 +368,13 @@ public class KadaiEngineImpl implements KadaiEngine {
   @Override
   public void checkRoleMembership(KadaiRole... roles) throws NotAuthorizedException {
     if (!isUserInRole(roles)) {
-      if (LOGGER.isDebugEnabled()) {
-        String rolesAsString = Arrays.toString(roles);
-        LOGGER.debug(
-            "Throwing NotAuthorizedException because accessIds {} are not member of roles {}",
-            currentUserContext.getAccessIds(),
-            rolesAsString);
-      }
+      LOGGER
+          .atDebug()
+          .setMessage(
+              "Throwing NotAuthorizedException because accessIds {} are not member of roles {}")
+          .addArgument(currentUserContext::getAccessIds)
+          .addArgument(() -> Arrays.toString(roles))
+          .log();
       throw new NotAuthorizedException(currentUserContext.getUserid(), roles);
     }
   }

@@ -58,12 +58,12 @@ public class ObjectReferenceHandler {
         ObjectReferenceImpl.validate(objectReferenceImpl, "ObjectReference", "Task");
         try {
           objectReferenceMapper.insert(objectReferenceImpl);
-          if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(
-                "TaskService.createTask() for TaskId={} INSERTED an object reference={}.",
-                task.getId(),
-                objectReference);
-          }
+          LOGGER
+              .atDebug()
+              .setMessage("TaskService.createTask() for TaskId={} INSERTED an object reference={}.")
+              .addArgument(task::getId)
+              .addArgument(objectReference)
+              .log();
         } catch (PersistenceException e) {
           throw new ObjectReferencePersistenceException(objectReference.getId(), task.getId(), e);
         }
@@ -140,12 +140,13 @@ public class ObjectReferenceHandler {
           o -> {
             if (!newObjRefIds.contains(o.getId())) {
               objectReferenceMapper.delete(o.getId());
-              if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug(
-                    "TaskService.updateTask() for TaskId={} DELETED an ObjectReference={}.",
-                    newTaskImpl.getId(),
-                    o);
-              }
+              LOGGER
+                  .atDebug()
+                  .setMessage(
+                      "TaskService.updateTask() for TaskId={} DELETED an ObjectReference={}.")
+                  .addArgument(newTaskImpl::getId)
+                  .addArgument(o)
+                  .log();
             }
           });
     }
@@ -157,12 +158,12 @@ public class ObjectReferenceHandler {
     ObjectReferenceImpl objectReferenceImpl = (ObjectReferenceImpl) objectReference;
     try {
       objectReferenceMapper.insert(objectReferenceImpl);
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug(
-            "TaskService.updateTask() for TaskId={} INSERTED an ObjectReference={}.",
-            newTaskImpl.getId(),
-            objectReferenceImpl);
-      }
+      LOGGER
+          .atDebug()
+          .setMessage("TaskService.updateTask() for TaskId={} INSERTED an ObjectReference={}.")
+          .addArgument(newTaskImpl::getId)
+          .addArgument(objectReferenceImpl)
+          .log();
     } catch (PersistenceException e) {
       throw new ObjectReferencePersistenceException(
           objectReferenceImpl.getId(), newTaskImpl.getId(), e);

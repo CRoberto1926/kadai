@@ -51,31 +51,23 @@ public final class HistoryEventManager {
   }
 
   public void createEvent(TaskHistoryEvent event) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Sending event to history service providers: {}", event);
-    }
+    LOGGER.debug("Sending event to history service providers: {}", event);
     kadaiHistories.forEach(CheckedConsumer.wrap(historyProvider -> historyProvider.create(event)));
   }
 
   public void createEvent(WorkbasketHistoryEvent event) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Sending event to history service providers: {}", event);
-    }
+    LOGGER.debug("Sending event to history service providers: {}", event);
     kadaiHistories.forEach(CheckedConsumer.wrap(historyProvider -> historyProvider.create(event)));
   }
 
   public void createEvent(ClassificationHistoryEvent event) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Sending event to history service providers: {}", event);
-    }
+    LOGGER.debug("Sending event to history service providers: {}", event);
 
     kadaiHistories.forEach(CheckedConsumer.wrap(historyProvider -> historyProvider.create(event)));
   }
 
   public void deleteEvents(List<String> taskIds) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Sending taskIds to history service providers: {}", taskIds);
-    }
+    LOGGER.debug("Sending taskIds to history service providers: {}", taskIds);
 
     kadaiHistories.forEach(
         CheckedConsumer.wrap(

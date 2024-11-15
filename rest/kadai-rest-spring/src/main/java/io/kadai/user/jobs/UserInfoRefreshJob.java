@@ -95,15 +95,11 @@ public class UserInfoRefreshJob extends AbstractKadaiJob {
 
     sqlConnectionRunner.runWithConnection(
         connection -> {
-          if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Trying to delete all users, groups and permissions");
-          }
+          LOGGER.debug("Trying to delete all users, groups and permissions");
           String sql = "DELETE FROM USER_INFO; DELETE FROM GROUP_INFO; DELETE FROM PERMISSION_INFO";
           PreparedStatement statement = connection.prepareStatement(sql);
           statement.execute();
-          if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Successfully deleted all users, groups and permissions");
-          }
+          LOGGER.debug("Successfully deleted all users, groups and permissions");
 
           if (!connection.getAutoCommit()) {
             connection.commit();
@@ -116,13 +112,9 @@ public class UserInfoRefreshJob extends AbstractKadaiJob {
     users.forEach(
         user -> {
           try {
-            if (LOGGER.isDebugEnabled()) {
-              LOGGER.debug("Trying to insert user {}", user);
-            }
+            LOGGER.debug("Trying to insert user {}", user);
             kadaiEngineImpl.getUserService().createUser(user);
-            if (LOGGER.isDebugEnabled()) {
-              LOGGER.debug("Successfully inserted user {}", user);
-            }
+            LOGGER.debug("Successfully inserted user {}", user);
           } catch (InvalidArgumentException
               | NotAuthorizedException
               | UserAlreadyExistException e) {
@@ -139,26 +131,18 @@ public class UserInfoRefreshJob extends AbstractKadaiJob {
 
             String userData = kadaiEngineImpl.getUserService().getUser(user.getId()).getData();
             if (userData != null) {
-              if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Trying to set userData {} for user {}", userData, user);
-              }
+              LOGGER.debug("Trying to set userData {} for user {}", userData, user);
               user.setData(userData);
-              if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Successfully set userData {} for user {}", userData, user);
-              }
+              LOGGER.debug("Successfully set userData {} for user {}", userData, user);
             }
           } catch (UserNotFoundException e) {
-            if (LOGGER.isDebugEnabled()) {
-              LOGGER.debug(
-                  String.format(
-                      "Failed to fetch configuration data for User "
-                          + "with ID '%s' because it doesn't exist",
-                      user.getId()));
-            }
+            LOGGER.debug(
+                """
+                      Failed to fetch configuration data for User \
+                      with ID '{}' because it doesn't exist""",
+                user.getId());
           } catch (InvalidArgumentException e) {
-            if (LOGGER.isDebugEnabled()) {
-              LOGGER.debug("Failed to fetch configuration data because userId was NULL or empty");
-            }
+            LOGGER.debug("Failed to fetch configuration data because userId was NULL or empty");
           }
         });
   }

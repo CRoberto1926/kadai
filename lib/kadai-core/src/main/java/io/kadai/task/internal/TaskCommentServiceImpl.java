@@ -97,12 +97,12 @@ class TaskCommentServiceImpl {
 
         taskCommentMapper.update(taskCommentImplToUpdate);
 
-        if (LOGGER.isDebugEnabled()) {
-          LOGGER.debug(
-              "Method updateTaskComment() updated taskComment '{}' for user '{}'.",
-              taskCommentImplToUpdate.getId(),
-              userId);
-        }
+        LOGGER
+            .atDebug()
+            .setMessage("Method updateTaskComment() updated taskComment '{}' for user '{}'.")
+            .addArgument(taskCommentImplToUpdate::getId)
+            .addArgument(userId)
+            .log();
 
       } else {
         throw new NotAuthorizedOnTaskCommentException(userId, taskCommentImplToUpdate.getId());
@@ -162,9 +162,11 @@ class TaskCommentServiceImpl {
         taskCommentMapper.delete(taskCommentId);
         taskMapper.decrementNumberOfComments(taskCommentToDelete.getTaskId(), Instant.now());
 
-        if (LOGGER.isDebugEnabled()) {
-          LOGGER.debug("taskComment {} deleted", taskCommentToDelete.getId());
-        }
+        LOGGER
+            .atDebug()
+            .setMessage("taskComment {} deleted")
+            .addArgument(taskCommentToDelete::getId)
+            .log();
 
       } else {
         throw new NotAuthorizedOnTaskCommentException(userId, taskCommentToDelete.getId());
@@ -186,7 +188,7 @@ class TaskCommentServiceImpl {
 
       List<TaskComment> taskComments = taskService.createTaskCommentQuery().taskIdIn(taskId).list();
 
-      if (taskComments.isEmpty() && LOGGER.isDebugEnabled()) {
+      if (taskComments.isEmpty()) {
         LOGGER.debug("getTaskComments() found no comments for the provided taskId");
       }
 

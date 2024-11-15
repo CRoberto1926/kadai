@@ -82,24 +82,6 @@ public class ClassificationServiceImpl implements ClassificationService {
     this.historyEventManager = kadaiEngine.getHistoryEventManager();
   }
 
-  private static void validateServiceLevel(Classification classification)
-      throws MalformedServiceLevelException {
-    String serviceLevel = classification.getServiceLevel();
-    Duration duration;
-
-    try {
-      duration = Duration.parse(serviceLevel);
-    } catch (Exception e) {
-      throw new MalformedServiceLevelException(
-          serviceLevel, classification.getKey(), classification.getDomain());
-    }
-
-    if (duration.isNegative()) {
-      throw new MalformedServiceLevelException(
-          serviceLevel, classification.getKey(), classification.getDomain());
-    }
-  }
-
   @Override
   public Classification getClassification(String key, String domain)
       throws ClassificationNotFoundException {
@@ -258,11 +240,11 @@ public class ClassificationServiceImpl implements ClassificationService {
                 details));
       }
 
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug(
-            "Method createClassification created classification {}.",
-            LogSanitizer.stripLineBreakingChars(classificationImpl));
-      }
+      LOGGER
+          .atDebug()
+          .setMessage("Method createClassification created classification {}.")
+          .addArgument(() -> LogSanitizer.stripLineBreakingChars(classificationImpl))
+          .log();
 
       if (!classification.getDomain().isEmpty()) {
         addClassificationToMasterDomain(classificationImpl);
@@ -320,11 +302,11 @@ public class ClassificationServiceImpl implements ClassificationService {
                 kadaiEngine.getEngine().getCurrentUserContext().getUserid(),
                 details));
       }
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug(
-            "Method updateClassification() updated the classification {}.",
-            LogSanitizer.stripLineBreakingChars(classificationImpl));
-      }
+      LOGGER
+          .atDebug()
+          .setMessage("Method updateClassification() updated the classification {}.")
+          .addArgument(() -> LogSanitizer.stripLineBreakingChars(classificationImpl))
+          .log();
       return classification;
     } finally {
       kadaiEngine.returnConnection();
@@ -343,6 +325,24 @@ public class ClassificationServiceImpl implements ClassificationService {
     classification.setDomain(domain);
     classification.setType(type);
     return classification;
+  }
+
+  private static void validateServiceLevel(Classification classification)
+      throws MalformedServiceLevelException {
+    String serviceLevel = classification.getServiceLevel();
+    Duration duration;
+
+    try {
+      duration = Duration.parse(serviceLevel);
+    } catch (Exception e) {
+      throw new MalformedServiceLevelException(
+          serviceLevel, classification.getKey(), classification.getDomain());
+    }
+
+    if (duration.isNegative()) {
+      throw new MalformedServiceLevelException(
+          serviceLevel, classification.getKey(), classification.getDomain());
+    }
   }
 
   private void validateAndPopulateParentInformation(ClassificationImpl classificationImpl)
@@ -398,24 +398,26 @@ public class ClassificationServiceImpl implements ClassificationService {
         this.getClassification(masterClassification.getKey(), masterClassification.getDomain());
         throw new ClassificationAlreadyExistException(masterClassification);
       } catch (ClassificationNotFoundException e) {
-        if (LOGGER.isDebugEnabled()) {
-          LOGGER.debug(
-              "Method createClassification: Classification does not "
-                  + "exist in master domain. Classification {}.",
-              masterClassification);
-        }
+        LOGGER.debug(
+            """
+                  Method createClassification: Classification does not \
+                  exist in master domain. Classification {}.""",
+            masterClassification);
         classificationMapper.insert(masterClassification);
-        if (LOGGER.isDebugEnabled()) {
-          LOGGER.debug(
-              "Method createClassification: Classification created in "
-                  + "master-domain, too. Classification {}.",
-              masterClassification);
-        }
+        LOGGER.debug(
+            """
+                  Method createClassification: Classification created in \
+                  master-domain, too. Classification {}.""",
+            masterClassification);
       } catch (ClassificationAlreadyExistException ex) {
-        LOGGER.warn(
-            "Method createClassification: Classification does already exist "
-                + "in master domain. Classification {}.",
-            LogSanitizer.stripLineBreakingChars(masterClassification));
+        LOGGER
+            .atWarn()
+            .setMessage(
+                """
+                    Method createClassification: Classification does already exist \
+                    in master domain. Classification {}.""")
+            .addArgument(() -> LogSanitizer.stripLineBreakingChars(masterClassification))
+            .log();
       }
     }
   }
@@ -514,8 +516,7 @@ public class ClassificationServiceImpl implements ClassificationService {
   }
 
   private boolean isReferentialIntegrityConstraintViolation(PersistenceException e) {
-    return isH2OrPostgresIntegrityConstraintViolation(e)
-        || isDb2IntegrityConstraintViolation(e);
+    return isH2OrPostgresIntegrityConstraintViolation(e) || isDb2IntegrityConstraintViolation(e);
   }
 
   private boolean isDb2IntegrityConstraintViolation(PersistenceException e) {

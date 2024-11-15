@@ -75,8 +75,9 @@ public class KadaiWildflyConfiguration {
       return dataSource;
     } catch (Exception e) {
       LOGGER.error(
-          "Caught exception when attempting to start Kadai with Datasource "
-              + "from Jndi. Using default H2 datasource. ",
+          """
+          Caught exception when attempting to start Kadai with Datasource from Jndi.\s
+          Using default H2 datasource.\s""",
           e);
       throw e;
     }

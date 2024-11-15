@@ -156,16 +156,18 @@ public class TaskCleanupJob extends AbstractKadaiJob {
     List<String> tasksIdsToBeDeleted = tasksToBeDeleted.stream().map(TaskSummary::getId).toList();
     BulkOperationResults<String, KadaiException> results =
         kadaiEngineImpl.getTaskService().deleteTasks(tasksIdsToBeDeleted);
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("{} tasks deleted.", tasksIdsToBeDeleted.size() - results.getFailedIds().size());
-    }
+    LOGGER
+        .atDebug()
+        .setMessage("{} tasks deleted.")
+        .addArgument(() -> tasksIdsToBeDeleted.size() - results.getFailedIds().size())
+        .log();
     for (String failedId : results.getFailedIds()) {
-      if (LOGGER.isWarnEnabled()) {
-        LOGGER.warn(
-            "Task with id {} could not be deleted. Reason: {}",
-            LogSanitizer.stripLineBreakingChars(failedId),
-            LogSanitizer.stripLineBreakingChars(results.getErrorForId(failedId)));
-      }
+      LOGGER
+          .atWarn()
+          .setMessage("Task with id {} could not be deleted. Reason: {}")
+          .addArgument(() -> LogSanitizer.stripLineBreakingChars(failedId))
+          .addArgument(() -> LogSanitizer.stripLineBreakingChars(results.getErrorForId(failedId)))
+          .log();
     }
     return tasksIdsToBeDeleted.size() - results.getFailedIds().size();
   }

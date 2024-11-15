@@ -119,11 +119,11 @@ public class UserServiceImpl implements UserService {
     insertIntoDatabase(userToCreate);
     ((UserImpl) userToCreate).setDomains(determineDomains(userToCreate));
 
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug(
-          "Method createUser() created User '{}'.",
-          LogSanitizer.stripLineBreakingChars(userToCreate));
-    }
+    LOGGER
+        .atDebug()
+        .setMessage("Method createUser() created User '{}'.")
+        .addArgument(() -> LogSanitizer.stripLineBreakingChars(userToCreate))
+        .log();
     return userToCreate;
   }
 
@@ -149,11 +149,11 @@ public class UserServiceImpl implements UserService {
     }
     ((UserImpl) userToUpdate).setDomains(determineDomains(userToUpdate));
 
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug(
-          "Method updateUser() updated User '{}'.",
-          LogSanitizer.stripLineBreakingChars(userToUpdate));
-    }
+    LOGGER
+        .atDebug()
+        .setMessage("Method updateUser() updated User '{}'.")
+        .addArgument(() -> LogSanitizer.stripLineBreakingChars(userToUpdate))
+        .log();
 
     return userToUpdate;
   }
@@ -170,9 +170,11 @@ public class UserServiceImpl implements UserService {
           userMapper.deleteGroups(id);
           userMapper.deletePermissions(id);
         });
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Method deleteUser() deleted User with id '{}'.", id);
-    }
+    LOGGER
+        .atDebug()
+        .setMessage("Method deleteUser() deleted User with id '{}'.")
+        .addArgument(() -> LogSanitizer.stripLineBreakingChars(id))
+        .log();
   }
 
   private Set<String> determineDomains(User user) {

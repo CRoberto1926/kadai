@@ -47,9 +47,11 @@ public class SpringSecurityToJaasFilter extends GenericFilterBean {
       throws IOException, ServletException {
     Optional<Authentication> authentication = getCurrentAuthentication();
     if (authentication.isPresent()) {
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug("Authentication found in Spring security context: {}", authentication);
-      }
+      LOGGER
+          .atDebug()
+          .setMessage("Authentication found in Spring security context: {}")
+          .addArgument(() -> authentication)
+          .log();
       obtainSubject()
           .ifPresent(
               subject -> {
@@ -57,10 +59,8 @@ public class SpringSecurityToJaasFilter extends GenericFilterBean {
                 initializeGroupPrincipalsFromAuthentication(authentication.get(), subject);
               });
     } else {
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug(
-            "No authentication found in Spring security context. Continuing unauthenticatic.");
-      }
+      LOGGER.debug(
+          "No authentication found in Spring security context. Continuing unauthenticatic.");
     }
 
     chain.doFilter(request, response);
@@ -81,6 +81,7 @@ public class SpringSecurityToJaasFilter extends GenericFilterBean {
   protected Optional<Subject> obtainSubject() {
     Optional<Authentication> authentication = getCurrentAuthentication();
     if (logger.isDebugEnabled()) {
+      // This is not SLF4J!
       logger.debug("Attempting to obtainSubject using authentication : " + authentication);
     }
     if (authentication.isEmpty() || !authentication.get().isAuthenticated()) {
@@ -97,17 +98,20 @@ public class SpringSecurityToJaasFilter extends GenericFilterBean {
   private void initializeUserPrincipalFromAuthentication(
       Authentication authentication, Subject subject) {
     if (subject.getPrincipals().isEmpty()) {
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug(
-            "Setting the principal of the subject with {}.", authentication.getPrincipal());
-      }
+      LOGGER
+          .atDebug()
+          .setMessage("Setting the principal of the subject with {}.")
+          .addArgument(authentication::getPrincipal)
+          .log();
       subject
           .getPrincipals()
           .add(new UserPrincipal(((UserDetails) authentication.getPrincipal()).getUsername()));
     } else {
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug("Principal of the subject is already set to {}.", subject.getPrincipals());
-      }
+      LOGGER
+          .atDebug()
+          .setMessage("Principal of the subject is already set to {}.")
+          .addArgument(subject::getPrincipals)
+          .log();
       throw new SystemException("Finding an existing principal is unexpected. Please investigate.");
     }
   }
@@ -115,9 +119,11 @@ public class SpringSecurityToJaasFilter extends GenericFilterBean {
   private void initializeGroupPrincipalsFromAuthentication(
       Authentication authentication, Subject subject) {
 
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Adding roles {} to subject.", authentication.getAuthorities());
-    }
+    LOGGER
+        .atDebug()
+        .setMessage("Adding roles {} to subject.")
+        .addArgument(authentication::getAuthorities)
+        .log();
 
     authentication
         .getAuthorities()
@@ -125,8 +131,10 @@ public class SpringSecurityToJaasFilter extends GenericFilterBean {
             grantedAuthority ->
                 subject.getPrincipals().add(new GroupPrincipal(grantedAuthority.getAuthority())));
 
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("{}", subject.getPublicCredentials(GroupPrincipal.class));
-    }
+    LOGGER
+        .atDebug()
+        .setMessage("{}")
+        .addArgument(() -> subject.getPublicCredentials(GroupPrincipal.class))
+        .log();
   }
 }

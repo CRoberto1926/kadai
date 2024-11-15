@@ -61,13 +61,20 @@ public class DbSchemaCreator {
    */
   public boolean run() throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug(
-            "Using database of type {} with url '{}'",
-            DB.getDB(connection).dbProductName,
-            connection.getMetaData().getURL());
-      }
       DB db = DB.getDB(connection);
+      LOGGER
+          .atDebug()
+          .setMessage("Using database of type {} with url '{}'")
+          .addArgument(db.dbProductName)
+          .addArgument(
+              () -> {
+                try {
+                  return connection.getMetaData().getURL();
+                } catch (SQLException e) {
+                  throw new RuntimeException(e);
+                }
+              })
+          .log();
 
       ScriptRunner runner = getScriptRunnerInstance(connection);
 
@@ -80,11 +87,9 @@ public class DbSchemaCreator {
         return true;
       }
     }
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug(outWriter.toString());
-    }
-    if (!errorWriter.toString().trim().isEmpty()) {
-      LOGGER.error(errorWriter.toString());
+    LOGGER.atDebug().setMessage(outWriter::toString).log();
+    if (!errorWriter.getBuffer().isEmpty()) {
+      LOGGER.atError().setMessage(errorWriter::toString).log();
     }
     return false;
   }
@@ -93,9 +98,18 @@ public class DbSchemaCreator {
     try (Connection connection = dataSource.getConnection()) {
       connection.setSchema(this.schemaName);
       SqlRunner runner = new SqlRunner(connection);
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug("{}", connection.getMetaData());
-      }
+      LOGGER
+          .atDebug()
+          .setMessage("{}")
+          .addArgument(
+              () -> {
+                try {
+                  return connection.getMetaData();
+                } catch (SQLException e) {
+                  throw new RuntimeException(e);
+                }
+              })
+          .log();
 
       String query =
           "select VERSION from KADAI_SCHEMA_VERSION where "
@@ -113,9 +127,7 @@ public class DbSchemaCreator {
             expectedMinVersion);
         return false;
       } else {
-        if (LOGGER.isDebugEnabled()) {
-          LOGGER.debug("Schema version is valid.");
-        }
+        LOGGER.debug("Schema version is valid.");
         return true;
       }
 
@@ -154,17 +166,13 @@ public class DbSchemaCreator {
         BufferedReader reader = new BufferedReader(inputReader)) {
       runner.runScript(getSqlSchemaNameParsed(reader));
     } catch (RuntimeSqlException | IOException e) {
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug("Schema does not exist.");
-        if (!errorWriter.toString().trim().isEmpty()) {
-          LOGGER.debug(errorWriter.toString());
-        }
+      LOGGER.debug("Schema does not exist.");
+      if (!errorWriter.getBuffer().isEmpty()) {
+        LOGGER.atDebug().setMessage(errorWriter::toString).log();
       }
       return false;
     }
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Schema does exist.");
-    }
+    LOGGER.debug("Schema does exist.");
     return true;
   }
 

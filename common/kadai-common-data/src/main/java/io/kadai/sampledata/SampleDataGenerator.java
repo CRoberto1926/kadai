@@ -103,13 +103,21 @@ public class SampleDataGenerator {
 
   private void runScripts(Consumer<ScriptRunner> consumer) {
     try (Connection connection = dataSource.getConnection()) {
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug(
-            "Generating sample data for database of type '{}' with url '{}' and schema '{}'.",
-            DB.getDB(connection).dbProductName,
-            connection.getMetaData().getURL(),
-            schema);
-      }
+      LOGGER
+          .atDebug()
+          .setMessage(
+              "Generating sample data for database of type '{}' with url '{}' and schema '{}'.")
+          .addArgument(() -> DB.getDB(connection).dbProductName)
+          .addArgument(
+              () -> {
+                try {
+                  return connection.getMetaData().getURL();
+                } catch (SQLException e) {
+                  throw new RuntimeSqlException("Failed to get URL for database.", e);
+                }
+              })
+          .addArgument(() -> schema)
+          .log();
 
       StringWriter outWriter = new StringWriter();
       StringWriter errorWriter = new StringWriter();
@@ -117,14 +125,10 @@ public class SampleDataGenerator {
       ScriptRunner runner = getScriptRunner(connection, outWriter, errorWriter);
       consumer.accept(runner);
 
-      if (LOGGER.isTraceEnabled()) {
-        LOGGER.trace(outWriter.toString());
-      }
-      if (LOGGER.isErrorEnabled()) {
-        String trimmedErrorString = errorWriter.toString().trim();
-        if (!trimmedErrorString.isEmpty()) {
-          LOGGER.error(trimmedErrorString);
-        }
+      LOGGER.atTrace().setMessage(outWriter::toString).log();
+
+      if (!errorWriter.getBuffer().isEmpty()) {
+        LOGGER.atError().setMessage(() -> errorWriter.toString().trim()).log();
       }
     } catch (SQLException e) {
       throw new RuntimeSqlException("Failed to execute script.", e);

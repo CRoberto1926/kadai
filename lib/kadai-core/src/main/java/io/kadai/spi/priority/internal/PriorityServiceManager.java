@@ -54,16 +54,11 @@ public class PriorityServiceManager {
 
   public OptionalInt calculatePriorityOfTask(TaskSummary task) {
     if (task.isManualPriorityActive()) {
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug(
-            "Skip using PriorityServiceProviders because the Task is prioritised manually: {}",
-            task);
-      }
+      LOGGER.debug(
+          "Skip using PriorityServiceProviders because the Task is prioritised manually: {}", task);
       return OptionalInt.empty();
     }
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Sending Task to PriorityServiceProviders: {}", task);
-    }
+    LOGGER.debug("Sending Task to PriorityServiceProviders: {}", task);
 
     Set<OptionalInt> priorities =
         priorityServiceProviders.stream()
@@ -73,10 +68,12 @@ public class PriorityServiceManager {
 
     if (priorities.size() == 1) {
       return priorities.iterator().next();
-    } else if (!priorities.isEmpty() && LOGGER.isErrorEnabled()) {
-      LOGGER.error(
-          "The PriorityServiceProviders determined more than one priority for Task {}.",
-          LogSanitizer.stripLineBreakingChars(task));
+    } else if (!priorities.isEmpty()) {
+      LOGGER
+          .atError()
+          .setMessage("The PriorityServiceProviders determined more than one priority for Task {}.")
+          .addArgument(() -> LogSanitizer.stripLineBreakingChars(task))
+          .log();
     }
 
     return OptionalInt.empty();

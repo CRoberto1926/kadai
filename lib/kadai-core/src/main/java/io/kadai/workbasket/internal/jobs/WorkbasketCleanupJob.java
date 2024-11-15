@@ -104,10 +104,11 @@ public class WorkbasketCleanupJob extends AbstractKadaiJob {
 
     BulkOperationResults<String, KadaiException> results =
         kadaiEngineImpl.getWorkbasketService().deleteWorkbaskets(workbasketsToBeDeleted);
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug(
-          "{} workbasket deleted.", workbasketsToBeDeleted.size() - results.getFailedIds().size());
-    }
+    LOGGER
+        .atDebug()
+        .setMessage("{} workbasket deleted.")
+        .addArgument(() -> workbasketsToBeDeleted.size() - results.getFailedIds().size())
+        .log();
     for (String failedId : results.getFailedIds()) {
       LOGGER.warn(
           "Workbasket with id {} could not be deleted. Reason:",

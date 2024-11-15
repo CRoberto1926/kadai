@@ -43,15 +43,14 @@ public class AfterRequestChangesManager {
     }
     if (afterRequestChangesProviders.isEmpty()) {
       LOGGER.info(
-          "No AfterRequestChangesProvider service provider found. "
-              + "Running without any AfterRequestChangesProvider implementation.");
+          """
+          No AfterRequestChangesProvider service provider found. \
+          Running without any AfterRequestChangesProvider implementation.""");
     }
   }
 
   public Task afterRequestChanges(Task task) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Sending Task to AfterRequestChangesProvider service providers: {}", task);
-    }
+    LOGGER.debug("Sending Task to AfterRequestChangesProvider service providers: {}", task);
     for (AfterRequestChangesProvider serviceProvider : afterRequestChangesProviders) {
       try {
         task = serviceProvider.afterRequestChanges(task);

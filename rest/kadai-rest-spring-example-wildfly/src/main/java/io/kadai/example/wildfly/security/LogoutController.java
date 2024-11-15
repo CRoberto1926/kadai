@@ -45,9 +45,7 @@ public class LogoutController {
 
   public RedirectView logout(HttpServletRequest request) {
 
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Logging out...");
-    }
+    LOGGER.debug("Logging out...");
 
     if (request.getSession(false) != null) {
       request.getSession(false).invalidate(); // remove session.
@@ -59,7 +57,7 @@ public class LogoutController {
     try {
       request.logout();
     } catch (ServletException e) {
-      LOGGER.warn("Exception caught while logging out: {}", e.getMessage());
+      LOGGER.warn("Exception caught while logging out: {}", e.getMessage(), e);
     }
 
     return new RedirectView("/", true);

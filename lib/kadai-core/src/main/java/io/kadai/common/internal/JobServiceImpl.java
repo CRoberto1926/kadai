@@ -48,17 +48,13 @@ public class JobServiceImpl implements JobService {
     initializeDefaultJobProperties(job);
     Integer id = kadaiEngineImpl.executeInDatabaseConnection(() -> jobMapper.insertJob(job));
     job.setJobId(id);
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Created job {}", job);
-    }
+    LOGGER.debug("Created job {}", job);
     return job;
   }
 
   public void deleteJobs(String jobType) {
     kadaiEngineImpl.executeInDatabaseConnection(() -> jobMapper.deleteMultiple(jobType));
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Deleted jobs of type: {}", jobType);
-    }
+    LOGGER.debug("Deleted jobs of type: {}", jobType);
   }
 
   public ScheduledJob lockJob(ScheduledJob job, String owner) {
@@ -80,32 +76,30 @@ public class JobServiceImpl implements JobService {
               jobClass, KadaiConfiguration.class));
     } catch (InvocationTargetException | IllegalAccessException e) {
       throw new SystemException(
-          String.format(
-              "Caught Exception while invoking method 'getLockExpirationPeriod' by reflection"));
+          "Caught Exception while invoking method 'getLockExpirationPeriod' by reflection");
     }
 
     job.setRetryCount(job.getRetryCount() - 1);
     kadaiEngineImpl.executeInDatabaseConnection(() -> jobMapper.update(job));
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Job {} locked. Remaining retries: {}", job.getJobId(), job.getRetryCount());
-    }
+    LOGGER
+        .atDebug()
+        .setMessage("Job {} locked. Remaining retries: {}")
+        .addArgument(job::getJobId)
+        .addArgument(job::getRetryCount)
+        .log();
     return job;
   }
 
   public List<ScheduledJob> findJobsToRun() {
     List<ScheduledJob> availableJobs =
         kadaiEngineImpl.executeInDatabaseConnection(() -> jobMapper.findJobsToRun(Instant.now()));
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Found available jobs: {}", availableJobs);
-    }
+    LOGGER.debug("Found available jobs: {}", availableJobs);
     return availableJobs;
   }
 
   public void deleteJob(ScheduledJob job) {
     kadaiEngineImpl.executeInDatabaseConnection(() -> jobMapper.delete(job));
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Deleted job: {}", job);
-    }
+    LOGGER.debug("Deleted job: {}", job);
   }
 
   private void initializeDefaultJobProperties(ScheduledJob job) {
@@ -117,8 +111,6 @@ public class JobServiceImpl implements JobService {
       job.setDue(now);
     }
     job.setRetryCount(kadaiEngineImpl.getEngine().getConfiguration().getMaxNumberOfJobRetries());
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Job after initialization: {}", job);
-    }
+    LOGGER.debug("Job after initialization: {}", job);
   }
 }

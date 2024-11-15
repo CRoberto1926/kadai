@@ -96,9 +96,7 @@ public class DmnConverterService {
         DmnValidatorManager.getInstance(kadaiEngine).validate(patchedModel);
       }
 
-      if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug(String.format("Persisting generated DMN table to %s", dmnUploadPath));
-      }
+      LOGGER.debug("Persisting generated DMN table to {}", dmnUploadPath);
 
       File uploadDestinationFile = new File(dmnUploadPath);
       Dmn.writeModelToFile(uploadDestinationFile, patchedModel);

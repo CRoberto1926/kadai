@@ -67,6 +67,7 @@ public class ElytronToJaasFilter extends GenericFilterBean {
         roles.forEach(role -> subject.getPrincipals().add(new GroupPrincipal(role)));
       }
       if (logger.isDebugEnabled()) {
+        // This is not SLF4J!
         logger.debug("Current JAAS subject after applying Elytron SecurityIdentity: " + subject);
       }
     }
@@ -77,6 +78,7 @@ public class ElytronToJaasFilter extends GenericFilterBean {
     // TODO replace with Subject.current() when migrating to newer Version than 17
     Subject subject = Subject.getSubject(java.security.AccessController.getContext());
     if (logger.isDebugEnabled()) {
+      // This is not SLF4J!
       logger.debug("Current JAAS subject: " + subject);
     }
     return subject;
@@ -102,6 +104,7 @@ public class ElytronToJaasFilter extends GenericFilterBean {
       }
     }
     if (logger.isDebugEnabled()) {
+      // This is not SLF4J!
       logger.debug("Current Elytron SecurityIdentity: " + identity);
     }
 
