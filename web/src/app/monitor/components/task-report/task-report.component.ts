@@ -16,18 +16,25 @@
  *
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReportData } from 'app/monitor/models/report-data';
 import { MonitorService } from '../../services/monitor.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { RequestInProgressService } from 'app/shared/services/request-in-progress/request-in-progress.service';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { NgIf } from '@angular/common';
+import { ReportTableComponent } from '../report-table/report-table.component';
+import { GermanTimeFormatPipe } from '../../../shared/pipes/german-time-format.pipe';
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 @Component({
   selector: 'kadai-monitor-task-report',
   templateUrl: './task-report.component.html',
-  styleUrls: ['./task-report.component.scss']
+  styleUrls: ['./task-report.component.scss'],
+  standalone: true,
+  imports: [NgIf, ReportTableComponent, GermanTimeFormatPipe, BaseChartDirective],
+  providers: [provideCharts(withDefaultRegisterables())]
 })
 export class TaskReportComponent implements OnInit {
   pieChartData: ChartData<'pie', number[], string> = { labels: [], datasets: [] };

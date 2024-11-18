@@ -132,8 +132,7 @@ const DECLARATIONS = [
   WorkbasketFilterComponent,
   TaskFilterComponent,
   DragAndDropDirective,
-  ResizableWidthDirective,
-  GermanTimeFormatPipe
+  ResizableWidthDirective
 ];
 
 export const httpClientInterceptor: HttpInterceptorFn = (request: HttpRequest<unknown>, next: HttpHandlerFn) => {
@@ -189,7 +188,7 @@ export const httpClientInterceptor: HttpInterceptorFn = (request: HttpRequest<un
     ReactiveFormsModule,
     MatProgressSpinnerModule
   ],
-  exports: [DECLARATIONS, GermanTimeFormatPipe],
+  exports: [DECLARATIONS],
   providers: [
     AccessIdsService,
     ClassificationsService,

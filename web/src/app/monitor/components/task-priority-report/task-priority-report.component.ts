@@ -27,11 +27,48 @@ import { Settings } from '../../../settings/models/settings';
 import { mergeMap, take, takeUntil } from 'rxjs/operators';
 import { SettingMembers } from '../../../settings/components/Settings/expected-members';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { TaskPriorityReportFilterComponent } from '../task-priority-report-filter/task-priority-report-filter.component';
+import { MatDivider } from '@angular/material/divider';
+import { CanvasComponent } from '../canvas/canvas.component';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow
+} from '@angular/material/table';
+import { GermanTimeFormatPipe } from '../../../shared/pipes/german-time-format.pipe';
 
 @Component({
   selector: 'kadai-monitor-task-priority-report',
   templateUrl: './task-priority-report.component.html',
-  styleUrls: ['./task-priority-report.component.scss']
+  styleUrls: ['./task-priority-report.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    TaskPriorityReportFilterComponent,
+    MatDivider,
+    NgFor,
+    CanvasComponent,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    NgClass,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    GermanTimeFormatPipe
+  ]
 })
 export class TaskPriorityReportComponent implements OnInit, AfterViewChecked, OnDestroy {
   columns: string[] = ['priority', 'number'];
