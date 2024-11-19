@@ -31,6 +31,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { MatDividerModule } from '@angular/material/divider';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Pipe({ name: 'germanTimeFormat' })
 class GermanTimeFormatPipe implements PipeTransform {
@@ -64,14 +65,15 @@ describe('TaskPriorityReportComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NgxsModule.forRoot([SettingsState]), MatTableModule, MatDividerModule],
-      declarations: [TaskPriorityReportComponent, GermanTimeFormatPipe, CanvasStub, TaskPriorityReportFilterStub],
+      imports: [NgxsModule.forRoot([SettingsState]), MatTableModule, MatDividerModule, NoopAnimationsModule],
+      declarations: [GermanTimeFormatPipe, CanvasStub, TaskPriorityReportFilterStub],
       providers: [
         RequestInProgressService,
         { provide: MonitorService, useValue: monitorServiceSpy },
         { provide: NotificationService, useValue: notificationServiceSpy },
         provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
+        TaskPriorityReportComponent
       ]
     }).compileComponents();
 
