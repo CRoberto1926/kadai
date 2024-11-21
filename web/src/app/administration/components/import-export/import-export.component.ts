@@ -26,6 +26,8 @@ import { NotificationService } from '../../../shared/services/notifications/noti
 import { Observable, Subject } from 'rxjs';
 import { HotToastService } from '@ngneat/hot-toast';
 import { takeUntil } from 'rxjs/operators';
+import {ExportDialogComponent} from "../export-dialog/export-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 /**
  * Recommendation: Turn this component into presentational component - no logic, instead events are
@@ -53,11 +55,25 @@ export class ImportExportComponent implements OnInit, OnDestroy {
     private classificationDefinitionService: ClassificationDefinitionService,
     private notificationService: NotificationService,
     private importExportService: ImportExportService,
-    private hotToastService: HotToastService
+    private hotToastService: HotToastService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
     this.domains$ = this.domainService.getDomains();
+  }
+
+  openExportDialog(): void {
+    const dialogRef = this.dialog.open(ExportDialogComponent, {
+      width: '400px',
+      data: { domains$: this.domains$ }
+    });
+
+    dialogRef.afterClosed().subscribe((selectedDomain: string) => {
+      if (selectedDomain !== undefined) {
+        this.export(selectedDomain);
+      }
+    });
   }
 
   export(domain = '') {

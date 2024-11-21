@@ -74,6 +74,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import {ExportDialogComponent} from "./components/export-dialog/export-dialog.component";
 
 const MODULES = [
   CommonModule,
@@ -102,6 +103,7 @@ const DECLARATIONS = [
   ClassificationTypesSelectorComponent,
   ClassificationDetailsComponent,
   ImportExportComponent,
+  ExportDialogComponent,
   AccessItemsManagementComponent,
   AdministrationOverviewComponent
 ];

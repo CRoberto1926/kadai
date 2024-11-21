@@ -16,36 +16,20 @@
   ~
   -->
 
-<div class="import-export">
-  <button
-    (click)="selectedFile.click()"
-    class="mr-1"
-    mat-stroked-button
-    matTooltip="Import {{parentComponent}}"
-    title="Import"
-  >
-    Import
-    <mat-icon>cloud_upload</mat-icon>
+<h1 mat-dialog-title>Export Options</h1>
+<div mat-dialog-content>
+  <p>Select a domain to export:</p>
+  <button (click)="onExport('')" mat-button>
+    All Domains
   </button>
-
-  <form class="hide" enctype="multipart/form-data" method="post">
-    <input
-      #selectedFile
-      (change)="uploadFile()"
-      accept=".json"
-      class="hidden"
-      type="file"
-    />
-  </form>
-
   <button
-    (click)="openExportDialog()"
-    class="mr-1"
-    mat-stroked-button
-    matTooltip="Export {{parentComponent}}"
-    title="Export"
+    *ngFor="let domain of data.domains$ | async"
+    (click)="onExport(domain)"
+    mat-button
   >
-    Export
-    <mat-icon>cloud_download</mat-icon>
+    {{ domain === '' ? 'Master' : domain }}
   </button>
+</div>
+<div mat-dialog-actions>
+  <button (click)="onCancel()" mat-button>Cancel</button>
 </div>
