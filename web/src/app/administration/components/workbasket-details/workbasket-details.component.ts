@@ -28,7 +28,7 @@ import {
   WorkbasketAndComponentAndAction,
   WorkbasketSelectors
 } from '../../../shared/store/workbasket-store/workbasket.selectors';
-import { Location } from '@angular/common';
+import { Location, AsyncPipe } from '@angular/common';
 import {
   CopyWorkbasket,
   DeselectWorkbasket,
@@ -41,12 +41,36 @@ import {
 import { ButtonAction } from '../../models/button-action';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
 import { cloneDeep } from 'lodash';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatTabGroup, MatTab, MatTabContent } from '@angular/material/tabs';
+import { WorkbasketInformationComponent } from '../workbasket-information/workbasket-information.component';
+import { WorkbasketAccessItemsComponent } from '../workbasket-access-items/workbasket-access-items.component';
+import { WorkbasketDistributionTargetsComponent } from '../workbasket-distribution-targets/workbasket-distribution-targets.component';
 
 @Component({
   selector: 'kadai-administration-workbasket-details',
   templateUrl: './workbasket-details.component.html',
   styleUrls: ['./workbasket-details.component.scss'],
-  standalone: false
+  imports: [
+    MatToolbar,
+    MatTooltip,
+    MatButton,
+    MatIcon,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    MatTabGroup,
+    MatTab,
+    WorkbasketInformationComponent,
+    WorkbasketAccessItemsComponent,
+    MatTabContent,
+    WorkbasketDistributionTargetsComponent,
+    AsyncPipe
+  ]
 })
 export class WorkbasketDetailsComponent implements OnInit, OnDestroy {
   workbasket: Workbasket;

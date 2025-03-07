@@ -31,7 +31,7 @@ import {
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Actions, ofActionCompleted, Select, Store } from '@ngxs/store';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Workbasket } from 'app/shared/models/workbasket';
 import { customFieldCount, WorkbasketAccessItems } from 'app/shared/models/workbasket-access-items';
@@ -54,13 +54,34 @@ import {
 import { WorkbasketSelectors } from '../../../shared/store/workbasket-store/workbasket.selectors';
 import { WorkbasketComponent } from '../../models/workbasket-component';
 import { ButtonAction } from '../../models/button-action';
+import { NgIf, NgStyle, NgFor, NgClass, AsyncPipe } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { ResizableWidthDirective } from '../../../shared/directives/resizable-width.directive';
+import { TypeAheadComponent } from '../../../shared/components/type-ahead/type-ahead.component';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'kadai-administration-workbasket-access-items',
   templateUrl: './workbasket-access-items.component.html',
   animations: [highlight],
   styleUrls: ['./workbasket-access-items.component.scss'],
-  standalone: false
+  imports: [
+    NgIf,
+    NgStyle,
+    MatButton,
+    MatTooltip,
+    MatIcon,
+    FormsModule,
+    ReactiveFormsModule,
+    ResizableWidthDirective,
+    NgFor,
+    NgClass,
+    TypeAheadComponent,
+    MatInput,
+    AsyncPipe
+  ]
 })
 export class WorkbasketAccessItemsComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit, AfterViewChecked {
   @Input() workbasket: Workbasket;

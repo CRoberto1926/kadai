@@ -33,12 +33,17 @@ import { WorkbasketSelectors } from '../../../shared/store/workbasket-store/work
 import { ButtonAction } from '../../models/button-action';
 import { Side } from '../../models/workbasket-distribution-enums';
 import { ClearWorkbasketFilter } from '../../../shared/store/filter-store/filter.actions';
+import { MatToolbar } from '@angular/material/toolbar';
+import { NgIf, NgClass } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { WorkbasketDistributionTargetsListComponent } from '../workbasket-distribution-targets-list/workbasket-distribution-targets-list.component';
 
 @Component({
   selector: 'kadai-administration-workbasket-distribution-targets',
   templateUrl: './workbasket-distribution-targets.component.html',
   styleUrls: ['./workbasket-distribution-targets.component.scss'],
-  standalone: false
+  imports: [MatToolbar, NgIf, MatButton, MatIcon, NgClass, WorkbasketDistributionTargetsListComponent]
 })
 export class WorkbasketDistributionTargetsComponent implements OnInit, OnDestroy {
   sideEnum = Side;

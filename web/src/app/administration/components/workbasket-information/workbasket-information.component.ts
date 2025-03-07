@@ -18,7 +18,7 @@
 
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormsModule } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { ACTION } from 'app/shared/models/action';
 import { customFieldCount, Workbasket } from 'app/shared/models/workbasket';
@@ -42,12 +42,43 @@ import { ButtonAction } from '../../models/button-action';
 import { AccessId } from '../../../shared/models/access-id';
 import { cloneDeep } from 'lodash';
 import { trimForm } from '../../../shared/util/form-trimmer';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { MatDivider } from '@angular/material/divider';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FieldErrorDisplayComponent } from '../../../shared/components/field-error-display/field-error-display.component';
+import { TypeAheadComponent } from '../../../shared/components/type-ahead/type-ahead.component';
+import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { IconTypeComponent } from '../type-icon/icon-type.component';
+import { MatOption } from '@angular/material/core';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { MapValuesPipe } from '../../../shared/pipes/map-values.pipe';
+import { RemoveNoneTypePipe } from '../../../shared/pipes/remove-empty-type.pipe';
 
 @Component({
   selector: 'kadai-administration-workbasket-information',
   templateUrl: './workbasket-information.component.html',
   styleUrls: ['./workbasket-information.component.scss'],
-  standalone: false
+  imports: [
+    NgIf,
+    FormsModule,
+    MatDivider,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FieldErrorDisplayComponent,
+    TypeAheadComponent,
+    MatSelect,
+    MatSelectTrigger,
+    IconTypeComponent,
+    NgFor,
+    MatOption,
+    CdkTextareaAutosize,
+    MatError,
+    AsyncPipe,
+    MapValuesPipe,
+    RemoveNoneTypePipe
+  ]
 })
 export class WorkbasketInformationComponent implements OnInit, OnChanges, OnDestroy {
   @Input()

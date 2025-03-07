@@ -26,7 +26,7 @@ import { ImportExportService } from 'app/administration/services/import-export.s
 import { KadaiType } from 'app/shared/models/kadai-type';
 import { EngineConfigurationSelectors } from 'app/shared/store/engine-configuration-store/engine-configuration.selectors';
 import { ClassificationSelectors } from 'app/shared/store/classification-store/classification.selectors';
-import { Location } from '@angular/common';
+import { Location, NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { ClassificationCategoryImages } from '../../../shared/models/customisation';
 
 import {
@@ -37,12 +37,41 @@ import { DomainService } from '../../../shared/services/domain/domain.service';
 import { ClassificationSummary } from '../../../shared/models/classification-summary';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
 import { Pair } from '../../../shared/models/pair';
+import { MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { ImportExportComponent } from '../import-export/import-export.component';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { SvgIconComponent } from 'angular-svg-icon';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { ClassificationTypesSelectorComponent } from '../classification-types-selector/classification-types-selector.component';
+import { KadaiTreeComponent } from '../tree/tree.component';
 
 @Component({
   selector: 'kadai-administration-classification-list',
   templateUrl: './classification-list.component.html',
   styleUrls: ['./classification-list.component.scss'],
-  standalone: false
+  imports: [
+    MatButton,
+    MatTooltip,
+    MatIcon,
+    ImportExportComponent,
+    MatMenuTrigger,
+    NgIf,
+    SvgIconComponent,
+    MatMenu,
+    MatMenuItem,
+    NgFor,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    ClassificationTypesSelectorComponent,
+    KadaiTreeComponent,
+    AsyncPipe
+  ]
 })
 export class ClassificationListComponent implements OnInit, OnDestroy {
   kadaiType = KadaiType;
