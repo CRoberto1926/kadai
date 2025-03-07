@@ -33,6 +33,7 @@ import { SvgIconComponent } from 'angular-svg-icon';
 })
 export class NoAccessComponent implements OnInit {
   showNoAccess = false;
+
   constructor(
     private kadaiEngineService: KadaiEngineService,
     public router: Router

@@ -187,7 +187,17 @@ export class ClassificationState implements NgxsAfterBootstrap {
     // the classification is restored to a new classification
     const category = state.classificationTypes[state.selectedClassificationType][0];
     const { type, created, modified, domain, parentId, parentKey } = state.selectedClassification;
-    ctx.patchState({ selectedClassification: { type, created, category, modified, domain, parentId, parentKey } });
+    ctx.patchState({
+      selectedClassification: {
+        type,
+        created,
+        category,
+        modified,
+        domain,
+        parentId,
+        parentKey
+      }
+    });
 
     return of(null);
   }

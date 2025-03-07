@@ -18,7 +18,7 @@
 
 import { Component, Input, OnInit } from '@angular/core';
 import { CustomAttribute } from 'app/workplace/models/task';
-import { NgIf, NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatDivider } from '@angular/material/divider';
 import { MatButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';

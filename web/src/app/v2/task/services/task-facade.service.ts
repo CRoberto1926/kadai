@@ -17,11 +17,10 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { Task } from '@task/models/task';
-import { GetTasks, GetTask } from '@task/store/task.actions';
+import { GetTask, GetTasks } from '@task/store/task.actions';
 import { TaskSelector } from '@task/store/task.selector';
 
 @Injectable({

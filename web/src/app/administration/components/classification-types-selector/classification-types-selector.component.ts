@@ -18,10 +18,10 @@
 
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Store, Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { ClassificationSelectors } from 'app/shared/store/classification-store/classification.selectors';
 import { SetSelectedClassificationType } from 'app/shared/store/classification-store/classification.actions';
-import { Location, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, Location, NgFor } from '@angular/common';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatTooltip } from '@angular/material/tooltip';

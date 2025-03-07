@@ -21,7 +21,7 @@ import { Task } from 'app/workplace/models/task';
 import { takeUntil } from 'rxjs/operators';
 import { FormsValidatorService } from '../../../shared/services/forms-validator/forms-validator.service';
 import { Subject } from 'rxjs';
-import { NgIf, NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';

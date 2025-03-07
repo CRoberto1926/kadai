@@ -45,6 +45,16 @@ export class TaskService {
     return this.startupService.getKadaiRestUrl() + '/v1/tasks';
   }
 
+  private static convertTasksDatesToGMT(task: Task): Task {
+    const timeAttributes = ['created', 'claimed', 'completed', 'modified', 'planned', 'due'];
+    timeAttributes.forEach((attributeName) => {
+      if (task[attributeName]) {
+        task[attributeName] = new Date(task[attributeName]).toISOString();
+      }
+    });
+    return task;
+  }
+
   publishUpdatedTask(task?: Task) {
     this.taskChangedSource.next(task);
   }
@@ -101,15 +111,5 @@ export class TaskService {
 
   createTask(task: Task): Observable<Task> {
     return this.httpClient.post<Task>(this.url, task);
-  }
-
-  private static convertTasksDatesToGMT(task: Task): Task {
-    const timeAttributes = ['created', 'claimed', 'completed', 'modified', 'planned', 'due'];
-    timeAttributes.forEach((attributeName) => {
-      if (task[attributeName]) {
-        task[attributeName] = new Date(task[attributeName]).toISOString();
-      }
-    });
-    return task;
   }
 }

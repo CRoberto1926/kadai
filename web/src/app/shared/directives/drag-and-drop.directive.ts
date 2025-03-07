@@ -16,7 +16,7 @@
  *
  */
 
-import { Directive, HostListener, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Directive, EventEmitter, HostBinding, HostListener, Output } from '@angular/core';
 
 @Directive({ selector: '[kadaiDragAndDrop]' })
 export class DragAndDropDirective {

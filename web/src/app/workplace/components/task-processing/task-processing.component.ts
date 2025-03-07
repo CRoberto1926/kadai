@@ -29,7 +29,7 @@ import { take } from 'rxjs/operators';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
 import { MatButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { NgFor, NgIf } from '@angular/common';
 import { MatDivider } from '@angular/material/divider';
@@ -142,6 +142,12 @@ export class TaskProcessingComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
+  }
+
   private extractUrl(url: string): string {
     const me = this;
     const extractedExpressions = url.match(this.regex);
@@ -162,11 +168,5 @@ export class TaskProcessingComponent implements OnInit, OnDestroy {
 
   private getReflectiveProperty(scope: any, property: string) {
     return Reflect.get(scope, property);
-  }
-
-  ngOnDestroy(): void {
-    if (this.routeSubscription) {
-      this.routeSubscription.unsubscribe();
-    }
   }
 }

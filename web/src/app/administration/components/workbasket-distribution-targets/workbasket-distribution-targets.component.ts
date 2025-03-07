@@ -21,7 +21,7 @@ import { forkJoin, Observable, Subject } from 'rxjs';
 
 import { Workbasket } from 'app/shared/models/workbasket';
 import { WorkbasketSummary } from 'app/shared/models/workbasket-summary';
-import { Actions, Select, Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { filter, take, takeUntil } from 'rxjs/operators';
 import { NotificationService } from '../../../shared/services/notifications/notification.service';
 import {
@@ -34,7 +34,7 @@ import { ButtonAction } from '../../models/button-action';
 import { Side } from '../../models/workbasket-distribution-enums';
 import { ClearWorkbasketFilter } from '../../../shared/store/filter-store/filter.actions';
 import { MatToolbar } from '@angular/material/toolbar';
-import { NgIf, NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { WorkbasketDistributionTargetsListComponent } from '../workbasket-distribution-targets-list/workbasket-distribution-targets-list.component';

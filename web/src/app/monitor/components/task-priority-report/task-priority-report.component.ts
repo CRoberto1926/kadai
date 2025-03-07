@@ -32,16 +32,16 @@ import { TaskPriorityReportFilterComponent } from '../task-priority-report-filte
 import { MatDivider } from '@angular/material/divider';
 import { CanvasComponent } from '../canvas/canvas.component';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
   MatRowDef,
-  MatRow
+  MatTable
 } from '@angular/material/table';
 
 @Component({

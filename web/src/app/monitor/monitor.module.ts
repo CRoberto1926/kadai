@@ -16,7 +16,7 @@
  *
  */
 
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlertModule } from 'ngx-bootstrap/alert';
@@ -90,7 +90,15 @@ const DECLARATIONS = [
 
 @NgModule({
   imports: [MODULES, ...DECLARATIONS],
-  providers: [MonitorService, MapToIterable, provideHttpClient(), { provide: LOCALE_ID, useValue: 'de' }]
+  providers: [
+    MonitorService,
+    MapToIterable,
+    provideHttpClient(),
+    {
+      provide: LOCALE_ID,
+      useValue: 'de'
+    }
+  ]
 })
 export class MonitorModule {
   constructor() {

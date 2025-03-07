@@ -20,7 +20,7 @@
  * Modules
  */
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
@@ -61,7 +61,6 @@ import { SidenavListComponent } from 'app/shared/components/sidenav-list/sidenav
 /**
  * Components
  */
-import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 /**
  * Store

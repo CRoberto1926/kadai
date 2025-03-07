@@ -16,9 +16,9 @@
  *
  */
 
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from 'app/workplace/models/task';
-import { NgIf, DatePipe } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';

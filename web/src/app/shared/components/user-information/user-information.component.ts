@@ -34,6 +34,7 @@ export class UserInformationComponent implements OnInit {
   userInformation: UserInfo;
   roles = '';
   showRoles = false;
+
   constructor(private kadaiEngineService: KadaiEngineService) {}
 
   ngOnInit() {

@@ -23,9 +23,9 @@ import { Select, Store } from '@ngxs/store';
 import { takeUntil } from 'rxjs/operators';
 import { ClassificationSelectors } from '../../../shared/store/classification-store/classification.selectors';
 import {
+  CreateClassification,
   GetClassifications,
-  SelectClassification,
-  CreateClassification
+  SelectClassification
 } from '../../../shared/store/classification-store/classification.actions';
 import { Classification } from '../../../shared/models/classification';
 import { ClassificationListComponent } from '../classification-list/classification-list.component';
@@ -42,8 +42,8 @@ import { SvgIconComponent } from 'angular-svg-icon';
 export class ClassificationOverviewComponent implements OnInit, OnDestroy {
   showDetail = false;
   @Select(ClassificationSelectors.selectedClassification) selectedClassification$: Observable<Classification>;
-  private destroy$ = new Subject<void>();
   routerParams: any;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,

@@ -26,12 +26,12 @@ import { ImportExportService } from 'app/administration/services/import-export.s
 import { KadaiType } from 'app/shared/models/kadai-type';
 import { EngineConfigurationSelectors } from 'app/shared/store/engine-configuration-store/engine-configuration.selectors';
 import { ClassificationSelectors } from 'app/shared/store/classification-store/classification.selectors';
-import { Location, NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, Location, NgFor, NgIf } from '@angular/common';
 import { ClassificationCategoryImages } from '../../../shared/models/customisation';
 
 import {
-  GetClassifications,
-  CreateClassification
+  CreateClassification,
+  GetClassifications
 } from '../../../shared/store/classification-store/classification.actions';
 import { DomainService } from '../../../shared/services/domain/domain.service';
 import { ClassificationSummary } from '../../../shared/models/classification-summary';
@@ -41,7 +41,7 @@ import { MatButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { ImportExportComponent } from '../import-export/import-export.component';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';

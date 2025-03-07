@@ -30,8 +30,8 @@ import {
 import { isEqual } from 'lodash';
 import { WorkbasketSummary } from 'app/shared/models/workbasket-summary';
 import { expandDown } from 'app/shared/animations/expand.animation';
-import { MatSelectionList, MatListOption } from '@angular/material/list';
-import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
+import { MatListOption, MatSelectionList } from '@angular/material/list';
+import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Side } from '../../models/workbasket-distribution-enums';
 import { Select, Store } from '@ngxs/store';
 import { WorkbasketSelectors } from '../../../shared/store/workbasket-store/workbasket.selectors';

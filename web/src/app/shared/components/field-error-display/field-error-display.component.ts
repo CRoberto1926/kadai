@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { highlight } from 'app/shared/animations/validation.animation';
 import { NgIf } from '@angular/common';
 

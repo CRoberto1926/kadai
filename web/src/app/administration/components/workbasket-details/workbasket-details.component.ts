@@ -28,7 +28,7 @@ import {
   WorkbasketAndComponentAndAction,
   WorkbasketSelectors
 } from '../../../shared/store/workbasket-store/workbasket.selectors';
-import { Location, AsyncPipe } from '@angular/common';
+import { AsyncPipe, Location } from '@angular/common';
 import {
   CopyWorkbasket,
   DeselectWorkbasket,
@@ -45,8 +45,8 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
-import { MatTabGroup, MatTab, MatTabContent } from '@angular/material/tabs';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { WorkbasketInformationComponent } from '../workbasket-information/workbasket-information.component';
 import { WorkbasketAccessItemsComponent } from '../workbasket-access-items/workbasket-access-items.component';
 import { WorkbasketDistributionTargetsComponent } from '../workbasket-distribution-targets/workbasket-distribution-targets.component';

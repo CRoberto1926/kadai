@@ -19,8 +19,8 @@
 import { Action, NgxsAfterBootstrap, State, StateContext } from '@ngxs/store';
 import {
   GetAccessItems,
-  GetPermissionsByAccessId,
   GetGroupsByAccessId,
+  GetPermissionsByAccessId,
   RemoveAccessItemsPermissions,
   SelectAccessId
 } from './access-items-management.actions';

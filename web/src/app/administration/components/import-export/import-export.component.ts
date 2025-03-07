@@ -30,8 +30,8 @@ import { MatButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
-import { NgFor, AsyncPipe } from '@angular/common';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { AsyncPipe, NgFor } from '@angular/common';
 
 /**
  * Recommendation: Turn this component into presentational component - no logic, instead events are
@@ -115,6 +115,11 @@ export class ImportExportComponent implements OnInit, OnDestroy {
     this.resetProgress();
   }
 
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   private checkFormatFile(file): boolean {
     const ending = file.name.match(/\.([^.]+)$/)[1];
     let check = false;
@@ -129,10 +134,5 @@ export class ImportExportComponent implements OnInit, OnDestroy {
 
   private resetProgress() {
     this.selectedFileInput.nativeElement.value = '';
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

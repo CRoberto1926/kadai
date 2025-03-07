@@ -17,7 +17,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable()
 export class DomainServiceMock {

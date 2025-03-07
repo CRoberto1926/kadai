@@ -16,9 +16,7 @@
  *
  */
 
-import { enableProdMode, APP_INITIALIZER, importProvidersFrom } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
+import { APP_INITIALIZER, enableProdMode, importProvidersFrom } from '@angular/core';
 import { environment } from 'environments/environment';
 import { WindowRefService } from 'app/shared/services/window/window.service';
 import { DomainService } from 'app/shared/services/domain/domain.service';
@@ -36,7 +34,7 @@ import { SidenavService } from './app/shared/services/sidenav/sidenav.service';
 import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AlertModule } from 'ngx-bootstrap/alert';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app/app-routing.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -55,7 +53,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxsModule } from '@ngxs/store';
 import { STATES } from './app/shared/store';
-import { environment as environment_1 } from './environments/environment';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NavBarComponent } from 'app/shared/components/nav-bar/nav-bar.component';

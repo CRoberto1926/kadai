@@ -19,8 +19,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from 'app/workplace/models/task';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgIf, NgFor, DatePipe } from '@angular/common';
-import { MatSelectionList, MatListOption } from '@angular/material/list';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { MatListOption, MatSelectionList } from '@angular/material/list';
 import { MatDivider } from '@angular/material/divider';
 import { SvgIconComponent } from 'angular-svg-icon';
 

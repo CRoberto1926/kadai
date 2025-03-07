@@ -24,9 +24,6 @@ import { Observable, Subject, Subscription, timer } from 'rxjs';
 
 @Injectable()
 export class FormsValidatorService {
-  get inputOverflowObservable(): Observable<Map<string, boolean>> {
-    return this.inputOverflow.asObservable();
-  }
   formSubmitAttempt = false;
   private workbasketOwner = 'workbasket.owner';
   private inputOverflowInternalMap = new Map<string, boolean>();
@@ -37,6 +34,10 @@ export class FormsValidatorService {
     private notificationsService: NotificationService,
     private accessIdsService: AccessIdsService
   ) {}
+
+  get inputOverflowObservable(): Observable<Map<string, boolean>> {
+    return this.inputOverflow.asObservable();
+  }
 
   async validateFormInformation(form: NgForm, toggleValidationMap: Map<any, boolean>): Promise<any> {
     let validSync = true;

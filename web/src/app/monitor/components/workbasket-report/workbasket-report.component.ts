@@ -19,7 +19,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MetaInfoData } from '../../models/meta-info-data';
 import { CommonModule } from '@angular/common';
-import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { WorkbasketReportDueDateComponent } from '../workbasket-report-due-date/workbasket-report-due-date.component';
 import { WorkbasketReportPlannedDateComponent } from '../workbasket-report-planned-date/workbasket-report-planned-date.component';
 
@@ -47,6 +47,7 @@ export class WorkbasketReportComponent implements OnInit {
   selectComponent(component) {
     this.selectedComponent = component;
   }
+
   getTitle(): string {
     return this.selectedComponent
       ? 'Tasks grouped by Workbasket, querying by planned date'
