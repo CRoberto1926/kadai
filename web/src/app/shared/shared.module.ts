@@ -169,7 +169,6 @@ export const httpClientInterceptor: HttpInterceptorFn = (request: HttpRequest<un
 };
 
 @NgModule({
-  declarations: [DECLARATIONS],
   imports: [
     MODULES,
     MatFormFieldModule,
@@ -180,7 +179,8 @@ export const httpClientInterceptor: HttpInterceptorFn = (request: HttpRequest<un
     MatPaginatorModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    DECLARATIONS
   ],
   exports: [DECLARATIONS],
   providers: [
