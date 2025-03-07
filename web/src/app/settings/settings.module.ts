@@ -28,7 +28,6 @@ import { FormsModule } from '@angular/forms';
 import { SettingsService } from './services/settings-service';
 
 @NgModule({
-  declarations: [SettingsComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,
@@ -36,7 +35,8 @@ import { SettingsService } from './services/settings-service';
     MatTooltipModule,
     MatButtonModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    SettingsComponent
   ],
   providers: [SettingsService]
 })
