@@ -21,12 +21,16 @@ import { Task } from 'app/workplace/models/task';
 import { takeUntil } from 'rxjs/operators';
 import { FormsValidatorService } from '../../../shared/services/forms-validator/forms-validator.service';
 import { Subject } from 'rxjs';
+import { NgIf, NgFor } from '@angular/common';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'kadai-task-custom-fields',
   templateUrl: './task-custom-fields.component.html',
   styleUrls: ['./task-custom-fields.component.scss'],
-  standalone: false
+  imports: [NgIf, NgFor, MatFormField, MatLabel, MatInput, FormsModule]
 })
 export class TaskCustomFieldsComponent implements OnInit, OnDestroy {
   @Input() task: Task;

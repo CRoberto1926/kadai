@@ -27,12 +27,18 @@ import { Subscription } from 'rxjs';
 import { ClassificationsService } from 'app/shared/services/classifications/classifications.service';
 import { take } from 'rxjs/operators';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
+import { MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { NgFor, NgIf } from '@angular/common';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'kadai-task-processing',
   templateUrl: './task-processing.component.html',
   styleUrls: ['./task-processing.component.scss'],
-  standalone: false
+  imports: [MatButton, MatTooltip, MatMenuTrigger, MatIcon, MatMenu, NgFor, MatMenuItem, MatDivider, NgIf]
 })
 export class TaskProcessingComponent implements OnInit, OnDestroy {
   routeSubscription: Subscription;

@@ -31,12 +31,36 @@ import { NotificationService } from '../../../shared/services/notifications/noti
 import { take, takeUntil } from 'rxjs/operators';
 import { trimObject } from '../../../shared/util/form-trimmer';
 import { ObjectReference } from '../../models/object-reference';
+import { NgIf } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { TaskInformationComponent } from '../task-information/task-information.component';
+import { TaskStatusDetailsComponent } from '../task-status-details/task-status-details.component';
+import { TaskCustomFieldsComponent } from '../task-custom-fields/task-custom-fields.component';
+import { TaskAttributeValueComponent } from '../task-attribute-value/task-attribute-value.component';
 
 @Component({
   selector: 'kadai-task-details',
   templateUrl: './task-details.component.html',
   styleUrls: ['./task-details.component.scss'],
-  standalone: false
+  imports: [
+    NgIf,
+    MatButton,
+    MatTooltip,
+    MatIcon,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    MatTabGroup,
+    MatTab,
+    TaskInformationComponent,
+    TaskStatusDetailsComponent,
+    TaskCustomFieldsComponent,
+    TaskAttributeValueComponent
+  ]
 })
 export class TaskDetailsComponent implements OnInit, OnDestroy {
   task: Task;
