@@ -21,19 +21,47 @@ import { Direction, Sorting, TaskHistoryQuerySortParameter } from 'app/shared/mo
 import { TaskHistoryEventData } from '../../shared/models/task-history-event';
 import { TaskHistoryQueryService } from '../services/task-history-query/task-history-query.service';
 import { Page } from '../../shared/models/page';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort, Sort, MatSortHeader } from '@angular/material/sort';
 import { QueryPagingParameter } from '../../shared/models/query-paging-parameter';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { merge } from 'rxjs';
 import { startWith, switchMap, tap } from 'rxjs/operators';
 import { RequestInProgressService } from '../../shared/services/request-in-progress/request-in-progress.service';
 import { Pair } from '../../shared/models/pair';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow
+} from '@angular/material/table';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'kadai-task-query',
   templateUrl: './task-history-query.component.html',
   styleUrls: ['./task-history-query.component.scss'],
-  standalone: false
+  imports: [
+    MatTable,
+    MatSort,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatSortHeader,
+    MatCellDef,
+    MatCell,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    PaginationComponent,
+    DatePipe
+  ]
 })
 export class TaskHistoryQueryComponent implements OnInit {
   data: TaskHistoryEventData[] = [];

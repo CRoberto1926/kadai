@@ -35,9 +35,9 @@ import localeDe from '@angular/common/locales/de';
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    TaskHistoryQueryComponent
   ],
-  declarations: [TaskHistoryQueryComponent],
   providers: [{ provide: LOCALE_ID, useValue: 'de' }]
 })
 export class HistoryModule {
