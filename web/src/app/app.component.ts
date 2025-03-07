@@ -17,7 +17,7 @@
  */
 
 import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Subject } from 'rxjs';
 import { FormsValidatorService } from 'app/shared/services/forms-validator/forms-validator.service';
 import { SidenavService } from './shared/services/sidenav/sidenav.service';
@@ -27,14 +27,33 @@ import { SelectedRouteService } from './shared/services/selected-route/selected-
 import { KadaiEngineService } from './shared/services/kadai-engine/kadai-engine.service';
 import { WindowRefService } from 'app/shared/services/window/window.service';
 import { environment } from 'environments/environment';
-import { MatSidenav } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { takeUntil } from 'rxjs/operators';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { UserInformationComponent } from './shared/components/user-information/user-information.component';
+import { SidenavListComponent } from './shared/components/sidenav-list/sidenav-list.component';
+import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
+import { NgIf } from '@angular/common';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'kadai-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: false
+  imports: [
+    MatSidenavContainer,
+    MatSidenav,
+    MatIconButton,
+    MatIcon,
+    UserInformationComponent,
+    SidenavListComponent,
+    MatSidenavContent,
+    NavBarComponent,
+    NgIf,
+    MatProgressBar,
+    RouterOutlet
+  ]
 })
 export class AppComponent implements OnInit, OnDestroy {
   workbasketsRoute = true;

@@ -128,14 +128,6 @@ const PROVIDERS = [
 
 registerLocaleData(localeDe);
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [...MODULES, ...DECLARATIONS],
-  providers: PROVIDERS,
-  bootstrap: [AppComponent]
-})
-export class AppModule {}
-
 export function startupServiceFactory(startupService: StartupService): () => Promise<any> {
   return (): Promise<any> => startupService.load();
 }
