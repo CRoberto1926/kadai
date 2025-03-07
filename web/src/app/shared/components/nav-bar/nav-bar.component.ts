@@ -22,13 +22,17 @@ import { Subject } from 'rxjs';
 import { expandRight } from 'app/shared/animations/expand.animation';
 import { SidenavService } from '../../services/sidenav/sidenav.service';
 import { takeUntil } from 'rxjs/operators';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'kadai-shared-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
   animations: [expandRight],
-  standalone: false
+  imports: [MatToolbar, MatIconButton, MatIcon, SvgIconComponent]
 })
 export class NavBarComponent implements OnInit {
   selectedRoute = '';

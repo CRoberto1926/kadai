@@ -20,16 +20,18 @@ import { Component, OnInit } from '@angular/core';
 import { KadaiEngineService } from '../../services/kadai-engine/kadai-engine.service';
 import { SidenavService } from '../../services/sidenav/sidenav.service';
 import { RequestInProgressService } from '../../services/request-in-progress/request-in-progress.service';
-import { Router } from '@angular/router';
+import { Router, RouterLinkActive, RouterLink } from '@angular/router';
 import { MonitorRoles } from '../../roles/monitor.roles';
 import { UserRoles } from '../../roles/user.roles';
 import { BusinessAdminRoles } from '../../roles/business-admin.roles';
+import { MatNavList, MatListItem } from '@angular/material/list';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'kadai-sidenav-list',
   templateUrl: './sidenav-list.component.html',
   styleUrls: ['./sidenav-list.component.scss'],
-  standalone: false
+  imports: [MatNavList, NgIf, MatListItem, RouterLinkActive, RouterLink]
 })
 export class SidenavListComponent implements OnInit {
   toggle: boolean = false;
