@@ -99,7 +99,6 @@ export const tokenInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, n
 };
 
 @NgModule({
-  declarations: DECLARATIONS,
   imports: [
     MODULES,
     MatListModule,
@@ -111,7 +110,8 @@ export const tokenInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, n
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTabsModule
+    MatTabsModule,
+    ...DECLARATIONS
   ],
   providers: [
     TaskService,

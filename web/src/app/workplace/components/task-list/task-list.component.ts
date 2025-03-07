@@ -19,12 +19,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from 'app/workplace/models/task';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { MatSelectionList, MatListOption } from '@angular/material/list';
+import { MatDivider } from '@angular/material/divider';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'kadai-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss'],
-  standalone: false
+  imports: [NgIf, MatSelectionList, NgFor, MatListOption, MatDivider, SvgIconComponent, DatePipe]
 })
 export class TaskListComponent implements OnInit {
   @Input()

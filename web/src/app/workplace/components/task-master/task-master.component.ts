@@ -26,7 +26,7 @@ import { WorkplaceService } from 'app/workplace/services/workplace.service';
 import { OrientationService } from 'app/shared/services/orientation/orientation.service';
 import { Page } from 'app/shared/models/page';
 import { take, takeUntil } from 'rxjs/operators';
-import { Search } from '../task-list-toolbar/task-list-toolbar.component';
+import { Search, TaskListToolbarComponent } from '../task-list-toolbar/task-list-toolbar.component';
 import { NotificationService } from '../../../shared/services/notifications/notification.service';
 import { QueryPagingParameter } from '../../../shared/models/query-paging-parameter';
 import { TaskQueryFilterParameter } from '../../../shared/models/task-query-filter-parameter';
@@ -35,12 +35,15 @@ import { FilterSelectors } from '../../../shared/store/filter-store/filter.selec
 import { WorkplaceSelectors } from '../../../shared/store/workplace-store/workplace.selectors';
 import { CalculateNumberOfCards } from '../../../shared/store/workplace-store/workplace.actions';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
+import { NgIf } from '@angular/common';
+import { TaskListComponent } from '../task-list/task-list.component';
+import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
   selector: 'kadai-task-master',
   templateUrl: './task-master.component.html',
   styleUrls: ['./task-master.component.scss'],
-  standalone: false
+  imports: [TaskListToolbarComponent, NgIf, TaskListComponent, SharedModule]
 })
 export class TaskMasterComponent implements OnInit, OnDestroy {
   tasks: Task[];
