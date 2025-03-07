@@ -141,7 +141,7 @@ export const httpClientInterceptor: HttpInterceptorFn = (request: HttpRequest<un
   } else {
     req = req.clone({ setHeaders: { 'Content-Type': 'application/hal+json' } });
   }
-  let token = tokenExtractor.getToken() as string;
+  let token = tokenExtractor.getToken();
   if (token !== null) {
     req = req.clone({ setHeaders: { 'X-XSRF-TOKEN': token } });
   }
