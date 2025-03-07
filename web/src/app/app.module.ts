@@ -76,7 +76,7 @@ import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 
-const DECLARATIONS = [AppComponent, NavBarComponent, UserInformationComponent, NoAccessComponent, SidenavListComponent];
+const DECLARATIONS = [NavBarComponent, UserInformationComponent, NoAccessComponent, SidenavListComponent];
 
 const MODULES = [
   TabsModule.forRoot(),
@@ -129,8 +129,8 @@ const PROVIDERS = [
 registerLocaleData(localeDe);
 
 @NgModule({
-  declarations: DECLARATIONS,
-  imports: MODULES,
+  declarations: [AppComponent],
+  imports: [...MODULES, ...DECLARATIONS],
   providers: PROVIDERS,
   bootstrap: [AppComponent]
 })
