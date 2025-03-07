@@ -27,11 +27,11 @@ import { WorkbasketSelectors } from '../../store/workbasket-store/workbasket.sel
 import { ButtonAction } from '../../../administration/models/button-action';
 import { EngineConfigurationSelectors } from '../../store/engine-configuration-store/engine-configuration.selectors';
 import { GlobalCustomisation } from '../../models/customisation';
-import { NgClass, NgIf, NgFor } from '@angular/common';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatInput } from '@angular/material/input';
-import { MatAutocompleteTrigger, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatOption } from '@angular/material/core';
 
 @Component({

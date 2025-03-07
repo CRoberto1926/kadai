@@ -53,6 +53,7 @@ export class WorkbasketReportPlannedDateComponent implements OnInit {
       }
     }
   };
+
   constructor(
     private restConnectorService: MonitorService,
     private requestInProgressService: RequestInProgressService

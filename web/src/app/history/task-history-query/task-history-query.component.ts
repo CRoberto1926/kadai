@@ -21,7 +21,7 @@ import { Direction, Sorting, TaskHistoryQuerySortParameter } from 'app/shared/mo
 import { TaskHistoryEventData } from '../../shared/models/task-history-event';
 import { TaskHistoryQueryService } from '../services/task-history-query/task-history-query.service';
 import { Page } from '../../shared/models/page';
-import { MatSort, Sort, MatSortHeader } from '@angular/material/sort';
+import { MatSort, MatSortHeader, Sort } from '@angular/material/sort';
 import { QueryPagingParameter } from '../../shared/models/query-paging-parameter';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { merge } from 'rxjs';
@@ -29,16 +29,16 @@ import { startWith, switchMap, tap } from 'rxjs/operators';
 import { RequestInProgressService } from '../../shared/services/request-in-progress/request-in-progress.service';
 import { Pair } from '../../shared/models/pair';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
   MatRowDef,
-  MatRow
+  MatTable
 } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
 
@@ -66,7 +66,10 @@ import { DatePipe } from '@angular/common';
 export class TaskHistoryQueryComponent implements OnInit {
   data: TaskHistoryEventData[] = [];
   displayedColumns: Pair<string, TaskHistoryQuerySortParameter>[] = [
-    { left: 'parentBusinessProcessId', right: TaskHistoryQuerySortParameter.PARENT_BUSINESS_PROCESS_ID },
+    {
+      left: 'parentBusinessProcessId',
+      right: TaskHistoryQuerySortParameter.PARENT_BUSINESS_PROCESS_ID
+    },
     { left: 'businessProcessId', right: TaskHistoryQuerySortParameter.BUSINESS_PROCESS_ID },
     { left: 'created', right: TaskHistoryQuerySortParameter.CREATED },
     { left: 'userId', right: TaskHistoryQuerySortParameter.USER_ID },
@@ -80,8 +83,14 @@ export class TaskHistoryQueryComponent implements OnInit {
     { left: 'porSystem', right: TaskHistoryQuerySortParameter.POR_SYSTEM },
     { left: 'porInstance', right: TaskHistoryQuerySortParameter.POR_INSTANCE },
     { left: 'taskClassificationKey', right: TaskHistoryQuerySortParameter.TASK_CLASSIFICATION_KEY },
-    { left: 'taskClassificationCategory', right: TaskHistoryQuerySortParameter.TASK_CLASSIFICATION_CATEGORY },
-    { left: 'attachmentClassificationKey', right: TaskHistoryQuerySortParameter.ATTACHMENT_CLASSIFICATION_KEY },
+    {
+      left: 'taskClassificationCategory',
+      right: TaskHistoryQuerySortParameter.TASK_CLASSIFICATION_CATEGORY
+    },
+    {
+      left: 'attachmentClassificationKey',
+      right: TaskHistoryQuerySortParameter.ATTACHMENT_CLASSIFICATION_KEY
+    },
     { left: 'custom1', right: TaskHistoryQuerySortParameter.CUSTOM_1 },
     { left: 'custom2', right: TaskHistoryQuerySortParameter.CUSTOM_2 },
     { left: 'custom3', right: TaskHistoryQuerySortParameter.CUSTOM_3 },

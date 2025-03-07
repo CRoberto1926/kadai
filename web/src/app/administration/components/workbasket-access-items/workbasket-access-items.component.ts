@@ -31,7 +31,7 @@ import {
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Actions, ofActionCompleted, Select, Store } from '@ngxs/store';
-import { FormArray, FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Workbasket } from 'app/shared/models/workbasket';
 import { customFieldCount, WorkbasketAccessItems } from 'app/shared/models/workbasket-access-items';
@@ -54,7 +54,7 @@ import {
 import { WorkbasketSelectors } from '../../../shared/store/workbasket-store/workbasket.selectors';
 import { WorkbasketComponent } from '../../models/workbasket-component';
 import { ButtonAction } from '../../models/button-action';
-import { NgIf, NgStyle, NgFor, NgClass, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';

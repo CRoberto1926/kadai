@@ -23,9 +23,9 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  Validators
 } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { FormsValidatorService } from 'app/shared/services/forms-validator/forms-validator.service';
@@ -44,8 +44,8 @@ import { AccessItemsCustomisation, CustomField, getCustomFields } from '../../..
 import { customFieldCount } from '../../../shared/models/workbasket-access-items';
 import {
   GetAccessItems,
-  GetPermissionsByAccessId,
   GetGroupsByAccessId,
+  GetPermissionsByAccessId,
   RemoveAccessItemsPermissions
 } from '../../../shared/store/access-items-management-store/access-items-management.actions';
 import { AccessItemsManagementSelector } from '../../../shared/store/access-items-management-store/access-items-management.selector';
@@ -53,20 +53,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { WorkbasketAccessItemQueryFilterParameter } from '../../../shared/models/workbasket-access-item-query-filter-parameter';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
 import { TypeAheadComponent } from '../../../shared/components/type-ahead/type-ahead.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { SvgIconComponent } from 'angular-svg-icon';
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
   MatRowDef,
-  MatRow
+  MatTable
 } from '@angular/material/table';
 import { SortComponent } from '../../../shared/components/sort/sort.component';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -142,6 +142,14 @@ export class AccessItemsManagementComponent implements OnInit {
     private requestInProgressService: RequestInProgressService,
     public dialog: MatDialog
   ) {}
+
+  get accessItemsGroups(): FormArray {
+    return this.accessItemsForm ? (this.accessItemsForm.get('accessItemsGroups') as FormArray) : null;
+  }
+
+  get accessItemsPermissions(): FormArray {
+    return this.accessItemsForm ? (this.accessItemsForm.get('accessItemsPermissions') as FormArray) : null;
+  }
 
   ngOnInit() {
     this.groups$.pipe(takeUntil(this.destroy$)).subscribe((groups) => {
@@ -296,14 +304,6 @@ export class AccessItemsManagementComponent implements OnInit {
           });
       }
     );
-  }
-
-  get accessItemsGroups(): FormArray {
-    return this.accessItemsForm ? (this.accessItemsForm.get('accessItemsGroups') as FormArray) : null;
-  }
-
-  get accessItemsPermissions(): FormArray {
-    return this.accessItemsForm ? (this.accessItemsForm.get('accessItemsPermissions') as FormArray) : null;
   }
 
   isFieldValid(field: string, index: number): boolean {

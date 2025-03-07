@@ -17,7 +17,7 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component, DebugElement, Input, Pipe, PipeTransform } from '@angular/core';
+import { Component, DebugElement, Input } from '@angular/core';
 import { NgxsModule, Store } from '@ngxs/store';
 import { NotificationService } from '../../../shared/services/notifications/notification.service';
 import { TaskPriorityReportComponent } from './task-priority-report.component';

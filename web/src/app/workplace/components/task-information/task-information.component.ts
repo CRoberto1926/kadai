@@ -20,16 +20,16 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
+  OnDestroy,
   OnInit,
   Output,
-  ViewChild,
   SimpleChanges,
-  OnChanges,
-  OnDestroy
+  ViewChild
 } from '@angular/core';
 import { Task } from 'app/workplace/models/task';
 import { FormsValidatorService } from 'app/shared/services/forms-validator/forms-validator.service';
-import { NgForm, FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Select } from '@ngxs/store';
 import { Observable, Subject } from 'rxjs';
 import { EngineConfigurationSelectors } from 'app/shared/store/engine-configuration-store/engine-configuration.selectors';
@@ -38,14 +38,14 @@ import { Classification } from '../../../shared/models/classification';
 import { TasksCustomisation } from '../../../shared/models/customisation';
 import { takeUntil } from 'rxjs/operators';
 import { AccessId } from '../../../shared/models/access-id';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { SharedModule } from '../../../shared/shared.module';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 
 @Component({
@@ -142,6 +142,17 @@ export class TaskInformationComponent implements OnInit, OnChanges, OnDestroy {
     this.isClassificationEmpty = false;
   }
 
+  onSelectedOwner(owner: AccessId) {
+    if (owner?.accessId) {
+      this.task.owner = owner.accessId;
+    }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   private validate() {
     this.isClassificationEmpty = typeof this.task.classificationSummary === 'undefined';
     this.formsValidatorService.formSubmitAttempt = true;
@@ -162,16 +173,5 @@ export class TaskInformationComponent implements OnInit, OnChanges, OnDestroy {
         this.classifications = classificationPagingList.classifications;
         this.requestInProgress = false;
       });
-  }
-
-  onSelectedOwner(owner: AccessId) {
-    if (owner?.accessId) {
-      this.task.owner = owner.accessId;
-    }
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

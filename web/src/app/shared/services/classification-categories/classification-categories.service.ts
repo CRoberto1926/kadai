@@ -51,9 +51,17 @@ export class ClassificationCategoriesService {
             customisation[lang].classifications.categories.all = asteriskIcon;
           } else {
             if (customisation[lang]?.classifications) {
-              customisation[lang].classifications.categories = { missing: missingIcon, all: asteriskIcon };
+              customisation[lang].classifications.categories = {
+                missing: missingIcon,
+                all: asteriskIcon
+              };
             } else {
-              customisation[lang].classifications = { categories: { missing: missingIcon, all: asteriskIcon } };
+              customisation[lang].classifications = {
+                categories: {
+                  missing: missingIcon,
+                  all: asteriskIcon
+                }
+              };
             }
           }
         });

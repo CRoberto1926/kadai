@@ -16,7 +16,7 @@
  *
  */
 
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 

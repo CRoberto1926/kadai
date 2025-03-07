@@ -20,9 +20,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Direction, Sorting } from 'app/shared/models/sorting';
 import { MatButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
-import { NgIf, NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MapValuesPipe } from '../../pipes/map-values.pipe';
 
 @Component({

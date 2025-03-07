@@ -17,7 +17,7 @@
  */
 
 import { CommonModule, registerLocaleData } from '@angular/common';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   HttpHandlerFn,

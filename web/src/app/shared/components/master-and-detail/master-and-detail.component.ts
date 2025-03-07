@@ -17,7 +17,7 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationStart, RouterEvent, RouterOutlet } from '@angular/router';
+import { NavigationStart, Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { MasterAndDetailService } from 'app/shared/services/master-and-detail/master-and-detail.service';
 import { NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
@@ -29,13 +29,13 @@ import { MatIcon } from '@angular/material/icon';
   imports: [RouterOutlet, NgIf, MatIcon]
 })
 export class MasterAndDetailComponent implements OnInit {
+  showDetail = false;
+  currentRoute = '';
   private classifications = 'classifications';
   private workbaskets = 'workbaskets';
   private tasks = 'tasks';
   private detailRoutes: Array<string> = ['/workbaskets/(detail', 'classifications/(detail', 'tasks/(detail'];
 
-  showDetail = false;
-  currentRoute = '';
   constructor(
     private router: Router,
     private masterAndDetailService: MasterAndDetailService
