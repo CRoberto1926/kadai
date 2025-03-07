@@ -35,18 +35,33 @@ import {
 } from '../../../shared/store/workbasket-store/workbasket.actions';
 import { WorkbasketSelectors } from '../../../shared/store/workbasket-store/workbasket.selectors';
 import { Workbasket } from '../../../shared/models/workbasket';
-import { MatSelectionList } from '@angular/material/list';
+import { MatSelectionList, MatListOption } from '@angular/material/list';
 import { DomainService } from '../../../shared/services/domain/domain.service';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
 import { WorkbasketQueryFilterParameter } from '../../../shared/models/workbasket-query-filter-parameter';
 import { QueryPagingParameter } from '../../../shared/models/query-paging-parameter';
 import { FilterSelectors } from '../../../shared/store/filter-store/filter.selectors';
+import { WorkbasketListToolbarComponent } from '../workbasket-list-toolbar/workbasket-list-toolbar.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { IconTypeComponent } from '../type-icon/icon-type.component';
+import { MatDivider } from '@angular/material/divider';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'kadai-administration-workbasket-list',
   templateUrl: './workbasket-list.component.html',
   styleUrls: ['./workbasket-list.component.scss'],
-  standalone: false
+  imports: [
+    WorkbasketListToolbarComponent,
+    NgIf,
+    MatSelectionList,
+    NgFor,
+    MatListOption,
+    IconTypeComponent,
+    MatDivider,
+    PaginationComponent,
+    AsyncPipe
+  ]
 })
 export class WorkbasketListComponent implements OnInit, OnDestroy {
   selectedId = '';

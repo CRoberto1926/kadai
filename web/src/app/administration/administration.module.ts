@@ -107,7 +107,6 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  declarations: DECLARATIONS,
   imports: [
     MODULES,
     MatFormFieldModule,
@@ -126,7 +125,8 @@ const DECLARATIONS = [
     MatRippleModule,
     MatTableModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ...DECLARATIONS
   ],
   providers: [
     ClassificationDefinitionService,

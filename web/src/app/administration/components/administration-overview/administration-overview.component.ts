@@ -17,17 +17,35 @@
  */
 
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { DomainService } from '../../../shared/services/domain/domain.service';
 import { takeUntil } from 'rxjs/operators';
 import { KadaiEngineService } from '../../../shared/services/kadai-engine/kadai-engine.service';
+import { MatTabNav, MatTabLink, MatTabNavPanel } from '@angular/material/tabs';
+import { NgIf, NgFor } from '@angular/common';
+import { MatFormField } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatOption } from '@angular/material/core';
 
 @Component({
   selector: 'kadai-administration-overview',
   templateUrl: './administration-overview.component.html',
   styleUrls: ['./administration-overview.component.scss'],
-  standalone: false
+  imports: [
+    MatTabNav,
+    MatTabLink,
+    RouterLink,
+    NgIf,
+    MatFormField,
+    MatSelect,
+    MatTooltip,
+    NgFor,
+    MatOption,
+    MatTabNavPanel,
+    RouterOutlet
+  ]
 })
 export class AdministrationOverviewComponent implements OnInit {
   @Input() selectedTab = '';

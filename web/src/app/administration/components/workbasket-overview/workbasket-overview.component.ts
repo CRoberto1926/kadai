@@ -25,12 +25,17 @@ import { WorkbasketSelectors } from '../../../shared/store/workbasket-store/work
 
 import { CreateWorkbasket, SelectWorkbasket } from '../../../shared/store/workbasket-store/workbasket.actions';
 import { Workbasket } from '../../../shared/models/workbasket';
+import { WorkbasketListComponent } from '../workbasket-list/workbasket-list.component';
+import { NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { WorkbasketDetailsComponent } from '../workbasket-details/workbasket-details.component';
+import { SvgIconComponent } from 'angular-svg-icon';
 
 @Component({
   selector: 'kadai-administration-workbasket-overview',
   templateUrl: './workbasket-overview.component.html',
   styleUrls: ['./workbasket-overview.component.scss'],
-  standalone: false
+  imports: [WorkbasketListComponent, NgIf, MatIcon, WorkbasketDetailsComponent, SvgIconComponent]
 })
 export class WorkbasketOverviewComponent implements OnInit {
   showDetail = false;
