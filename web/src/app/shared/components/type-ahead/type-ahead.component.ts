@@ -19,7 +19,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AccessIdsService } from '../../services/access-ids/access-ids.service';
 import { debounceTime, distinctUntilChanged, Observable, Subject } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccessId } from '../../models/access-id';
 import { map, take, takeUntil } from 'rxjs/operators';
 import { Select } from '@ngxs/store';
@@ -27,12 +27,32 @@ import { WorkbasketSelectors } from '../../store/workbasket-store/workbasket.sel
 import { ButtonAction } from '../../../administration/models/button-action';
 import { EngineConfigurationSelectors } from '../../store/engine-configuration-store/engine-configuration.selectors';
 import { GlobalCustomisation } from '../../models/customisation';
+import { NgClass, NgIf, NgFor } from '@angular/common';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatInput } from '@angular/material/input';
+import { MatAutocompleteTrigger, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatOption } from '@angular/material/core';
 
 @Component({
   selector: 'kadai-shared-type-ahead',
   templateUrl: './type-ahead.component.html',
   styleUrls: ['./type-ahead.component.scss'],
-  standalone: false
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgClass,
+    MatFormField,
+    MatLabel,
+    MatTooltip,
+    MatInput,
+    MatAutocompleteTrigger,
+    NgIf,
+    MatError,
+    MatAutocomplete,
+    NgFor,
+    MatOption
+  ]
 })
 export class TypeAheadComponent implements OnInit, OnDestroy {
   @Input() savedAccessId;
