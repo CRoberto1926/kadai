@@ -16,8 +16,8 @@
  *
  */
 
-import { inject, NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { inject } from '@angular/core';
+import { Routes } from '@angular/router';
 
 import { AccessItemsManagementComponent } from './components/access-items-management/access-items-management.component';
 import { ClassificationOverviewComponent } from './components/classification-overview/classification-overview.component';
@@ -38,7 +38,7 @@ const domainGuard = () => {
   );
 };
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: AdministrationOverviewComponent,
@@ -100,7 +100,7 @@ const routes: Routes = [
       {
         path: 'task-routing',
         canActivate: [domainGuard],
-        loadChildren: () => import('@task-routing/task-routing.module').then((m) => m.TaskRoutingModule)
+        loadChildren: () => import('@task-routing/task-routing.routes').then((taskRouting) => taskRouting.routes)
       }
     ]
   },
@@ -114,9 +114,3 @@ const routes: Routes = [
     redirectTo: ''
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class AdministrationRoutingModule {}

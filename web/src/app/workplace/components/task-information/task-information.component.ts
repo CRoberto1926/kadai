@@ -41,7 +41,6 @@ import { AccessId } from '../../../shared/models/access-id';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { SharedModule } from '../../../shared/shared.module';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -58,7 +57,6 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
     MatFormField,
     MatLabel,
     MatInput,
-    SharedModule,
     MatSelect,
     NgFor,
     MatOption,

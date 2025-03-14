@@ -16,8 +16,7 @@
  *
  */
 
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { MonitorComponent } from './components/monitor/monitor.component';
 import { TaskReportComponent } from './components/task-report/task-report.component';
 import { WorkbasketReportComponent } from './components/workbasket-report/workbasket-report.component';
@@ -25,7 +24,7 @@ import { ClassificationReportComponent } from './components/classification-repor
 import { TimestampReportComponent } from './components/timestamp-report/timestamp-report.component';
 import { TaskPriorityReportComponent } from './components/task-priority-report/task-priority-report.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: MonitorComponent,
@@ -67,9 +66,3 @@ const routes: Routes = [
     redirectTo: ''
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class MonitorRoutingModule {}

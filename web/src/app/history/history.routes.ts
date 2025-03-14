@@ -16,13 +16,16 @@
  *
  */
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Routes } from '@angular/router';
+import { TaskHistoryQueryComponent } from './task-history-query/task-history-query.component';
 
-import { HistoryRoutingModule } from './history-routing.module';
-
-@NgModule({
-  declarations: [],
-  imports: [CommonModule, HistoryRoutingModule]
-})
-export class HistoryModule {}
+export const routes: Routes = [
+  {
+    path: '',
+    component: TaskHistoryQueryComponent
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }
+];
