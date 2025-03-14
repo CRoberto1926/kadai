@@ -23,7 +23,7 @@
       "@task-routing/*": ["app/v2/task-routing/*"],
       "@workbasket/*": ["app/v2/workbasket/*"]
     },
-    "useDefineForClassFields": false,
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "strictStandalone": true

@@ -44,17 +44,15 @@ import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import {
-  FieldErrorDisplayComponent
-} from "../../../shared/components/field-error-display/field-error-display.component";
-import {TypeAheadComponent} from "../../../shared/components/type-ahead/type-ahead.component";
-import {MatNativeDateModule, MatOption} from "@angular/material/core";
+import { FieldErrorDisplayComponent } from '../../../shared/components/field-error-display/field-error-display.component';
+import { TypeAheadComponent } from '../../../shared/components/type-ahead/type-ahead.component';
+import { MatNativeDateModule, MatOption } from '@angular/material/core';
 import {
   MatDatepicker,
   MatDatepickerInput,
   MatDatepickerModule,
   MatDatepickerToggle
-} from "@angular/material/datepicker";
+} from '@angular/material/datepicker';
 @Component({
   selector: 'kadai-task-information',
   templateUrl: './task-information.component.html',

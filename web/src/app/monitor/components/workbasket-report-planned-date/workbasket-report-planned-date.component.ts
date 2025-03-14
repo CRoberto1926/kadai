@@ -25,14 +25,14 @@ import { RequestInProgressService } from '../../../shared/services/request-in-pr
 import { ChartConfiguration } from 'chart.js';
 import { NgIf } from '@angular/common';
 import { ReportTableComponent } from '../report-table/report-table.component';
-import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'kadai-monitor-workbasket-report-planned-date',
   templateUrl: './workbasket-report-planned-date.component.html',
   styleUrls: ['./workbasket-report-planned-date.component.scss'],
   imports: [NgIf, ReportTableComponent, BaseChartDirective],
-  providers: [provideCharts(withDefaultRegisterables())]
+  providers: [MonitorService, RequestInProgressService]
 })
 export class WorkbasketReportPlannedDateComponent implements OnInit {
   @Output()

@@ -25,14 +25,14 @@ import { RequestInProgressService } from 'app/shared/services/request-in-progres
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { CommonModule } from '@angular/common';
 import { ReportTableComponent } from '../report-table/report-table.component';
-import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'kadai-monitor-task-report',
   templateUrl: './task-report.component.html',
   styleUrls: ['./task-report.component.scss'],
   imports: [CommonModule, ReportTableComponent, BaseChartDirective],
-  providers: [provideCharts(withDefaultRegisterables())]
+  providers: [MonitorService, RequestInProgressService]
 })
 export class TaskReportComponent implements OnInit {
   pieChartData: ChartData<'pie', number[], string> = { labels: [], datasets: [] };

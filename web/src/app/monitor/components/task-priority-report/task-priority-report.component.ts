@@ -63,7 +63,8 @@ import {
     MatHeaderRow,
     MatRowDef,
     MatRow
-  ]
+  ],
+  providers: [MonitorService, RequestInProgressService]
 })
 export class TaskPriorityReportComponent implements OnInit, AfterViewChecked, OnDestroy {
   columns: string[] = ['priority', 'number'];
