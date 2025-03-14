@@ -54,19 +54,13 @@ import { AppComponent } from './app/app.component';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { SettingsService } from './app/settings/services/settings-service';
-import { MonitorService } from './app/monitor/services/monitor.service';
-import { MapToIterable } from './app/shared/pipes/map-to-iterable.pipe';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TaskService } from './app/workplace/services/task.service';
 import { WorkplaceService } from './app/workplace/services/workplace.service';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
-import { provideRouter, RouterModule, withHashLocation } from '@angular/router';
-import { MapValuesPipe } from './app/shared/pipes/map-values.pipe';
-import { RemoveNoneTypePipe } from './app/shared/pipes/remove-empty-type.pipe';
-import { SpreadNumberPipe } from './app/shared/pipes/spread-number.pipe';
+import { provideRouter, withHashLocation } from '@angular/router';
 import { DateTimeZonePipe } from './app/shared/pipes/date-time-zone.pipe';
 import { NumberToArray } from './app/shared/pipes/number-to-array.pipe';
 import { OrderBy } from './app/shared/pipes/order-by.pipe';
@@ -161,7 +155,6 @@ bootstrapApplication(AppComponent, {
     ClassificationCategoriesService,
     ImportExportService,
     MatRippleModule,
-    MatDialogModule,
     AccessIdsService,
     ClassificationsService,
     WorkbasketService,
@@ -189,18 +182,10 @@ bootstrapApplication(AppComponent, {
           maxAge: 25
         }),
         NgxsRouterPluginModule.forRoot(),
-        MonitorService,
-        MapToIterable,
         BsDatepickerModule.forRoot(),
-        MatDialogModule,
-        RouterModule,
-        MapValuesPipe,
-        RemoveNoneTypePipe,
-        SpreadNumberPipe,
         DateTimeZonePipe,
         NumberToArray,
         OrderBy,
-        MapToIterable,
         DragAndDropDirective,
         MatSortModule,
         ResizableWidthDirective
