@@ -24,7 +24,7 @@ import { MetaInfoData } from '../../models/meta-info-data';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
 import { ChartConfiguration } from 'chart.js';
 import { NgIf } from '@angular/common';
-import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 import { ReportTableComponent } from '../report-table/report-table.component';
 
 @Component({
@@ -32,7 +32,7 @@ import { ReportTableComponent } from '../report-table/report-table.component';
   templateUrl: './workbasket-report-due-date.component.html',
   styleUrls: ['./workbasket-report-due-date.component.scss'],
   imports: [NgIf, BaseChartDirective, ReportTableComponent],
-  providers: [provideCharts(withDefaultRegisterables())]
+  providers: [MonitorService, RequestInProgressService]
 })
 export class WorkbasketReportDueDateComponent implements OnInit {
   @Output()
