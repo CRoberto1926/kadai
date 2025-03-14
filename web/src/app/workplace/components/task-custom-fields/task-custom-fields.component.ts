@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Task } from 'app/workplace/models/task';
 import { takeUntil } from 'rxjs/operators';
 import { FormsValidatorService } from '../../../shared/services/forms-validator/forms-validator.service';
@@ -35,15 +35,12 @@ import { FormsModule } from '@angular/forms';
 export class TaskCustomFieldsComponent implements OnInit, OnDestroy {
   @Input() task: Task;
   @Output() taskChange: EventEmitter<Task> = new EventEmitter<Task>();
-
   readonly lengthError = 'You have reached the maximum length';
   inputOverflowMap = new Map<string, boolean>();
   validateKeypress: Function;
   customFields: string[];
-
   destroy$ = new Subject<void>();
-
-  constructor(private formsValidatorService: FormsValidatorService) {}
+  private formsValidatorService = inject(FormsValidatorService);
 
   ngOnInit() {
     this.formsValidatorService.inputOverflowObservable.pipe(takeUntil(this.destroy$)).subscribe((inputOverflowMap) => {

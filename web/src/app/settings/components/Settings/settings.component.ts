@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Settings, SettingTypes } from '../../models/settings';
 import { Select, Store } from '@ngxs/store';
@@ -58,14 +58,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
   oldSettings: Settings;
   invalidMembers: string[] = [];
   destroy$ = new Subject<void>();
-
   @Select(SettingsSelectors.getSettings) settings$: Observable<Settings>;
-
-  constructor(
-    private store: Store,
-    private notificationService: NotificationService,
-    private requestInProgressService: RequestInProgressService
-  ) {}
+  private store = inject(Store);
+  private notificationService = inject(NotificationService);
+  private requestInProgressService = inject(RequestInProgressService);
 
   ngOnInit() {
     this.settings$.pipe(takeUntil(this.destroy$)).subscribe((settings) => {

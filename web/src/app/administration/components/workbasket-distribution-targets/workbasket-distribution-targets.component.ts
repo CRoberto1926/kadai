@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { forkJoin, Observable, Subject } from 'rxjs';
 
 import { Workbasket } from 'app/shared/models/workbasket';
@@ -49,22 +49,15 @@ export class WorkbasketDistributionTargetsComponent implements OnInit, OnDestroy
   sideEnum = Side;
   sideBySide = true;
   displayingDistributionTargetsPicker = true;
-
   transferDistributionTargetObservable = new Subject<Side>();
-
   @Select(WorkbasketSelectors.buttonAction)
   buttonAction$: Observable<ButtonAction>;
-
   @Select(WorkbasketSelectors.selectedWorkbasket)
   selectedWorkbasket$: Observable<Workbasket>;
-
   destroy$ = new Subject<void>();
+  private notificationsService = inject(NotificationService);
+  private store = inject(Store);
   private selectedWorkbasket: WorkbasketSummary;
-
-  constructor(
-    private notificationsService: NotificationService,
-    private store: Store
-  ) {}
 
   /**
    * Rework with modification based on old components,

@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Task } from 'app/workplace/models/task';
 import { TaskService } from 'app/workplace/services/task.service';
 import { Observable, Subject } from 'rxjs';
@@ -60,23 +60,17 @@ export class TaskMasterComponent implements OnInit, OnDestroy {
     'page-size': 9
   };
   filterBy: TaskQueryFilterParameter = {};
-
   requestInProgress = false;
   selectedSearchType: Search = Search.byWorkbasket;
-
   destroy$ = new Subject();
-
   @Select(FilterSelectors.getTaskFilter) filter$: Observable<TaskQueryFilterParameter>;
   @Select(WorkplaceSelectors.getNumberOfCards) cards$: Observable<number>;
-
-  constructor(
-    private taskService: TaskService,
-    private workplaceService: WorkplaceService,
-    private notificationsService: NotificationService,
-    private orientationService: OrientationService,
-    private store: Store,
-    private requestInProgressService: RequestInProgressService
-  ) {}
+  private taskService = inject(TaskService);
+  private workplaceService = inject(WorkplaceService);
+  private notificationsService = inject(NotificationService);
+  private orientationService = inject(OrientationService);
+  private store = inject(Store);
+  private requestInProgressService = inject(RequestInProgressService);
 
   ngOnInit() {
     this.cards$.pipe(takeUntil(this.destroy$)).subscribe((cards) => {

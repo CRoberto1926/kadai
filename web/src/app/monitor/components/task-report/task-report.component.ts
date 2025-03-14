@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ReportData } from 'app/monitor/models/report-data';
 import { MonitorService } from '../../services/monitor.service';
 import { takeUntil } from 'rxjs/operators';
@@ -42,12 +42,9 @@ export class TaskReportComponent implements OnInit {
     maintainAspectRatio: true
   };
   reportData: ReportData;
+  private monitorService = inject(MonitorService);
+  private requestInProgressService = inject(RequestInProgressService);
   private destroy$ = new Subject<void>();
-
-  constructor(
-    private monitorService: MonitorService,
-    private requestInProgressService: RequestInProgressService
-  ) {}
 
   ngOnInit() {
     this.requestInProgressService.setRequestInProgress(true);

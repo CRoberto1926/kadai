@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { TaskSummary } from '@task/models/task';
 import { TaskFacadeService } from '@task/services/task-facade.service';
@@ -31,10 +31,8 @@ import { Observable } from 'rxjs';
 export class TaskListComponent implements OnInit {
   @Select(TaskSelector.tasks)
   tasks$: Observable<TaskSummary[]>;
-
   @Select(TaskSelector.selectedTask) selectedTask$: Observable<Task | null>;
-
-  constructor(private taskFacade: TaskFacadeService) {}
+  private taskFacade = inject(TaskFacadeService);
 
   ngOnInit(): void {}
 

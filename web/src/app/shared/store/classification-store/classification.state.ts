@@ -43,7 +43,7 @@ import { Classification } from '../../models/classification';
 import { ClassificationSummary } from '../../models/classification-summary';
 import { ClassificationQueryFilterParameter } from '../../models/classification-query-filter-parameter';
 import { ClassificationQuerySortParameter, Direction, Sorting } from '../../models/sorting';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 class InitializeStore {
   static readonly type = '[ClassificationState] Initializing state';
@@ -52,11 +52,9 @@ class InitializeStore {
 @Injectable()
 @State<ClassificationStateModel>({ name: 'classification' })
 export class ClassificationState implements NgxsAfterBootstrap {
-  constructor(
-    private categoryService: ClassificationCategoriesService,
-    private classificationsService: ClassificationsService,
-    private domainService: DomainService
-  ) {}
+  private categoryService = inject(ClassificationCategoriesService);
+  private classificationsService = inject(ClassificationsService);
+  private domainService = inject(DomainService);
 
   @Action(InitializeStore)
   initializeStore(ctx: StateContext<ClassificationStateModel>): Observable<any> {

@@ -16,7 +16,7 @@
  *
  */
 
-import { AfterViewChecked, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ReportData } from '../../models/report-data';
 import { MonitorService } from '../../services/monitor.service';
 import { WorkbasketType } from '../../../shared/models/workbasket-type';
@@ -72,23 +72,17 @@ export class TaskPriorityReportComponent implements OnInit, AfterViewChecked, On
   tableDataArray: { priority: string; number: number }[][] = [];
   colorShouldChange = true;
   priority = [];
-
   nameHighPriority: string;
   nameMediumPriority: string;
   nameLowPriority: string;
   colorHighPriority: string;
   colorMediumPriority: string;
   colorLowPriority: string;
-
   destroy$ = new Subject<void>();
-
   @Select(SettingsSelectors.getSettings)
   settings$: Observable<Settings>;
-
-  constructor(
-    private monitorService: MonitorService,
-    private requestInProgressService: RequestInProgressService
-  ) {}
+  private monitorService = inject(MonitorService);
+  private requestInProgressService = inject(RequestInProgressService);
 
   ngOnInit() {
     this.requestInProgressService.setRequestInProgress(true);

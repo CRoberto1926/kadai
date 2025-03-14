@@ -21,6 +21,7 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  inject,
   Input,
   OnChanges,
   OnInit,
@@ -85,35 +86,25 @@ export class WorkbasketDistributionTargetsListComponent
   allSelected;
   @Input() component;
   @Input() transferDistributionTargetObservable: Observable<Side>;
-
   @Select(WorkbasketSelectors.workbasketDistributionTargets)
   workbasketDistributionTargets$: Observable<WorkbasketSummary[]>;
-
   @Select(WorkbasketSelectors.availableDistributionTargets)
   availableDistributionTargets$: Observable<WorkbasketSummary[]>;
-
   @Select(FilterSelectors.getAvailableDistributionTargetsFilter)
   availableDistributionTargetsFilter$: Observable<WorkbasketQueryFilterParameter>;
-
   @Select(FilterSelectors.getSelectedDistributionTargetsFilter)
   selectedDistributionTargetsFilter$: Observable<WorkbasketQueryFilterParameter>;
-
   toolbarState = false;
-
   distributionTargets: WorkbasketDistributionTarget[];
   distributionTargetsClone: WorkbasketDistributionTarget[];
-
   @ViewChild('workbasket') distributionTargetsList: MatSelectionList;
   @ViewChild('scroller') workbasketList: CdkVirtualScrollViewport;
   requestInProgress: number;
+  private changeDetector = inject(ChangeDetectorRef);
+  private store = inject(Store);
   private destroy$ = new Subject<void>();
   private filter: WorkbasketQueryFilterParameter;
   private allSelectedDiff = 0;
-
-  constructor(
-    private changeDetector: ChangeDetectorRef,
-    private store: Store
-  ) {}
 
   ngOnInit(): void {
     this.requestInProgress = 2;

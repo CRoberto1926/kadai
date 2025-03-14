@@ -16,16 +16,14 @@
  *
  */
 
-import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, Renderer2 } from '@angular/core';
 
 @Directive({ selector: '[kadaiResizableWidth]' })
 export class ResizableWidthDirective {
-  private startX: number;
+  private renderer = inject(Renderer2);
+  private el = inject(ElementRef);
 
-  constructor(
-    private renderer: Renderer2,
-    private el: ElementRef
-  ) {}
+  private startX: number;
 
   @HostListener('mouseover', ['$event'])
   onMouseover() {

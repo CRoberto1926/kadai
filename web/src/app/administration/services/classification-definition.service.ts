@@ -16,7 +16,7 @@
  *
  */
 
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { KadaiDate } from 'app/shared/util/kadai.date';
 import { BlobGenerator } from 'app/shared/util/blob-generator';
@@ -27,10 +27,8 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ClassificationDefinitionService {
-  constructor(
-    private httpClient: HttpClient,
-    private startupService: StartupService
-  ) {}
+  private httpClient = inject(HttpClient);
+  private startupService = inject(StartupService);
 
   get url(): string {
     return this.startupService.getKadaiRestUrl() + '/v1/classification-definitions';

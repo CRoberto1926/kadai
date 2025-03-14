@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { TaskFacadeService } from '@task/services/task-facade.service';
 import { RouterOutlet } from '@angular/router';
 import { TaskListComponent } from '@task/components/task-list/task-list.component';
@@ -28,7 +28,7 @@ import { TaskListComponent } from '@task/components/task-list/task-list.componen
   styleUrls: ['./task-container.component.scss']
 })
 export class TaskContainerComponent implements OnInit {
-  constructor(private taskFacade: TaskFacadeService) {}
+  private taskFacade = inject(TaskFacadeService);
 
   ngOnInit(): void {
     this.taskFacade.getTasks();

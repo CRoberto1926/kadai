@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Subject } from 'rxjs';
 import { FormsValidatorService } from 'app/shared/services/forms-validator/forms-validator.service';
@@ -58,25 +58,19 @@ import { MatProgressBar } from '@angular/material/progress-bar';
 export class AppComponent implements OnInit, OnDestroy {
   workbasketsRoute = true;
   selectedRoute = '';
-
   requestInProgress = false;
-
   version: string;
   toggle: boolean = false;
-
   destroy$ = new Subject<void>();
   @ViewChild('sidenav') public sidenav: MatSidenav;
-
-  constructor(
-    private router: Router,
-    private requestInProgressService: RequestInProgressService,
-    private orientationService: OrientationService,
-    private selectedRouteService: SelectedRouteService,
-    private formsValidatorService: FormsValidatorService,
-    private sidenavService: SidenavService,
-    private kadaiEngineService: KadaiEngineService,
-    private window: WindowRefService
-  ) {}
+  private router = inject(Router);
+  private requestInProgressService = inject(RequestInProgressService);
+  private orientationService = inject(OrientationService);
+  private selectedRouteService = inject(SelectedRouteService);
+  private formsValidatorService = inject(FormsValidatorService);
+  private sidenavService = inject(SidenavService);
+  private kadaiEngineService = inject(KadaiEngineService);
+  private window = inject(WindowRefService);
 
   @HostListener('window:resize', ['$event'])
   onResize() {

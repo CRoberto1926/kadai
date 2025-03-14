@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
@@ -43,12 +43,9 @@ export class ClassificationOverviewComponent implements OnInit, OnDestroy {
   showDetail = false;
   @Select(ClassificationSelectors.selectedClassification) selectedClassification$: Observable<Classification>;
   routerParams: any;
+  private route = inject(ActivatedRoute);
+  private store = inject(Store);
   private destroy$ = new Subject<void>();
-
-  constructor(
-    private route: ActivatedRoute,
-    private store: Store
-  ) {}
 
   ngOnInit() {
     if (this.route.firstChild) {

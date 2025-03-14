@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
 import { ObtainMessageService } from '../../services/obtain-message/obtain-message.service';
 import { messageTypes } from '../../services/obtain-message/message-types';
@@ -33,11 +33,8 @@ export class DialogPopUpComponent implements OnInit {
   message: string;
   callback: Function;
   isDataSpecified: boolean;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private data: any,
-    private obtainMessageService: ObtainMessageService
-  ) {}
+  private data = inject(MAT_DIALOG_DATA);
+  private obtainMessageService = inject(ObtainMessageService);
 
   ngOnInit() {
     this.isDataSpecified = this.data?.message && this.data?.callback;

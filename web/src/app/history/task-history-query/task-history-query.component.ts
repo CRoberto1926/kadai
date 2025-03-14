@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Direction, Sorting, TaskHistoryQuerySortParameter } from 'app/shared/models/sorting';
 import { TaskHistoryEventData } from '../../shared/models/task-history-event';
 import { TaskHistoryQueryService } from '../services/task-history-query/task-history-query.service';
@@ -102,25 +102,19 @@ export class TaskHistoryQueryComponent implements OnInit {
     { left: 'newData', right: undefined }
   ];
   pageInformation: Page;
-
   pageParameter: QueryPagingParameter = {
     page: 1,
     'page-size': 9
   };
-
   // IMPORTANT: Please make sure that material table default matches with this entity.
   sortParameter: Sorting<TaskHistoryQuerySortParameter> = {
     'sort-by': TaskHistoryQuerySortParameter.CREATED,
     order: Direction.ASC
   };
-
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(PaginationComponent) pagination: PaginationComponent;
-
-  constructor(
-    private taskHistoryQueryService: TaskHistoryQueryService,
-    private requestInProgressService: RequestInProgressService
-  ) {}
+  private taskHistoryQueryService = inject(TaskHistoryQueryService);
+  private requestInProgressService = inject(RequestInProgressService);
 
   ngOnInit() {}
 

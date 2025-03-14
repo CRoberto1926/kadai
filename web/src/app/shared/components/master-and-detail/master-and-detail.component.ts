@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NavigationStart, Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { MasterAndDetailService } from 'app/shared/services/master-and-detail/master-and-detail.service';
 import { NgIf } from '@angular/common';
@@ -31,15 +31,12 @@ import { MatIcon } from '@angular/material/icon';
 export class MasterAndDetailComponent implements OnInit {
   showDetail = false;
   currentRoute = '';
+  private router = inject(Router);
+  private masterAndDetailService = inject(MasterAndDetailService);
   private classifications = 'classifications';
   private workbaskets = 'workbaskets';
   private tasks = 'tasks';
   private detailRoutes: Array<string> = ['/workbaskets/(detail', 'classifications/(detail', 'tasks/(detail'];
-
-  constructor(
-    private router: Router,
-    private masterAndDetailService: MasterAndDetailService
-  ) {}
 
   ngOnInit(): void {
     this.showDetail = this.showDetails();

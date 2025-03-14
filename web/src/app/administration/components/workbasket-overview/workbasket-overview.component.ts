@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -44,14 +44,10 @@ export class WorkbasketOverviewComponent implements OnInit {
   destroy$ = new Subject<void>();
   routerParams: any;
   expanded = true;
-
   @ViewChild('workbasketList') workbasketList: ElementRef;
   @ViewChild('toggleButton') toggleButton: ElementRef;
-
-  constructor(
-    private route: ActivatedRoute,
-    private store: Store
-  ) {}
+  private route = inject(ActivatedRoute);
+  private store = inject(Store);
 
   ngOnInit() {
     if (this.route.url) {

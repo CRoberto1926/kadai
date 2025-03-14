@@ -16,7 +16,7 @@
  *
  */
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { ClassificationSelectors } from 'app/shared/store/classification-store/classification.selectors';
@@ -36,11 +36,8 @@ import { MatOption } from '@angular/material/core';
 export class ClassificationTypesSelectorComponent {
   @Select(ClassificationSelectors.selectedClassificationType) classificationTypeSelected$: Observable<string>;
   @Select(ClassificationSelectors.classificationTypes) classificationTypes$: Observable<string[]>;
-
-  constructor(
-    private store: Store,
-    private location: Location
-  ) {}
+  private store = inject(Store);
+  private location = inject(Location);
 
   select(value: string): void {
     this.store.dispatch(new SetSelectedClassificationType(value));

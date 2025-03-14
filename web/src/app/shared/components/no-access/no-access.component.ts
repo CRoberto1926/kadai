@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { KadaiEngineService } from '../../services/kadai-engine/kadai-engine.service';
 import { MonitorRoles } from '../../roles/monitor.roles';
@@ -32,12 +32,9 @@ import { SvgIconComponent } from 'angular-svg-icon';
   imports: [NgIf, SvgIconComponent]
 })
 export class NoAccessComponent implements OnInit {
+  router = inject(Router);
   showNoAccess = false;
-
-  constructor(
-    private kadaiEngineService: KadaiEngineService,
-    public router: Router
-  ) {}
+  private kadaiEngineService = inject(KadaiEngineService);
 
   ngOnInit() {
     if (this.kadaiEngineService.hasRole(Object.values(BusinessAdminRoles))) {

@@ -19,7 +19,7 @@
 import { Task } from 'app/workplace/models/task';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TaskResource } from 'app/workplace/models/task-resource';
 import { Sorting, TaskQuerySortParameter } from 'app/shared/models/sorting';
 import { StartupService } from '../../shared/services/startup/startup.service';
@@ -29,17 +29,15 @@ import { QueryPagingParameter } from '../../shared/models/query-paging-parameter
 
 @Injectable()
 export class TaskService {
+  private httpClient = inject(HttpClient);
+  private startupService = inject(StartupService);
+
   private taskChangedSource = new Subject<Task>();
   taskChangedStream = this.taskChangedSource.asObservable();
   private taskSelectedSource = new Subject<Task>();
   taskSelectedStream = this.taskSelectedSource.asObservable();
   private taskDeletedSource = new Subject<Task>();
   taskDeletedStream = this.taskDeletedSource.asObservable();
-
-  constructor(
-    private httpClient: HttpClient,
-    private startupService: StartupService
-  ) {}
 
   get url(): string {
     return this.startupService.getKadaiRestUrl() + '/v1/tasks';

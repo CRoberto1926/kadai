@@ -21,7 +21,7 @@ import { Action, NgxsOnInit, State, StateContext } from '@ngxs/store';
 import { ClassificationCategoriesService } from 'app/shared/services/classification-categories/classification-categories.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 class InitializeStore {
   static readonly type = '[EngineConfigurationState] Initializing state';
@@ -30,7 +30,7 @@ class InitializeStore {
 @Injectable()
 @State<EngineConfigurationStateModel>({ name: 'engineConfiguration' })
 export class EngineConfigurationState implements NgxsOnInit {
-  constructor(private categoryService: ClassificationCategoriesService) {}
+  private categoryService = inject(ClassificationCategoriesService);
 
   @Action(InitializeStore)
   initializeStore(ctx: StateContext<EngineConfigurationStateModel>): Observable<any> {

@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -71,21 +71,17 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   currentId: string;
   showDetail = false;
   destroy$ = new Subject<void>();
-
+  private route = inject(ActivatedRoute);
+  private taskService = inject(TaskService);
+  private workplaceService = inject(WorkplaceService);
+  private router = inject(Router);
+  private requestInProgressService = inject(RequestInProgressService);
+  private notificationService = inject(NotificationService);
+  private masterAndDetailService = inject(MasterAndDetailService);
   private routeSubscription: Subscription;
   private workbasketSubscription: Subscription;
   private masterAndDetailSubscription: Subscription;
   private deleteTaskSubscription: Subscription;
-
-  constructor(
-    private route: ActivatedRoute,
-    private taskService: TaskService,
-    private workplaceService: WorkplaceService,
-    private router: Router,
-    private requestInProgressService: RequestInProgressService,
-    private notificationService: NotificationService,
-    private masterAndDetailService: MasterAndDetailService
-  ) {}
 
   ngOnInit() {
     this.workbasketSubscription = this.workplaceService.getSelectedWorkbasket().subscribe((workbasket) => {

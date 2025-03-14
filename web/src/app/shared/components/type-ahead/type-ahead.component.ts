@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AccessIdsService } from '../../services/access-ids/access-ids.service';
 import { debounceTime, distinctUntilChanged, Observable, Subject } from 'rxjs';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -61,16 +61,12 @@ export class TypeAheadComponent implements OnInit, OnDestroy {
   @Input() isRequired = false;
   @Input() isDisabled = false;
   @Input() displayError = false;
-
   @Output() accessIdEventEmitter = new EventEmitter<AccessId>();
   @Output() isFormValid = new EventEmitter<boolean>();
-
   @Select(EngineConfigurationSelectors.globalCustomisation)
   globalCustomisation$: Observable<GlobalCustomisation>;
-
   @Select(WorkbasketSelectors.buttonAction)
   buttonAction$: Observable<ButtonAction>;
-
   name: string = '';
   lastSavedAccessId: string = '';
   filteredAccessIds: AccessId[] = [];
@@ -80,8 +76,7 @@ export class TypeAheadComponent implements OnInit, OnDestroy {
     accessId: new FormControl('')
   });
   emptyAccessId: AccessId = { accessId: '', name: '' };
-
-  constructor(private accessIdService: AccessIdsService) {}
+  private accessIdService = inject(AccessIdsService);
 
   ngOnChanges(changes: SimpleChanges) {
     // currently needed because when saving, workbasket-details components sends old workbasket which reverts changes in this component

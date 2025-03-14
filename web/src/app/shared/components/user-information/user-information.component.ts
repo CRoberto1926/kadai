@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { KadaiEngineService } from 'app/shared/services/kadai-engine/kadai-engine.service';
 import { UserInfo } from 'app/shared/models/user-info';
 import { expandDown } from '../../animations/expand.animation';
@@ -34,8 +34,7 @@ export class UserInformationComponent implements OnInit {
   userInformation: UserInfo;
   roles = '';
   showRoles = false;
-
-  constructor(private kadaiEngineService: KadaiEngineService) {}
+  private kadaiEngineService = inject(KadaiEngineService);
 
   ngOnInit() {
     this.userInformation = this.kadaiEngineService.currentUserInfo;

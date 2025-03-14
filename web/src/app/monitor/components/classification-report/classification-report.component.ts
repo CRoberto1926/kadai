@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MonitorService } from 'app/monitor/services/monitor.service';
 import { ChartData } from 'app/monitor/models/chart-data';
 import { ReportData } from '../../models/report-data';
@@ -35,7 +35,6 @@ import { BaseChartDirective } from 'ng2-charts';
 })
 export class ClassificationReportComponent implements OnInit {
   reportData: ReportData;
-
   lineChartLabels: Array<any>;
   lineChartLegend = true;
   lineChartType = 'line';
@@ -49,11 +48,8 @@ export class ClassificationReportComponent implements OnInit {
       }
     }
   };
-
-  constructor(
-    private restConnectorService: MonitorService,
-    private requestInProgressService: RequestInProgressService
-  ) {}
+  private restConnectorService = inject(MonitorService);
+  private requestInProgressService = inject(RequestInProgressService);
 
   ngOnInit() {
     this.requestInProgressService.setRequestInProgress(true);
