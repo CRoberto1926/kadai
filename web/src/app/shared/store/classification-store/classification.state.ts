@@ -49,7 +49,9 @@ class InitializeStore {
   static readonly type = '[ClassificationState] Initializing state';
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 @State<ClassificationStateModel>({ name: 'classification' })
 export class ClassificationState implements NgxsAfterBootstrap {
   private categoryService = inject(ClassificationCategoriesService);

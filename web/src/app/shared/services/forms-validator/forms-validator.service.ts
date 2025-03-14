@@ -22,7 +22,9 @@ import { AccessIdsService } from 'app/shared/services/access-ids/access-ids.serv
 import { NotificationService } from '../notifications/notification.service';
 import { Observable, Subject, Subscription, timer } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FormsValidatorService {
   formSubmitAttempt = false;
   private notificationsService = inject(NotificationService);

@@ -19,7 +19,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MasterAndDetailService {
   public showDetail = new BehaviorSubject<boolean>(false);
 

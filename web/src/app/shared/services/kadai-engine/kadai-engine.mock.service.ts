@@ -21,7 +21,9 @@ import { Observable, of } from 'rxjs';
 import { UserInfo } from 'app/shared/models/user-info';
 import { Version } from '../../models/version';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class KadaiEngineServiceMock {
   currentUserInfo: UserInfo;
 

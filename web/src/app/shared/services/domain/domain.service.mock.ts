@@ -19,7 +19,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DomainServiceMock {
   private domainSelectedValue;
   private domainSelected = new BehaviorSubject<string>('DOMAIN_A');

@@ -27,7 +27,9 @@ class InitializeStore {
   static readonly type = '[EngineConfigurationState] Initializing state';
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 @State<EngineConfigurationStateModel>({ name: 'engineConfiguration' })
 export class EngineConfigurationState implements NgxsOnInit {
   private categoryService = inject(ClassificationCategoriesService);

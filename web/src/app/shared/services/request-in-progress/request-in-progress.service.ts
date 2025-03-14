@@ -19,7 +19,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RequestInProgressService {
   public requestInProgressTriggered = new Subject<boolean>();
 

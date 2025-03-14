@@ -27,7 +27,9 @@ import { TaskState } from '../../shared/models/task-state';
 
 const monitorUrl = '/v1/monitor';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MonitorService {
   private httpClient = inject(HttpClient);
 

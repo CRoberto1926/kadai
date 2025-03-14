@@ -25,7 +25,9 @@ import { StartupService } from '../../shared/services/startup/startup.service';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ClassificationDefinitionService {
   private httpClient = inject(HttpClient);
   private startupService = inject(StartupService);

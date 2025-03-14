@@ -24,7 +24,9 @@ import { SettingsService } from '../../../settings/services/settings-service';
 import { take } from 'rxjs/operators';
 import { NotificationService } from '../../services/notifications/notification.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 @State<SettingsStateModel>({ name: 'settings' })
 export class SettingsState implements NgxsAfterBootstrap {
   private settingsService = inject(SettingsService);

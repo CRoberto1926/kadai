@@ -65,7 +65,9 @@ class InitializeStore {
   static readonly type = '[Workbasket] Initializing state';
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 @State<WorkbasketStateModel>({ name: 'workbasket' })
 export class WorkbasketState implements NgxsAfterBootstrap {
   private workbasketService = inject(WorkbasketService);

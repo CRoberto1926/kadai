@@ -24,7 +24,9 @@ import { RequestInProgressService } from '../request-in-progress/request-in-prog
 import { SelectedRouteService } from '../selected-route/selected-route';
 import { StartupService } from '../startup/startup.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DomainService {
   private httpClient = inject(HttpClient);
   private router = inject(Router);

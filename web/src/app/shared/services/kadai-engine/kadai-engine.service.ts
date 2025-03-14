@@ -24,7 +24,9 @@ import { Version } from 'app/shared/models/version';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class KadaiEngineService {
   currentUserInfo: UserInfo;
   private httpClient = inject(HttpClient);
