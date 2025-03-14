@@ -16,14 +16,14 @@
  *
  */
 
-import { inject, NgModule } from '@angular/core';
-import { Router, RouterModule, Routes, UrlTree } from '@angular/router';
+import { inject } from '@angular/core';
+import { Router, Routes, UrlTree } from '@angular/router';
 import { RoutingUploadComponent } from './components/routing-upload/routing-upload.component';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { KadaiEngineService } from '../../shared/services/kadai-engine/kadai-engine.service';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     canActivate: [
@@ -47,9 +47,3 @@ const routes: Routes = [
     component: RoutingUploadComponent
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class TaskRoutingRoutingModule {}

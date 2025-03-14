@@ -16,19 +16,31 @@
  *
  */
 
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { TaskContainerComponent } from './components/task-container/task-container.component';
-import { TaskDetailsContainerComponent } from './components/task-details-container/task-details-container.component';
+import { Routes } from '@angular/router';
+import { MasterAndDetailComponent } from '../shared/components/master-and-detail/master-and-detail.component';
+import { TaskProcessingComponent } from './components/task-processing/task-processing.component';
+import { TaskDetailsComponent } from './components/task-details/task-details.component';
+import { TaskMasterComponent } from './components/task-master/task-master.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: 'tasks',
-    component: TaskContainerComponent,
+    component: MasterAndDetailComponent,
     children: [
       {
+        path: '',
+        component: TaskMasterComponent,
+        outlet: 'master'
+      },
+      {
         path: 'taskdetail/:id',
-        component: TaskDetailsContainerComponent
+        component: TaskDetailsComponent,
+        outlet: 'detail'
+      },
+      {
+        path: 'task/:id',
+        component: TaskProcessingComponent,
+        outlet: 'detail'
       }
     ]
   },
@@ -42,9 +54,3 @@ const routes: Routes = [
     redirectTo: 'tasks'
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class TaskRoutingModule {}

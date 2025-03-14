@@ -37,13 +37,12 @@ import { CalculateNumberOfCards } from '../../../shared/store/workplace-store/wo
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
 import { NgIf } from '@angular/common';
 import { TaskListComponent } from '../task-list/task-list.component';
-import { SharedModule } from '../../../shared/shared.module';
 
 @Component({
   selector: 'kadai-task-master',
   templateUrl: './task-master.component.html',
   styleUrls: ['./task-master.component.scss'],
-  imports: [TaskListToolbarComponent, NgIf, TaskListComponent, SharedModule]
+  imports: [TaskListToolbarComponent, NgIf, TaskListComponent]
 })
 export class TaskMasterComponent implements OnInit, OnDestroy {
   tasks: Task[];

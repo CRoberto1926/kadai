@@ -44,7 +44,6 @@ import { MatInput } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatOption } from '@angular/material/core';
-import { SharedModule } from '../../../shared/shared.module';
 
 export enum Search {
   byWorkbasket = 'workbasket',
@@ -71,7 +70,6 @@ export enum Search {
     MatAutocomplete,
     NgFor,
     MatOption,
-    SharedModule,
     AsyncPipe
   ]
 })

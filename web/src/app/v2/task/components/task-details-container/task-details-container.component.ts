@@ -19,10 +19,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TaskFacadeService } from '@task/services/task-facade.service';
+import { TaskDetailsComponent } from '@task/components/task-details/task-details.component';
 
 @Component({
   selector: 'kadai-task-details-container',
   templateUrl: './task-details-container.component.html',
+  imports: [TaskDetailsComponent],
   styleUrls: ['./task-details-container.component.scss']
 })
 export class TaskDetailsContainerComponent implements OnInit {
