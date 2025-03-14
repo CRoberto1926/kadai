@@ -17,29 +17,31 @@
  */
 
 import { Routes } from '@angular/router';
-import { MasterAndDetailComponent } from '../shared/components/master-and-detail/master-and-detail.component';
-import { TaskProcessingComponent } from './components/task-processing/task-processing.component';
-import { TaskDetailsComponent } from './components/task-details/task-details.component';
-import { TaskMasterComponent } from './components/task-master/task-master.component';
 
 export const routes: Routes = [
   {
     path: 'tasks',
-    component: MasterAndDetailComponent,
+    loadComponent: () =>
+      import('../shared/components/master-and-detail/master-and-detail.component').then(
+        (m) => m.MasterAndDetailComponent
+      ),
     children: [
       {
         path: '',
-        component: TaskMasterComponent,
+        loadComponent: () =>
+          import('./components/task-master/task-master.component').then((m) => m.TaskMasterComponent),
         outlet: 'master'
       },
       {
         path: 'taskdetail/:id',
-        component: TaskDetailsComponent,
+        loadComponent: () =>
+          import('./components/task-details/task-details.component').then((m) => m.TaskDetailsComponent),
         outlet: 'detail'
       },
       {
         path: 'task/:id',
-        component: TaskProcessingComponent,
+        loadComponent: () =>
+          import('./components/task-processing/task-processing.component').then((m) => m.TaskProcessingComponent),
         outlet: 'detail'
       }
     ]

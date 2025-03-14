@@ -17,11 +17,10 @@
  */
 
 import { Routes } from '@angular/router';
-import { SettingsComponent } from './components/Settings/settings.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: SettingsComponent
+    loadComponent: () => import('./components/Settings/settings.component').then((m) => m.SettingsComponent)
   }
 ];
