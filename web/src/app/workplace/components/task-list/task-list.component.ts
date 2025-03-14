@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Task } from 'app/workplace/models/task';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
@@ -33,17 +33,12 @@ import { SvgIconComponent } from 'angular-svg-icon';
 export class TaskListComponent implements OnInit {
   @Input()
   tasks: Task[];
-
   @Input()
   selectedId: string;
-
   @Output()
   selectedIdChange = new EventEmitter<string>();
-
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   ngOnInit() {}
 

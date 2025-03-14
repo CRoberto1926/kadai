@@ -18,7 +18,7 @@
 
 import { HttpClient } from '@angular/common/http';
 
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -35,7 +35,7 @@ export interface CategoriesResponse {
 
 @Injectable()
 export class ClassificationCategoriesService {
-  constructor(private httpClient: HttpClient) {}
+  private httpClient = inject(HttpClient);
 
   // TODO: convert to Map (maybe via ES6)
   getClassificationCategoriesByType(): Observable<CategoriesResponse> {

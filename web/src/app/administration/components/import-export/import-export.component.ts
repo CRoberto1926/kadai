@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ClassificationDefinitionService } from 'app/administration/services/classification-definition.service';
 import { WorkbasketDefinitionService } from 'app/administration/services/workbasket-definition.service';
 import { DomainService } from 'app/shared/services/domain/domain.service';
@@ -47,21 +47,16 @@ import { AsyncPipe, NgFor } from '@angular/common';
 export class ImportExportComponent implements OnInit, OnDestroy {
   @Input() currentSelection: KadaiType;
   @Input() parentComponent: string;
-
   @ViewChild('selectedFile', { static: true })
   selectedFileInput;
-
   domains$: Observable<string[]>;
   destroy$ = new Subject<void>();
-
-  constructor(
-    private domainService: DomainService,
-    private workbasketDefinitionService: WorkbasketDefinitionService,
-    private classificationDefinitionService: ClassificationDefinitionService,
-    private notificationService: NotificationService,
-    private importExportService: ImportExportService,
-    private hotToastService: HotToastService
-  ) {}
+  private domainService = inject(DomainService);
+  private workbasketDefinitionService = inject(WorkbasketDefinitionService);
+  private classificationDefinitionService = inject(ClassificationDefinitionService);
+  private notificationService = inject(NotificationService);
+  private importExportService = inject(ImportExportService);
+  private hotToastService = inject(HotToastService);
 
   ngOnInit() {
     this.domains$ = this.domainService.getDomains();

@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { ALL_TYPES, WorkbasketType } from '../../models/workbasket-type';
 import { WorkbasketQueryFilterParameter } from '../../models/workbasket-query-filter-parameter';
 import { Select, Store } from '@ngxs/store';
@@ -58,24 +58,17 @@ import { MapValuesPipe } from '../../pipes/map-values.pipe';
 })
 export class WorkbasketFilterComponent implements OnInit, OnDestroy {
   allTypes: Map<WorkbasketType, string> = ALL_TYPES;
-
   @Input() component: string;
   @Input() isExpanded: boolean;
-
   @Select(FilterSelectors.getAvailableDistributionTargetsFilter)
   availableDistributionTargetsFilter$: Observable<WorkbasketQueryFilterParameter>;
-
   @Select(FilterSelectors.getSelectedDistributionTargetsFilter)
   selectedDistributionTargetsFilter$: Observable<WorkbasketQueryFilterParameter>;
-
   @Select(FilterSelectors.getWorkbasketListFilter)
   workbasketListFilter$: Observable<WorkbasketQueryFilterParameter>;
-
   destroy$ = new Subject<void>();
-
   filter: WorkbasketQueryFilterParameter;
-
-  constructor(private store: Store) {}
+  private store = inject(Store);
 
   ngOnInit(): void {
     if (this.component === 'availableDistributionTargets') {

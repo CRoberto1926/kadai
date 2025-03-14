@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { DomainService } from '../../../shared/services/domain/domain.service';
@@ -51,16 +51,16 @@ export class AdministrationOverviewComponent implements OnInit {
   @Input() selectedTab = '';
   domains: Array<string> = [];
   selectedDomain: string;
-
   destroy$ = new Subject<void>();
   url$: Observable<any>;
   routingAccess = false;
+  private router = inject(Router);
+  private domainService = inject(DomainService);
+  private kadaiEngineService = inject(KadaiEngineService);
 
-  constructor(
-    private router: Router,
-    private domainService: DomainService,
-    private kadaiEngineService: KadaiEngineService
-  ) {
+  constructor() {
+    const router = this.router;
+
     router.events.pipe(takeUntil(this.destroy$)).subscribe((e) => {
       const urlPaths = this.router.url.split('/');
       if (this.router.url.includes('detail')) {

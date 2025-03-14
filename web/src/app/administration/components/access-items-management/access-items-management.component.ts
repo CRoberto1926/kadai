@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import {
   FormArray,
@@ -112,6 +112,7 @@ import { MatIcon } from '@angular/material/icon';
   ]
 })
 export class AccessItemsManagementComponent implements OnInit {
+  dialog = inject(MatDialog);
   accessIdPrevious: string;
   accessIdName: string;
   accessItemsForm: FormGroup;
@@ -126,22 +127,17 @@ export class AccessItemsManagementComponent implements OnInit {
   };
   accessItems: WorkbasketAccessItems[];
   isGroup: boolean = false;
-
   @Select(EngineConfigurationSelectors.accessItemsCustomisation)
   accessItemsCustomization$: Observable<AccessItemsCustomisation>;
   @Select(AccessItemsManagementSelector.groups) groups$: Observable<AccessId[]>;
   customFields$: Observable<CustomField[]>;
   @Select(AccessItemsManagementSelector.permissions) permissions$: Observable<AccessId[]>;
   destroy$ = new Subject<void>();
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private formsValidatorService: FormsValidatorService,
-    private notificationService: NotificationService,
-    private store: Store,
-    private requestInProgressService: RequestInProgressService,
-    public dialog: MatDialog
-  ) {}
+  private formBuilder = inject(FormBuilder);
+  private formsValidatorService = inject(FormsValidatorService);
+  private notificationService = inject(NotificationService);
+  private store = inject(Store);
+  private requestInProgressService = inject(RequestInProgressService);
 
   get accessItemsGroups(): FormArray {
     return this.accessItemsForm ? (this.accessItemsForm.get('accessItemsGroups') as FormArray) : null;

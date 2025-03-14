@@ -16,7 +16,7 @@
  *
  */
 
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { Task } from '@task/models/task';
@@ -27,7 +27,7 @@ import { TaskSelector } from '@task/store/task.selector';
   providedIn: 'root'
 })
 export class TaskFacadeService {
-  constructor(private store: Store) {}
+  private store = inject(Store);
 
   selectedTask(): Task | null {
     return this.store.selectSnapshot(TaskSelector.selectedTask);

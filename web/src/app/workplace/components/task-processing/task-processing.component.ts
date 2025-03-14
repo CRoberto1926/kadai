@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from 'app/workplace/models/task';
 import { Workbasket } from 'app/shared/models/workbasket';
@@ -42,23 +42,18 @@ import { MatDivider } from '@angular/material/divider';
 })
 export class TaskProcessingComponent implements OnInit, OnDestroy {
   routeSubscription: Subscription;
-
   regex = /\${(.*?)}/g;
   address = 'https://bing.com';
   link: SafeResourceUrl;
-
   task: Task = null;
   workbaskets: Workbasket[];
-
-  constructor(
-    private taskService: TaskService,
-    private workbasketService: WorkbasketService,
-    private classificationService: ClassificationsService,
-    private requestInProgressService: RequestInProgressService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private sanitizer: DomSanitizer
-  ) {}
+  private taskService = inject(TaskService);
+  private workbasketService = inject(WorkbasketService);
+  private classificationService = inject(ClassificationsService);
+  private requestInProgressService = inject(RequestInProgressService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private sanitizer = inject(DomSanitizer);
 
   ngOnInit() {
     this.routeSubscription = this.route.params.subscribe((params) => {

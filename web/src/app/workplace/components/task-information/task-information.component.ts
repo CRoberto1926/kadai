@@ -19,6 +19,7 @@
 import {
   Component,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   OnDestroy,
@@ -53,6 +54,7 @@ import {
   MatDatepickerModule,
   MatDatepickerToggle
 } from '@angular/material/datepicker';
+
 @Component({
   selector: 'kadai-task-information',
   templateUrl: './task-information.component.html',
@@ -82,34 +84,24 @@ import {
 export class TaskInformationComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   task: Task;
-
   @Output() taskChange: EventEmitter<Task> = new EventEmitter<Task>();
-
   @Input()
   saveToggleTriggered: boolean;
-
   @Output() formValid: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   @ViewChild('TaskForm')
   taskForm: NgForm;
-
   toggleValidationMap = new Map<string, boolean>();
   requestInProgress = false;
   classifications: Classification[];
   isClassificationEmpty: boolean;
   isOwnerValid: boolean = true;
-
   readonly lengthError = 'You have reached the maximum length';
   inputOverflowMap = new Map<string, boolean>();
   validateInputOverflow: Function;
-
   @Select(EngineConfigurationSelectors.tasksCustomisation) tasksCustomisation$: Observable<TasksCustomisation>;
+  private classificationService = inject(ClassificationsService);
+  private formsValidatorService = inject(FormsValidatorService);
   private destroy$ = new Subject<void>();
-
-  constructor(
-    private classificationService: ClassificationsService,
-    private formsValidatorService: FormsValidatorService
-  ) {}
 
   ngOnInit() {
     this.getClassificationByDomain();

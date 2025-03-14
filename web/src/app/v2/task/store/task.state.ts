@@ -16,7 +16,7 @@
  *
  */
 
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
 import { PagedTaskSummary } from '@task/models/paged-task';
 import { TaskService } from '@task/services/task.service';
@@ -40,7 +40,7 @@ const defaults: TaskStateModel = {
 })
 @Injectable()
 export class TaskState {
-  constructor(private taskService: TaskService) {}
+  private taskService = inject(TaskService);
 
   @Action(GetTasks)
   getTasks(ctx: StateContext<TaskStateModel>) {

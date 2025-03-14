@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { KadaiEngineService } from '../../services/kadai-engine/kadai-engine.service';
 import { SidenavService } from '../../services/sidenav/sidenav.service';
 import { RequestInProgressService } from '../../services/request-in-progress/request-in-progress.service';
@@ -35,7 +35,6 @@ import { NgIf } from '@angular/common';
 })
 export class SidenavListComponent implements OnInit {
   toggle: boolean = false;
-
   monitorUrl = 'kadai/monitor';
   workplaceUrl = 'kadai/workplace';
   historyUrl = 'kadai/history';
@@ -45,20 +44,16 @@ export class SidenavListComponent implements OnInit {
   workbasketsUrl = 'kadai/administration/workbaskets';
   administrationsUrl = 'kadai/administration/workbaskets';
   settingsURL = 'kadai/settings';
-
   administrationAccess = false;
   monitorAccess = false;
   workplaceAccess = false;
   historyAccess = false;
   routingAccess = false;
   settingsAccess = false;
-
-  constructor(
-    private kadaiEngineService: KadaiEngineService,
-    private sidenavService: SidenavService,
-    private requestInProgressService: RequestInProgressService,
-    private router: Router
-  ) {}
+  private kadaiEngineService = inject(KadaiEngineService);
+  private sidenavService = inject(SidenavService);
+  private requestInProgressService = inject(RequestInProgressService);
+  private router = inject(Router);
 
   ngOnInit() {
     this.administrationAccess = this.kadaiEngineService.hasRole(Object.values(BusinessAdminRoles));

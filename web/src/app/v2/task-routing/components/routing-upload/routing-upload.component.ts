@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RoutingUploadService } from '@task-routing/services/routing-upload.service';
 import { NotificationService } from 'app/shared/services/notifications/notification.service';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -30,12 +30,9 @@ import { NgIf } from '@angular/common';
 })
 export class RoutingUploadComponent implements OnInit {
   file: File | null = null;
-
-  constructor(
-    private routingUploadService: RoutingUploadService,
-    private toastService: HotToastService,
-    private notificationService: NotificationService
-  ) {}
+  private routingUploadService = inject(RoutingUploadService);
+  private toastService = inject(HotToastService);
+  private notificationService = inject(NotificationService);
 
   ngOnInit(): void {}
 

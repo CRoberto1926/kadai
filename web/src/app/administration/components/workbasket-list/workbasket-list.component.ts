@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 import { WorkbasketSummaryRepresentation } from 'app/shared/models/workbasket-summary-representation';
@@ -78,9 +78,7 @@ export class WorkbasketListComponent implements OnInit, OnDestroy {
   };
   requestInProgress: boolean;
   requestInProgressLocal = false;
-
   resetPagingSubject = new Subject<null>();
-
   @Input() expanded: boolean;
   @Select(WorkbasketSelectors.workbasketsSummary)
   workbasketsSummary$: Observable<WorkbasketSummary[]>;
@@ -92,18 +90,17 @@ export class WorkbasketListComponent implements OnInit, OnDestroy {
   getWorkbasketListFilter$: Observable<WorkbasketQueryFilterParameter>;
   destroy$ = new Subject<void>();
   @ViewChild('workbasket') workbasketList: MatSelectionList;
+  private store = inject(Store);
+  private workbasketService = inject(WorkbasketService);
+  private orientationService = inject(OrientationService);
+  private importExportService = inject(ImportExportService);
+  private domainService = inject(DomainService);
+  private requestInProgressService = inject(RequestInProgressService);
+  private ngxsActions$ = inject(Actions);
   @ViewChild('wbToolbar', { static: true })
   private toolbarElement: ElementRef;
 
-  constructor(
-    private store: Store,
-    private workbasketService: WorkbasketService,
-    private orientationService: OrientationService,
-    private importExportService: ImportExportService,
-    private domainService: DomainService,
-    private requestInProgressService: RequestInProgressService,
-    private ngxsActions$: Actions
-  ) {
+  constructor() {
     this.ngxsActions$.pipe(ofActionDispatched(GetWorkbasketsSummary), takeUntil(this.destroy$)).subscribe(() => {
       this.requestInProgressService.setRequestInProgress(true);
       this.requestInProgressLocal = true;

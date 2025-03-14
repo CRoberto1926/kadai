@@ -16,7 +16,7 @@
  *
  */
 
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { UserInfo } from 'app/shared/models/user-info';
@@ -27,8 +27,7 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class KadaiEngineService {
   currentUserInfo: UserInfo;
-
-  constructor(private httpClient: HttpClient) {}
+  private httpClient = inject(HttpClient);
 
   // GET
   getUserInformation(): Promise<any> {

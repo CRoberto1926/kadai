@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Sorting, WORKBASKET_SORT_PARAMETER_NAMING, WorkbasketQuerySortParameter } from 'app/shared/models/sorting';
 import { WorkbasketSummary } from 'app/shared/models/workbasket-summary';
 import { KadaiType } from 'app/shared/models/kadai-type';
@@ -48,23 +48,16 @@ export class WorkbasketListToolbarComponent implements OnInit {
   @Input() workbaskets: WorkbasketSummary[];
   @Input() workbasketDefaultSortBy: WorkbasketQuerySortParameter;
   @Output() performSorting = new EventEmitter<Sorting<WorkbasketQuerySortParameter>>();
-
   selectionToImport = KadaiType.WORKBASKETS;
   sortingFields: Map<WorkbasketQuerySortParameter, string> = WORKBASKET_SORT_PARAMETER_NAMING;
-
   isExpanded = false;
   showFilter = false;
-
   @Select(WorkbasketSelectors.workbasketActiveAction)
   workbasketActiveAction$: Observable<ACTION>;
-
   destroy$ = new Subject<void>();
   action: ACTION;
-
-  constructor(
-    private store: Store,
-    private workbasketService: WorkbasketService
-  ) {}
+  private store = inject(Store);
+  private workbasketService = inject(WorkbasketService);
 
   ngOnInit() {
     this.workbasketActiveAction$.pipe(takeUntil(this.destroy$)).subscribe((action) => {

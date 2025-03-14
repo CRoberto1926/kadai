@@ -21,6 +21,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  inject,
   Input,
   OnChanges,
   OnDestroy,
@@ -84,51 +85,37 @@ import { MatInput } from '@angular/material/input';
   ]
 })
 export class WorkbasketAccessItemsComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit, AfterViewChecked {
+  formsValidatorService = inject(FormsValidatorService);
   @Input() workbasket: Workbasket;
-
   @Input() expanded: boolean;
-
   @ViewChildren('htmlInputElement') inputs: QueryList<ElementRef>;
-
   selectedRows: number[] = [];
   workbasketClone: Workbasket;
-
   customFields$: Observable<CustomField[]>;
   keysOfVisibleFields: string[];
-
   accessItemsRepresentation: WorkbasketAccessItemsRepresentation;
   accessItemsClone: WorkbasketAccessItems[];
   accessItemsResetClone: WorkbasketAccessItems[];
-  AccessItemsForm = this.formBuilder.group({
-    accessItemsGroups: this.formBuilder.array<FormGroup>([])
-  });
-
   toggleValidationAccessIdMap = new Map<number, boolean>();
   added = false;
   isNewAccessItemsFromStore = false;
   isAccessItemsTabSelected = false;
   destroy$ = new Subject<void>();
-
   @Select(WorkbasketSelectors.selectedWorkbasket) selectedWorkbasket$: Observable<Workbasket>;
-
   @Select(EngineConfigurationSelectors.accessItemsCustomisation)
   accessItemsCustomization$: Observable<AccessItemsCustomisation>;
-
   @Select(WorkbasketSelectors.workbasketAccessItems)
   accessItemsRepresentation$: Observable<WorkbasketAccessItemsRepresentation>;
-
   @Select(WorkbasketSelectors.buttonAction) buttonAction$: Observable<ButtonAction>;
-
   @Select(WorkbasketSelectors.selectedComponent) selectedComponent$: Observable<WorkbasketComponent>;
-
-  constructor(
-    private requestInProgressService: RequestInProgressService,
-    private formBuilder: FormBuilder,
-    public formsValidatorService: FormsValidatorService,
-    private notificationsService: NotificationService,
-    private store: Store,
-    private ngxsActions$: Actions
-  ) {}
+  private requestInProgressService = inject(RequestInProgressService);
+  private formBuilder = inject(FormBuilder);
+  AccessItemsForm = this.formBuilder.group({
+    accessItemsGroups: this.formBuilder.array<FormGroup>([])
+  });
+  private notificationsService = inject(NotificationService);
+  private store = inject(Store);
+  private ngxsActions$ = inject(Actions);
 
   get accessItemsGroups(): FormArray {
     return this.AccessItemsForm.get('accessItemsGroups') as FormArray;

@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ALL_STATES, TaskState } from '../../models/task-state';
 import { TaskQueryFilterParameter } from '../../models/task-query-filter-parameter';
 import { Actions, ofActionCompleted, Store } from '@ngxs/store';
@@ -41,13 +41,9 @@ import { MapValuesPipe } from '../../pipes/map-values.pipe';
 export class TaskFilterComponent implements OnInit, OnDestroy {
   filter: TaskQueryFilterParameter;
   destroy$ = new Subject<void>();
-
   allStates: Map<TaskState, string> = ALL_STATES;
-
-  constructor(
-    private store: Store,
-    private ngxsActions$: Actions
-  ) {}
+  private store = inject(Store);
+  private ngxsActions$ = inject(Actions);
 
   ngOnInit() {
     this.clear();

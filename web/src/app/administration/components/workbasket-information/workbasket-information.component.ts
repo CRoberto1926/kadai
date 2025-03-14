@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
@@ -83,42 +83,31 @@ import { RemoveNoneTypePipe } from '../../../shared/pipes/remove-empty-type.pipe
 export class WorkbasketInformationComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   workbasket: Workbasket;
-
   @Input()
   action: ACTION;
-
   @ViewChild('WorkbasketForm')
   workbasketForm: NgForm;
-
   workbasketClone: Workbasket;
   allTypes: Map<string, string>;
   toggleValidationMap = new Map<string, boolean>();
   lookupField = false;
   isOwnerValid: boolean = true;
-
   readonly lengthError = 'You have reached the maximum length for this field';
   inputOverflowMap = new Map<string, boolean>();
   validateInputOverflow: Function;
-
   @Select(EngineConfigurationSelectors.workbasketsCustomisation)
   workbasketsCustomisation$: Observable<WorkbasketsCustomisation>;
-
   @Select(WorkbasketSelectors.buttonAction)
   buttonAction$: Observable<ButtonAction>;
-
   @Select(WorkbasketSelectors.selectedComponent)
   selectedComponent$: Observable<WorkbasketComponent>;
-
   customFields$: Observable<CustomField[]>;
   destroy$ = new Subject<void>();
-
-  constructor(
-    private workbasketService: WorkbasketService,
-    private requestInProgressService: RequestInProgressService,
-    private formsValidatorService: FormsValidatorService,
-    private notificationService: NotificationService,
-    private store: Store
-  ) {}
+  private workbasketService = inject(WorkbasketService);
+  private requestInProgressService = inject(RequestInProgressService);
+  private formsValidatorService = inject(FormsValidatorService);
+  private notificationService = inject(NotificationService);
+  private store = inject(Store);
 
   ngOnInit() {
     this.allTypes = new Map([

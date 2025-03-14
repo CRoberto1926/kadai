@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subject } from 'rxjs';
 
@@ -98,27 +98,22 @@ export class ClassificationDetailsComponent implements OnInit, OnDestroy {
   @Select(ClassificationSelectors.selectedClassificationType) selectedClassificationType$: Observable<string>;
   @Select(ClassificationSelectors.selectedClassification) selectedClassification$: Observable<Classification>;
   @Select(ClassificationSelectors.getBadgeMessage) badgeMessage$: Observable<string>;
-
   customFields$: Observable<CustomField[]>;
   isCreatingNewClassification: boolean = false;
   readonly lengthError = 'You have reached the maximum length for this field';
   inputOverflowMap = new Map<string, boolean>();
   validateInputOverflow: Function;
   requestInProgress: boolean;
-
   @ViewChild('ClassificationForm') classificationForm: NgForm;
   toggleValidationMap = new Map<string, boolean>();
   destroy$ = new Subject<void>();
-
-  constructor(
-    private location: Location,
-    private requestInProgressService: RequestInProgressService,
-    private domainService: DomainService,
-    private formsValidatorService: FormsValidatorService,
-    private notificationsService: NotificationService,
-    private importExportService: ImportExportService,
-    private store: Store
-  ) {}
+  private location = inject(Location);
+  private requestInProgressService = inject(RequestInProgressService);
+  private domainService = inject(DomainService);
+  private formsValidatorService = inject(FormsValidatorService);
+  private notificationsService = inject(NotificationService);
+  private importExportService = inject(ImportExportService);
+  private store = inject(Store);
 
   ngOnInit() {
     this.customFields$ = this.store.select(EngineConfigurationSelectors.classificationsCustomisation).pipe(

@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { ReportData } from '../../models/report-data';
 import { ChartData } from '../../models/chart-data';
 import { MonitorService } from '../../services/monitor.service';
@@ -37,9 +37,7 @@ import { ReportTableComponent } from '../report-table/report-table.component';
 export class WorkbasketReportDueDateComponent implements OnInit {
   @Output()
   metaInformation = new EventEmitter<MetaInfoData>();
-
   reportData: ReportData;
-
   lineChartLabels: Array<any>;
   lineChartLegend = true;
   lineChartType = 'line';
@@ -53,11 +51,8 @@ export class WorkbasketReportDueDateComponent implements OnInit {
       }
     }
   };
-
-  constructor(
-    private restConnectorService: MonitorService,
-    private requestInProgressService: RequestInProgressService
-  ) {}
+  private restConnectorService = inject(MonitorService);
+  private requestInProgressService = inject(RequestInProgressService);
 
   async ngOnInit() {
     this.requestInProgressService.setRequestInProgress(true);

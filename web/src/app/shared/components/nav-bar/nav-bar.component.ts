@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { SelectedRouteService } from 'app/shared/services/selected-route/selected-route';
 import { Subject } from 'rxjs';
 import { expandRight } from 'app/shared/animations/expand.animation';
@@ -43,13 +43,9 @@ export class NavBarComponent implements OnInit {
   titleSettings = 'Settings';
   toggle: boolean = false;
   title = '';
-
   destroy$ = new Subject();
-
-  constructor(
-    private selectedRouteService: SelectedRouteService,
-    private sidenavService: SidenavService
-  ) {}
+  private selectedRouteService = inject(SelectedRouteService);
+  private sidenavService = inject(SidenavService);
 
   ngOnInit() {
     this.selectedRouteService

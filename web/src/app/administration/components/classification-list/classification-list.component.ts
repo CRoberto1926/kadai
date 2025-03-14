@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { Actions, ofActionCompleted, ofActionDispatched, Select, Store } from '@ngxs/store';
@@ -78,24 +78,21 @@ export class ClassificationListComponent implements OnInit, OnDestroy {
   requestInProgress = true;
   inputValue: string;
   selectedCategory = '';
-
   @Select(ClassificationSelectors.classificationTypes) classificationTypes$: Observable<string[]>;
   @Select(ClassificationSelectors.selectedClassificationType) classificationTypeSelected$: Observable<string>;
   @Select(ClassificationSelectors.selectCategories) categories$: Observable<string[]>;
   @Select(ClassificationSelectors.classifications) classifications$: Observable<ClassificationSummary[]>;
   @Select(EngineConfigurationSelectors.selectCategoryIcons) categoryIcons$: Observable<ClassificationCategoryImages>;
-
   destroy$ = new Subject<void>();
   classifications: ClassificationSummary[];
+  private location = inject(Location);
+  private importExportService = inject(ImportExportService);
+  private domainService = inject(DomainService);
+  private requestInProgressService = inject(RequestInProgressService);
+  private store = inject(Store);
+  private ngxsActions$ = inject(Actions);
 
-  constructor(
-    private location: Location,
-    private importExportService: ImportExportService,
-    private domainService: DomainService,
-    private requestInProgressService: RequestInProgressService,
-    private store: Store,
-    private ngxsActions$: Actions
-  ) {
+  constructor() {
     this.ngxsActions$.pipe(ofActionDispatched(GetClassifications), takeUntil(this.destroy$)).subscribe(() => {
       this.requestInProgressService.setRequestInProgress(true);
     });

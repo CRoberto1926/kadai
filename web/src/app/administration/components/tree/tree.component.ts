@@ -22,6 +22,7 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
+  inject,
   Input,
   OnDestroy,
   OnInit,
@@ -62,11 +63,9 @@ import { MatTooltip } from '@angular/material/tooltip';
 export class KadaiTreeComponent implements OnInit, AfterViewChecked, OnDestroy {
   treeNodes: TreeNodeModel[];
   categoryIcons: ClassificationCategoryImages;
-
   emptyTreeNodes = false;
   filter: string;
   category: string;
-
   @Input() selectNodeId: string;
   @Input() filterText: string;
   @Input() filterIcon = '';
@@ -75,7 +74,6 @@ export class KadaiTreeComponent implements OnInit, AfterViewChecked, OnDestroy {
   @Select(ClassificationSelectors.selectedClassificationId) selectedClassificationId$: Observable<string>;
   @Select(ClassificationSelectors.classifications) classifications$: Observable<Classification[]>;
   @Select(ClassificationSelectors.selectedClassificationType) classificationTypeSelected$: Observable<string>;
-
   options: ITreeOptions = {
     displayField: 'name',
     idField: 'classificationId',
@@ -91,23 +89,19 @@ export class KadaiTreeComponent implements OnInit, AfterViewChecked, OnDestroy {
     allowDrag: true,
     allowDrop: true
   };
-
+  private elementRef = inject(ElementRef);
+  private classificationsService = inject(ClassificationsService);
+  private location = inject(Location);
+  private store = inject(Store);
+  private notificationsService = inject(NotificationService);
+  private classificationTreeService = inject(ClassificationTreeService);
+  private requestInProgressService = inject(RequestInProgressService);
   @ViewChild('tree', { static: true })
   private tree: TreeComponent;
 
   private filterTextOld: string;
   private filterIconOld = '';
   private destroy$ = new Subject<void>();
-
-  constructor(
-    private elementRef: ElementRef,
-    private classificationsService: ClassificationsService,
-    private location: Location,
-    private store: Store,
-    private notificationsService: NotificationService,
-    private classificationTreeService: ClassificationTreeService,
-    private requestInProgressService: RequestInProgressService
-  ) {}
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event) {

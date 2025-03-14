@@ -16,7 +16,7 @@
  *
  */
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Task } from 'app/workplace/models/task';
 import { Workbasket } from 'app/shared/models/workbasket';
 import { TaskService } from 'app/workplace/services/task.service';
@@ -78,9 +78,7 @@ export class TaskListToolbarComponent implements OnInit {
   @Output() performSorting = new EventEmitter<Sorting<TaskQuerySortParameter>>();
   @Output() performFilter = new EventEmitter<TaskQueryFilterParameter>();
   @Output() selectSearchType = new EventEmitter();
-
   sortingFields: Map<TaskQuerySortParameter, string> = TASK_SORT_PARAMETER_NAMING;
-
   tasks: Task[] = [];
   workbasketNames: string[] = [];
   filteredWorkbasketNames: string[] = this.workbasketNames;
@@ -90,27 +88,21 @@ export class TaskListToolbarComponent implements OnInit {
   currentBasket: Workbasket;
   workbasketSelected = false;
   searched = false;
-
   search = Search;
   searchSelected: Search = Search.byWorkbasket;
   activeTab: number = 0;
   filterInput = '';
-
   @Select(WorkplaceSelectors.getFilterExpansion) isFilterExpanded$: Observable<boolean>;
-
   destroy$ = new Subject<void>();
-
-  constructor(
-    private kadaiEngineService: KadaiEngineService,
-    private taskService: TaskService,
-    private workbasketService: WorkbasketService,
-    private workplaceService: WorkplaceService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private store: Store,
-    private ngxsActions$: Actions,
-    private requestInProgressService: RequestInProgressService
-  ) {}
+  private kadaiEngineService = inject(KadaiEngineService);
+  private taskService = inject(TaskService);
+  private workbasketService = inject(WorkbasketService);
+  private workplaceService = inject(WorkplaceService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private store = inject(Store);
+  private ngxsActions$ = inject(Actions);
+  private requestInProgressService = inject(RequestInProgressService);
 
   ngOnInit() {
     this.ngxsActions$.pipe(ofActionCompleted(ClearTaskFilter), takeUntil(this.destroy$)).subscribe(() => {
