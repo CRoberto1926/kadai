@@ -19,10 +19,6 @@
 import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
 
-import { AccessItemsManagementComponent } from './components/access-items-management/access-items-management.component';
-import { ClassificationOverviewComponent } from './components/classification-overview/classification-overview.component';
-import { WorkbasketOverviewComponent } from './components/workbasket-overview/workbasket-overview.component';
-import { AdministrationOverviewComponent } from './components/administration-overview/administration-overview.component';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { DomainService } from '../shared/services/domain/domain.service';
@@ -41,22 +37,34 @@ const domainGuard = () => {
 export const routes: Routes = [
   {
     path: '',
-    component: AdministrationOverviewComponent,
+    loadComponent: () =>
+      import('./components/administration-overview/administration-overview.component').then(
+        (m) => m.AdministrationOverviewComponent
+      ),
     canActivate: [domainGuard],
     children: [
       {
         path: 'workbaskets',
-        component: WorkbasketOverviewComponent,
+        loadComponent: () =>
+          import('./components/workbasket-overview/workbasket-overview.component').then(
+            (m) => m.WorkbasketOverviewComponent
+          ),
         canActivate: [domainGuard],
         children: [
           {
             path: '',
-            component: WorkbasketOverviewComponent,
+            loadComponent: () =>
+              import('./components/workbasket-overview/workbasket-overview.component').then(
+                (m) => m.WorkbasketOverviewComponent
+              ),
             outlet: 'master'
           },
           {
             path: ':id',
-            component: WorkbasketOverviewComponent,
+            loadComponent: () =>
+              import('./components/workbasket-overview/workbasket-overview.component').then(
+                (m) => m.WorkbasketOverviewComponent
+              ),
             outlet: 'detail'
           },
           {
@@ -67,17 +75,26 @@ export const routes: Routes = [
       },
       {
         path: 'classifications',
-        component: ClassificationOverviewComponent,
+        loadComponent: () =>
+          import('./components/classification-overview/classification-overview.component').then(
+            (m) => m.ClassificationOverviewComponent
+          ),
         canActivate: [domainGuard],
         children: [
           {
             path: '',
-            component: ClassificationOverviewComponent,
+            loadComponent: () =>
+              import('./components/classification-overview/classification-overview.component').then(
+                (m) => m.ClassificationOverviewComponent
+              ),
             outlet: 'master'
           },
           {
             path: ':id',
-            component: ClassificationOverviewComponent,
+            loadComponent: () =>
+              import('./components/classification-overview/classification-overview.component').then(
+                (m) => m.ClassificationOverviewComponent
+              ),
             outlet: 'detail'
           },
           {
@@ -88,7 +105,10 @@ export const routes: Routes = [
       },
       {
         path: 'access-items-management',
-        component: AccessItemsManagementComponent,
+        loadComponent: () =>
+          import('./components/access-items-management/access-items-management.component').then(
+            (m) => m.AccessItemsManagementComponent
+          ),
         canActivate: [domainGuard],
         children: [
           {

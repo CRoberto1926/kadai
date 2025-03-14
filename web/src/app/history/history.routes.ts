@@ -17,12 +17,12 @@
  */
 
 import { Routes } from '@angular/router';
-import { TaskHistoryQueryComponent } from './task-history-query/task-history-query.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: TaskHistoryQueryComponent
+    loadComponent: () =>
+      import('./task-history-query/task-history-query.component').then((m) => m.TaskHistoryQueryComponent)
   },
   {
     path: '**',

@@ -18,7 +18,7 @@
 
 import { inject } from '@angular/core';
 import { Router, Routes, UrlTree } from '@angular/router';
-import { RoutingUploadComponent } from './components/routing-upload/routing-upload.component';
+
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { KadaiEngineService } from '../../shared/services/kadai-engine/kadai-engine.service';
@@ -44,6 +44,7 @@ export const routes: Routes = [
         );
       }
     ],
-    component: RoutingUploadComponent
+    loadComponent: () =>
+      import('./components/routing-upload/routing-upload.component').then((m) => m.RoutingUploadComponent)
   }
 ];

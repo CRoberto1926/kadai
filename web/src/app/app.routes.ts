@@ -20,7 +20,7 @@ import { inject } from '@angular/core';
 import { Router, Routes, UrlTree } from '@angular/router';
 
 import { UserRoles } from './shared/roles/user.roles';
-import { NoAccessComponent } from './shared/components/no-access/no-access.component';
+
 import { KadaiEngineService } from './shared/services/kadai-engine/kadai-engine.service';
 import { MonitorRoles } from './shared/roles/monitor.roles';
 import { Observable, of } from 'rxjs';
@@ -104,7 +104,8 @@ export const appRoutes: Routes = [
       },
       {
         path: 'no-role',
-        component: NoAccessComponent
+        loadComponent: () =>
+          import('./shared/components/no-access/no-access.component').then((m) => m.NoAccessComponent)
       },
       {
         path: 'administration',
@@ -124,7 +125,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'no-role',
-    component: NoAccessComponent
+    loadComponent: () => import('./shared/components/no-access/no-access.component').then((m) => m.NoAccessComponent)
   },
   {
     canActivate: [businessAdminGuard],
