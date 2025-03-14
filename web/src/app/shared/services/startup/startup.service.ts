@@ -25,7 +25,9 @@ import { KadaiEngineService } from 'app/shared/services/kadai-engine/kadai-engin
 import { map } from 'rxjs/operators';
 import { WindowRefService } from 'app/shared/services/window/window.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class StartupService {
   private httpClient = inject(HttpClient);
   private kadaiEngineService = inject(KadaiEngineService);

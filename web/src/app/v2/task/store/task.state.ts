@@ -38,7 +38,9 @@ const defaults: TaskStateModel = {
   name: 'task',
   defaults
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TaskState {
   private taskService = inject(TaskService);
 

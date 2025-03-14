@@ -25,7 +25,9 @@ import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { StartupService } from '../../shared/services/startup/startup.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class WorkbasketDefinitionService {
   private httpClient = inject(HttpClient);
   private startupService = inject(StartupService);

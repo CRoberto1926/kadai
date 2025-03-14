@@ -37,7 +37,9 @@ class InitializeStore {
   static readonly type = '[Access Items Management] Initializing state';
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 @State<AccessItemsManagementStateModel>({ name: 'accessItemsManagement' })
 export class AccessItemsManagementState implements NgxsAfterBootstrap {
   private accessIdsService = inject(AccessIdsService);

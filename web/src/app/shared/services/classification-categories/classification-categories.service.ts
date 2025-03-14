@@ -33,7 +33,9 @@ export interface CategoriesResponse {
   [key: string]: string[];
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ClassificationCategoriesService {
   private httpClient = inject(HttpClient);
 

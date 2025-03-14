@@ -27,7 +27,9 @@ import { asUrlQueryString } from '../../shared/util/query-parameters-v2';
 import { TaskQueryFilterParameter } from '../../shared/models/task-query-filter-parameter';
 import { QueryPagingParameter } from '../../shared/models/query-paging-parameter';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TaskService {
   private httpClient = inject(HttpClient);
   private startupService = inject(StartupService);
