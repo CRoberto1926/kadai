@@ -42,11 +42,19 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-
+import {
+  FieldErrorDisplayComponent
+} from "../../../shared/components/field-error-display/field-error-display.component";
+import {TypeAheadComponent} from "../../../shared/components/type-ahead/type-ahead.component";
+import {MatNativeDateModule, MatOption} from "@angular/material/core";
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerModule,
+  MatDatepickerToggle
+} from "@angular/material/datepicker";
 @Component({
   selector: 'kadai-task-information',
   templateUrl: './task-information.component.html',
@@ -66,7 +74,11 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
     MatSuffix,
     MatDatepicker,
     CdkTextareaAutosize,
-    AsyncPipe
+    AsyncPipe,
+    FieldErrorDisplayComponent,
+    TypeAheadComponent,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class TaskInformationComponent implements OnInit, OnChanges, OnDestroy {
