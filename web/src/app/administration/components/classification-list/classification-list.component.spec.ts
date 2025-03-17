@@ -31,7 +31,6 @@ import { Observable, of } from 'rxjs';
 import { CreateClassification } from '../../../shared/store/classification-store/classification.actions';
 import { EngineConfigurationState } from '../../../shared/store/engine-configuration-store/engine-configuration.state';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
@@ -97,7 +96,6 @@ describe('ClassificationListComponent', () => {
       imports: [
         NgxsModule.forRoot([ClassificationState, EngineConfigurationState]),
         MatIconModule,
-        MatMenuModule,
         MatFormFieldModule,
         MatInputModule,
         NoopAnimationsModule,

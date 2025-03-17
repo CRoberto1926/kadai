@@ -27,7 +27,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { EngineConfigurationState } from '../../store/engine-configuration-store/engine-configuration.state';
 import { ClassificationCategoriesService } from '../../services/classification-categories/classification-categories.service';
 import { engineConfigurationMock } from '../../store/mock-data/mock-store';
@@ -50,7 +49,6 @@ describe('TypeAheadComponent with AccessId input', () => {
         MatFormFieldModule,
         MatInputModule,
         MatAutocompleteModule,
-        MatTooltipModule,
         NoopAnimationsModule,
         FormsModule,
         ReactiveFormsModule

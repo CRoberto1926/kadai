@@ -56,7 +56,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { By } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
@@ -120,8 +119,7 @@ describe('WorkbasketInformationComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
-        MatAutocompleteModule,
-        MatTooltipModule
+        MatAutocompleteModule
       ],
       declarations: [WorkbasketInformationComponent, TypeAheadComponent, MapValuesPipe, RemoveNoneTypePipe],
       providers: [

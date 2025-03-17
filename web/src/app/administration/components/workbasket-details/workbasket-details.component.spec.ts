@@ -39,12 +39,10 @@ import { WindowRefService } from '../../../shared/services/window/window.service
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CopyWorkbasket, CreateWorkbasket } from '../../../shared/store/workbasket-store/workbasket.actions';
 import { take } from 'rxjs/operators';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @Component({ selector: 'kadai-administration-workbasket-information', template: '<div>i</div>' })
@@ -95,9 +93,7 @@ describe('WorkbasketDetailsComponent', () => {
         MatIconModule,
         MatProgressBarModule,
         MatTabsModule,
-        MatMenuModule,
         MatToolbarModule,
-        MatTooltipModule,
         NoopAnimationsModule
       ],
       declarations: [WorkbasketDetailsComponent],

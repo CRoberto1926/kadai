@@ -55,7 +55,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @Component({ selector: 'kadai-shared-spinner', template: '' })
@@ -105,8 +104,7 @@ describe('WorkbasketAccessItemsComponent', () => {
         MatAutocompleteModule,
         MatProgressBarModule,
         MatCheckboxModule,
-        MatIconModule,
-        MatTooltipModule
+        MatIconModule
       ],
       declarations: [WorkbasketAccessItemsComponent, TypeAheadComponent],
       providers: [

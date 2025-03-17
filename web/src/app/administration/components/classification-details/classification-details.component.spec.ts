@@ -44,13 +44,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({ selector: 'kadai-shared-field-error-display', template: '' })
 class FieldErrorDisplayStub {
@@ -135,8 +133,6 @@ describe('ClassificationDetailsComponent', () => {
         MatOptionModule,
         MatSelectModule,
         MatProgressBarModule,
-        MatMenuModule,
-        MatTooltipModule,
         NoopAnimationsModule
       ],
       declarations: [ClassificationDetailsComponent],

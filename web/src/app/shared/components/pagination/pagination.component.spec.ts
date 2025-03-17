@@ -19,7 +19,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { PaginationComponent } from './pagination.component';
 import { DebugElement } from '@angular/core';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,14 +32,7 @@ describe('PaginationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatPaginatorModule,
-        MatAutocompleteModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        NoopAnimationsModule
-      ],
+      imports: [MatAutocompleteModule, FormsModule, MatFormFieldModule, MatInputModule, NoopAnimationsModule],
       declarations: [PaginationComponent],
       providers: []
     }).compileComponents();

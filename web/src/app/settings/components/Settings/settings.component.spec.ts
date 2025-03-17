@@ -26,7 +26,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { SettingsState } from '../../../shared/store/settings-store/settings.state';
 import { SettingsComponent } from './settings.component';
 import { settingsStateMock } from '../../../shared/store/mock-data/mock-store';
@@ -56,7 +55,6 @@ describe('SettingsComponent', () => {
         MatIconModule,
         MatFormFieldModule,
         MatInputModule,
-        MatTooltipModule,
         NoopAnimationsModule
       ],
       declarations: [SettingsComponent],

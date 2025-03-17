@@ -25,7 +25,6 @@ import { engineConfigurationMock, workbasketReadStateMock } from '../../../share
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { Side } from '../../models/workbasket-distribution-enums';
 import { NgxsModule, Store } from '@ngxs/store';
 import { WorkbasketState } from '../../../shared/store/workbasket-store/workbasket.state';
@@ -35,7 +34,6 @@ import { DomainService } from '../../../shared/services/domain/domain.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({ selector: 'kadai-shared-workbasket-filter', template: '' })
 class FilterStub {
@@ -97,8 +95,6 @@ describe('WorkbasketDistributionTargetsListComponent', () => {
         MatToolbarModule,
         MatListModule,
         MatDialogModule,
-        MatTooltipModule,
-        ScrollingModule,
         NoopAnimationsModule,
         NgxsModule.forRoot([WorkbasketState])
       ],

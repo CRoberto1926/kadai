@@ -50,12 +50,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { provideRouter, withHashLocation } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { provideHotToastConfig } from '@ngneat/hot-toast';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { MatRippleModule } from '@angular/material/core';
 import { TaskState } from '@task/store/task.state';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
@@ -114,19 +109,6 @@ export const httpClientInterceptor: HttpInterceptorFn = (request: HttpRequest<un
 
 bootstrapApplication(AppComponent, {
   providers: [
-    MatMenuModule,
-    MatTooltipModule,
-    MatPaginatorModule,
-    ScrollingModule,
-    MatRippleModule,
-    provideRouter(appRoutes, withHashLocation()),
-    provideHttpClient(withInterceptors([tokenInterceptor])),
-    provideHttpClient(
-      withXsrfConfiguration({
-        cookieName: 'XSRF-TOKEN',
-        headerName: 'X-XSRF-TOKEN'
-      })
-    ),
     importProvidersFrom(
       AngularSvgIconModule.forRoot(),
       TabsModule.forRoot(),
@@ -143,7 +125,6 @@ bootstrapApplication(AppComponent, {
       NgxsRouterPluginModule.forRoot(),
       BsDatepickerModule.forRoot()
     ),
-    provideHttpClient(),
     {
       provide: APP_INITIALIZER,
       useFactory: function (startupService: StartupService): () => Promise<any> {
@@ -152,7 +133,9 @@ bootstrapApplication(AppComponent, {
       deps: [StartupService],
       multi: true
     },
+    provideRouter(appRoutes, withHashLocation()),
     provideHttpClient(
+      withInterceptors([tokenInterceptor, httpClientInterceptor]),
       withXsrfConfiguration({
         cookieName: 'XSRF-TOKEN',
         headerName: 'X-XSRF-TOKEN'
@@ -162,7 +145,6 @@ bootstrapApplication(AppComponent, {
       provide: LOCALE_ID,
       useValue: 'de'
     },
-    provideHttpClient(withInterceptors([httpClientInterceptor])),
     provideHotToastConfig({
       style: {
         'max-width': '520px'
