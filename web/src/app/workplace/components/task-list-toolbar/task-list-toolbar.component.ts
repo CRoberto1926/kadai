@@ -44,6 +44,8 @@ import { MatInput } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatOption } from '@angular/material/core';
+import { TaskFilterComponent } from '../../../shared/components/task-filter/task-filter.component';
+import { SortComponent } from '../../../shared/components/sort/sort.component';
 
 export enum Search {
   byWorkbasket = 'workbasket',
@@ -70,7 +72,9 @@ export enum Search {
     MatAutocomplete,
     NgFor,
     MatOption,
-    AsyncPipe
+    AsyncPipe,
+    TaskFilterComponent,
+    SortComponent
   ]
 })
 export class TaskListToolbarComponent implements OnInit {

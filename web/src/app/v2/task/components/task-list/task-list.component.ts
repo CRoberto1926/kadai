@@ -22,10 +22,12 @@ import { TaskSummary } from '@task/models/task';
 import { TaskFacadeService } from '@task/services/task-facade.service';
 import { TaskSelector } from '@task/store/task.selector';
 import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'kadai-task-list',
   templateUrl: './task-list.component.html',
+  imports: [AsyncPipe],
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
