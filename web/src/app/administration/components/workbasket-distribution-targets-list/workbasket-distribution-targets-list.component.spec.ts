@@ -19,7 +19,6 @@
 import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component, DebugElement, Input, Pipe, PipeTransform } from '@angular/core';
 import { WorkbasketDistributionTargetsListComponent } from './workbasket-distribution-targets-list.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { WorkbasketType } from '../../../shared/models/workbasket-type';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { engineConfigurationMock, workbasketReadStateMock } from '../../../shared/store/mock-data/mock-store';
@@ -99,7 +98,6 @@ describe('WorkbasketDistributionTargetsListComponent', () => {
         MatListModule,
         MatDialogModule,
         MatTooltipModule,
-        InfiniteScrollModule,
         ScrollingModule,
         NoopAnimationsModule,
         NgxsModule.forRoot([WorkbasketState])
