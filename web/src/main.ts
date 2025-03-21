@@ -53,6 +53,7 @@ import { AccessItemsManagementState } from './app/shared/store/access-items-mana
 import { FilterState } from './app/shared/store/filter-store/filter.state';
 import { WorkplaceState } from './app/shared/store/workplace-store/workplace.state';
 import { SettingsState } from './app/shared/store/settings-store/settings.state';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 registerLocaleData(localeDe);
 
@@ -150,6 +151,7 @@ bootstrapApplication(AppComponent, {
         'max-width': '520px'
       }
     }),
-    provideCharts(withDefaultRegisterables())
+    provideCharts(withDefaultRegisterables()),
+    provideAnimationsAsync()
   ]
 }).then((err) => console.error(err));
