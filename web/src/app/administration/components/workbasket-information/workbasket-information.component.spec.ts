@@ -38,7 +38,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SelectedRouteService } from '../../../shared/services/selected-route/selected-route';
 import { ClassificationCategoriesService } from '../../../shared/services/classification-categories/classification-categories.service';
 import { ACTION } from '../../../shared/models/action';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { TypeAheadComponent } from '../../../shared/components/type-ahead/type-ahead.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MarkWorkbasketForDeletion, UpdateWorkbasket } from '../../../shared/store/workbasket-store/workbasket.actions';
@@ -110,7 +109,6 @@ describe('WorkbasketInformationComponent', () => {
         FormsModule,
         MatDialogModule,
         NgxsModule.forRoot([EngineConfigurationState, WorkbasketState]),
-        TypeaheadModule.forRoot(),
         ReactiveFormsModule,
         RouterTestingModule.withRoutes([]),
         NoopAnimationsModule,

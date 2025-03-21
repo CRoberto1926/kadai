@@ -32,7 +32,6 @@ import { Observable } from 'rxjs';
 import { GetAccessItems } from '../../../shared/store/access-items-management-store/access-items-management.actions';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TypeAheadComponent } from '../../../shared/components/type-ahead/type-ahead.component';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Direction, Sorting, WorkbasketAccessItemQuerySortParameter } from '../../../shared/models/sorting';
 import { StartupService } from '../../../shared/services/startup/startup.service';
@@ -95,7 +94,6 @@ describe('AccessItemsManagementComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         MatDialogModule,
-        TypeaheadModule.forRoot(),
         NoopAnimationsModule,
         MatFormFieldModule,
         MatSelectModule,

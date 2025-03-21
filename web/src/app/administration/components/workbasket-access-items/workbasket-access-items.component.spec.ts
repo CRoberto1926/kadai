@@ -23,7 +23,6 @@ import { Actions, NgxsModule, ofActionDispatched, Store } from '@ngxs/store';
 import { Observable, of } from 'rxjs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TypeAheadComponent } from '../../../shared/components/type-ahead/type-ahead.component';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
 import { FormsValidatorService } from '../../../shared/services/forms-validator/forms-validator.service';
 import { NotificationService } from '../../../shared/services/notifications/notification.service';
@@ -94,7 +93,6 @@ describe('WorkbasketAccessItemsComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        TypeaheadModule.forRoot(),
         NgxsModule.forRoot([WorkbasketState, EngineConfigurationState]),
         RouterTestingModule.withRoutes([]),
         NoopAnimationsModule,

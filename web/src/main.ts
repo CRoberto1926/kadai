@@ -16,7 +16,7 @@
  *
  */
 
-import { APP_INITIALIZER, enableProdMode, importProvidersFrom, inject, LOCALE_ID } from '@angular/core';
+import { enableProdMode, inject, LOCALE_ID, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
 import { environment } from 'environments/environment';
 import { RequestInProgressService } from 'app/shared/services/request-in-progress/request-in-progress.service';
 import { StartupService } from 'app/shared/services/startup/startup.service';
@@ -32,27 +32,27 @@ import {
   withInterceptors,
   withXsrfConfiguration
 } from '@angular/common/http';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { AlertModule } from 'ngx-bootstrap/alert';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appRoutes } from './app/app.routes';
-import { AngularSvgIconModule } from 'angular-svg-icon';
-import { NgxsModule } from '@ngxs/store';
-import { STATES } from './app/shared/store';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { provideAngularSvgIcon } from 'angular-svg-icon';
+import { provideStore } from '@ngxs/store';
+import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
+import { withNgxsRouterPlugin } from '@ngxs/router-plugin';
 import { AppComponent } from './app/app.component';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { provideRouter, withHashLocation } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { provideHotToastConfig } from '@ngneat/hot-toast';
 import { TaskState } from '@task/store/task.state';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { EngineConfigurationState } from './app/shared/store/engine-configuration-store/engine-configuration.state';
+import { ClassificationState } from './app/shared/store/classification-store/classification.state';
+import { WorkbasketState } from './app/shared/store/workbasket-store/workbasket.state';
+import { AccessItemsManagementState } from './app/shared/store/access-items-management-store/access-items-management.state';
+import { FilterState } from './app/shared/store/filter-store/filter.state';
+import { WorkplaceState } from './app/shared/store/workplace-store/workplace.state';
+import { SettingsState } from './app/shared/store/settings-store/settings.state';
 
 registerLocaleData(localeDe);
 
@@ -109,30 +109,30 @@ export const httpClientInterceptor: HttpInterceptorFn = (request: HttpRequest<un
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(
-      AngularSvgIconModule.forRoot(),
-      TabsModule.forRoot(),
-      AlertModule.forRoot(),
-      TypeaheadModule.forRoot(),
-      AccordionModule.forRoot(),
-      BsDropdownModule.forRoot(),
-      NgxsModule.forRoot(STATES, { developmentMode: !environment.production }),
-      NgxsModule.forFeature([TaskState]),
-      NgxsReduxDevtoolsPluginModule.forRoot({
-        disabled: environment.production,
-        maxAge: 25
-      }),
-      NgxsRouterPluginModule.forRoot(),
-      BsDatepickerModule.forRoot()
+    provideStore(
+      [
+        EngineConfigurationState,
+        ClassificationState,
+        WorkbasketState,
+        AccessItemsManagementState,
+        FilterState,
+        WorkplaceState,
+        SettingsState,
+        TaskState
+      ],
+      { developmentMode: !environment.production }
     ),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: function (startupService: StartupService): () => Promise<any> {
-        return (): Promise<any> => startupService.load();
-      },
-      deps: [StartupService],
-      multi: true
-    },
+    withNgxsReduxDevtoolsPlugin({
+      disabled: environment.production,
+      maxAge: 25
+    }),
+    withNgxsRouterPlugin(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideAngularSvgIcon(),
+    provideAppInitializer(() => {
+      const startupService = inject(StartupService);
+      return startupService.load();
+    }),
     provideRouter(appRoutes, withHashLocation()),
     provideHttpClient(
       withInterceptors([tokenInterceptor, httpClientInterceptor]),
@@ -152,4 +152,4 @@ bootstrapApplication(AppComponent, {
     }),
     provideCharts(withDefaultRegisterables())
   ]
-});
+}).then((err) => console.error(err));
