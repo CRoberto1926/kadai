@@ -23,15 +23,15 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { RequestInProgressService } from 'app/shared/services/request-in-progress/request-in-progress.service';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
-import { CommonModule } from '@angular/common';
 import { ReportTableComponent } from '../report-table/report-table.component';
 import { BaseChartDirective } from 'ng2-charts';
+import { DatePipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'kadai-monitor-task-report',
   templateUrl: './task-report.component.html',
   styleUrls: ['./task-report.component.scss'],
-  imports: [CommonModule, ReportTableComponent, BaseChartDirective],
+  imports: [ReportTableComponent, BaseChartDirective, NgIf, DatePipe],
   providers: [MonitorService, RequestInProgressService]
 })
 export class TaskReportComponent implements OnInit {

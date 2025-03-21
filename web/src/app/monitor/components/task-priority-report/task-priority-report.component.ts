@@ -27,7 +27,6 @@ import { Settings } from '../../../settings/models/settings';
 import { mergeMap, take, takeUntil } from 'rxjs/operators';
 import { SettingMembers } from '../../../settings/components/Settings/expected-members';
 import { RequestInProgressService } from '../../../shared/services/request-in-progress/request-in-progress.service';
-import { CommonModule } from '@angular/common';
 import { TaskPriorityReportFilterComponent } from '../task-priority-report-filter/task-priority-report-filter.component';
 import { MatDivider } from '@angular/material/divider';
 import { CanvasComponent } from '../canvas/canvas.component';
@@ -43,13 +42,13 @@ import {
   MatRowDef,
   MatTable
 } from '@angular/material/table';
+import { DatePipe, NgClass, NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'kadai-monitor-task-priority-report',
   templateUrl: './task-priority-report.component.html',
   styleUrls: ['./task-priority-report.component.scss'],
   imports: [
-    CommonModule,
     TaskPriorityReportFilterComponent,
     MatDivider,
     CanvasComponent,
@@ -62,7 +61,11 @@ import {
     MatHeaderRowDef,
     MatHeaderRow,
     MatRowDef,
-    MatRow
+    MatRow,
+    NgIf,
+    DatePipe,
+    NgForOf,
+    NgClass
   ],
   providers: [MonitorService, RequestInProgressService]
 })

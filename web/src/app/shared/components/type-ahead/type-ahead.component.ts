@@ -19,7 +19,7 @@
 import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AccessIdsService } from '../../services/access-ids/access-ids.service';
 import { debounceTime, distinctUntilChanged, Observable, Subject } from 'rxjs';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AccessId } from '../../models/access-id';
 import { map, take, takeUntil } from 'rxjs/operators';
 import { Select } from '@ngxs/store';
@@ -39,7 +39,6 @@ import { MatOption } from '@angular/material/core';
   templateUrl: './type-ahead.component.html',
   styleUrls: ['./type-ahead.component.scss'],
   imports: [
-    FormsModule,
     ReactiveFormsModule,
     NgClass,
     MatFormField,

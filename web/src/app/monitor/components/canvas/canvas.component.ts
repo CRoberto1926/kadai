@@ -104,7 +104,6 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    document.getElementById(this.id).outerHTML = ''; // destroy HTML element
     this.destroy$.next();
     this.destroy$.complete();
   }

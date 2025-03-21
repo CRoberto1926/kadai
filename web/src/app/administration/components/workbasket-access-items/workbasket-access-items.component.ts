@@ -32,7 +32,7 @@ import {
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Actions, ofActionCompleted, Select, Store } from '@ngxs/store';
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Workbasket } from 'app/shared/models/workbasket';
 import { customFieldCount, WorkbasketAccessItems } from 'app/shared/models/workbasket-access-items';
@@ -74,14 +74,13 @@ import { MatInput } from '@angular/material/input';
     MatButton,
     MatTooltip,
     MatIcon,
-    FormsModule,
-    ReactiveFormsModule,
     ResizableWidthDirective,
     NgFor,
     NgClass,
     TypeAheadComponent,
     MatInput,
-    AsyncPipe
+    AsyncPipe,
+    ReactiveFormsModule
   ]
 })
 export class WorkbasketAccessItemsComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit, AfterViewChecked {
